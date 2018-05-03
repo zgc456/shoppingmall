@@ -18,7 +18,7 @@ public class CommodityKey {
      * 商品规格关系types OR 商品详情
      */
     public static final String TYPES_SPECIFICATIONSRELATION="specificationsrelation";
-    public static final String commodityPrice="commodityPrice";//商品价格
+    public static final String COMMODITY_PRICE="commodityPrice";//商品价格
     /**
      * 折扣types
      */

@@ -1,7 +1,5 @@
 package com.zhkj.service.entity;
 
-import java.util.List;
-
 /**
  * 查询筛选的条件实体
  */
@@ -17,11 +15,11 @@ public class SearchCondition {
     /**
      * 小于等于价格
      */
-    private String commodityPriceLTE;
+    private Double commodityPriceLTE;
     /**
      * 大于等于
      */
-    private String commodityPriceGTE;
+    private Double commodityPriceGTE;
     /**
      * 打折介绍
      */
@@ -29,15 +27,15 @@ public class SearchCondition {
     /**
      * 商品类型
      */
-    private List<String> typeNames;
+    private String typeNames;
     /**
      * 排序
      */
-    private String orderDesc="asc";
+    private String orderDesc = "asc";
     /**
      * 根据商品价钱排序
      */
-    private String orderBy="commodityPrice";
+    private String orderBy = "commodityPrice";
 
     public String getCommodityName() {
         return commodityName;
@@ -55,19 +53,19 @@ public class SearchCondition {
         this.commodityIntroduce = commodityIntroduce;
     }
 
-    public String getCommodityPriceLTE() {
+    public Double getCommodityPriceLTE() {
         return commodityPriceLTE;
     }
 
-    public void setCommodityPriceLTE(String commodityPriceLTE) {
+    public void setCommodityPriceLTE(Double commodityPriceLTE) {
         this.commodityPriceLTE = commodityPriceLTE;
     }
 
-    public String getCommodityPriceGTE() {
+    public Double getCommodityPriceGTE() {
         return commodityPriceGTE;
     }
 
-    public void setCommodityPriceGTE(String commodityPriceGTE) {
+    public void setCommodityPriceGTE(Double commodityPriceGTE) {
         this.commodityPriceGTE = commodityPriceGTE;
     }
 
@@ -79,11 +77,27 @@ public class SearchCondition {
         this.discountIntroduce = discountIntroduce;
     }
 
-    public List<String> getTypeNames() {
+    public String getTypeNames() {
         return typeNames;
     }
 
-    public void setTypeNames(List<String> typeNames) {
+    public void setTypeNames(String typeNames) {
         this.typeNames = typeNames;
+    }
+
+    public String getOrderDesc() {
+        return orderDesc;
+    }
+
+    public void setOrderDesc(String orderDesc) {
+        this.orderDesc = orderDesc;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }
