@@ -1,0 +1,21 @@
+dataSources:
+  shoppingmall: !!com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shoppingmall?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+
+shardingRule:
+  tables:
+    t_order:
+      actualDataNodes: shoppingmall.orderfromshop${0..1}
+      tableStrategy:
+        inline:
+          shardingColumn: id
+          algorithmExpression: orderfromshop${id % 2}
+      keyGeneratorColumnName: id
+  bindingTables:
+    - t_order
+  defaultKeyGeneratorClass: com.zhkj.service.sharding_jdbc_key.SimpleKeyGenerator
+  props:
+    sql.show: true

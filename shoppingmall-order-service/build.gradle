@@ -1,0 +1,20 @@
+
+dependencies {
+    compile project(":shoppingmall-api")
+    compile project(":shoppingmall-tools")
+    compile project(":shoppingmall-dao")
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix-dashboard'
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    // sharding-jdbc-core
+    compile group: 'io.shardingjdbc', name: 'sharding-jdbc-core', version: '2.0.3'
+    compile group: 'io.shardingjdbc', name: 'sharding-jdbc-core-spring-namespace',version: '2.0.3'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+    //连接池
+    compile "com.alibaba:druid:1.0.12"
+    compile("org.springframework.cloud:spring-cloud-starter-config")
+    //spring-session
+    compile group: 'org.springframework.session', name: 'spring-session-data-redis'
+    compile group: 'redis.clients', name: 'jedis'
+    compile group: 'org.apache.commons', name: 'commons-pool2'
+}

@@ -1,0 +1,128 @@
+{
+  "settings": {
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "commodity": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "commodityName": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "commodityIntroduce": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "bigPictureUrl": {
+          "type": "keyword"
+        },
+        "commodityTypeRelationId": {
+          "type": "long"
+        }
+      }
+    },
+    "commoditytyperelation": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "shopPrimaryTypeId": {
+          "type": "long"
+        },
+        "shopMinorTypeId": {
+          "type": "long"
+        }
+      }
+    },
+    "specificationsrelation": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "commodityNumber": {
+          "type": "long"
+        },
+        "commodityPrice": {
+          "type": "scaled_float",
+          "scaling_factor": 100
+        },
+        "commodityId": {
+          "type": "long"
+        },
+        "smallPictureUrl": {
+          "type": "keyword"
+        },
+        "typeId": {
+          "type": "long"
+        },
+        "speciTopicId": {
+          "type": "long"
+        },
+        "speciDetailedId": {
+          "type": "long"
+        }
+      }
+    },
+    "specificationstopic": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "name": {
+          "type": "keyword"
+        }
+      }
+    },
+    "specificationsdetailed": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "dName": {
+          "type": "keyword"
+        }
+      }
+    },
+    "discount": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "discountPrice": {
+          "type": "scaled_float",
+          "scaling_factor": 100
+        },
+        "discountIntroduce": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "discountTypeId": {
+          "type": "long"
+        }
+      }
+    },
+    "type": {
+      "dynamic": false,
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "typeName": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

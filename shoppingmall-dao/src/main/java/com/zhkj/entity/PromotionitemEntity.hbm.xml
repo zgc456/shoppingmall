@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.PromotionitemEntity" table="promotionitem" schema="shoppingmall">
+        <property name="id" column="id"/>
+        <property name="startTime" column="startTime"/>
+        <property name="endTime" column="endTime"/>
+        <property name="discountPrice" column="discountPrice"/>
+        <property name="commodityNumber" column="commodityNumber"/>
+        <property name="commodityId" column="commodityId"/>
+    </class>
+</hibernate-mapping>

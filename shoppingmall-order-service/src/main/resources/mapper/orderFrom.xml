@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.order_mapper.OrderFromMapper">
+    <select id="selectOrderFromByUserId" resultType="com.zhkj.entity.OrderfromEntity">
+        SELECT * FROM orderfrom
+        WHERE userId = #{userId}
+    </select>
+    <select id="selectByNowTime" resultType="com.zhkj.entity.OrderfromEntity">
+        SELECT * FROM orderfrom
+        WHERE orderCreationTime &lt; #{nowTime} AND paymentTypeId = 2
+    </select>
+    <insert id="saveOrderFrom">
+       INSERT INTO orderfrom(orderNumber, orderCreationTime, orderEndTime, userId, paymentTypeId, orderfromPrice, harvestAddressId, transactionNumber)
+       VALUES (#{orderFrom.orderNumber},#{orderFrom.orderCreationTime},#{orderFrom.orderEndTime},#{orderFrom.userId},1,#{orderFrom.orderfromPrice},#{orderFrom.harvestAddressId},null)
+    </insert>
+    <update id="updateByOrderFromNumber">
+        UPDATE orderfrom
+        SET paymentTypeId = 1
+        WHERE orderNumber = #{orderFromNumber}
+    </update>
+</mapper>

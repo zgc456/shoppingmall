@@ -1,0 +1,18 @@
+
+dependencies {
+    compile project(":shoppingmall-api")
+    compile project(":shoppingmall-dao")
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix-dashboard'
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+
+    //连接池
+    compile "com.alibaba:druid:1.0.12"
+    compile("org.springframework.cloud:spring-cloud-starter-config")
+
+
+    //spring-session
+    compile group: 'org.springframework.session', name: 'spring-session-data-redis'
+    compile group: 'redis.clients', name: 'jedis'
+    compile group: 'org.apache.commons', name: 'commons-pool2'
+}

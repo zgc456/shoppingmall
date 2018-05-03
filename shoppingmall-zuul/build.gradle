@@ -1,0 +1,12 @@
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-zuul')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+
+    //spring-session
+    compile group: 'org.springframework.session', name: 'spring-session-data-redis'
+    compile group: 'redis.clients', name: 'jedis'
+    compile group: 'org.apache.commons', name: 'commons-pool2'
+}

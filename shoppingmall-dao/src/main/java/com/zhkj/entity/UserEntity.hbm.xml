@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.UserEntity" table="user" schema="shoppingmall">
+        <property name="id" column="id"/>
+        <property name="nickName" column="nickName"/>
+        <property name="loginName" column="loginName"/>
+        <property name="logingPassword" column="logingPassword"/>
+        <property name="headPortraitUrl" column="headPortraitUrl"/>
+        <property name="userTypeId" column="userTypeId"/>
+        <property name="authenticationId" column="authenticationId"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.pay_mapper.PayOrderFromMapper">
+    <update id="updateOrderFrom" parameterType="com.zhkj.vo.order_from_shop_vo.OrderFromVo">
+      UPDATE orderfrom
+        SET transactionNumber=#{transactionNumber},paymentTypeId=#{paymentTypeId}
+        WHERE orderNumber = #{orderNumber}
+    </update>
+</mapper>

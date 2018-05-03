@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.DiscountEntity" table="discount" schema="shoppingmall">
+        <property name="id" column="id"/>
+        <property name="discountPrice" column="discountPrice"/>
+        <property name="discountIntroduce" column="discountIntroduce"/>
+        <property name="discountTypeId" column="discountTypeId"/>
+    </class>
+</hibernate-mapping>

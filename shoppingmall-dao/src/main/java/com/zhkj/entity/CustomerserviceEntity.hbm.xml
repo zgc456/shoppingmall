@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.CustomerserviceEntity" table="customerservice" schema="shoppingmall">
+        <property name="id" column="id"/>
+        <property name="causeOfReturn" column="causeOfReturn"/>
+        <property name="demandTime" column="demandTime"/>
+        <property name="acceptanceTime" column="acceptanceTime"/>
+        <property name="commitTime" column="commitTime"/>
+        <property name="typeId" column="typeId"/>
+        <property name="orderId" column="orderId"/>
+        <property name="userId" column="userId"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.OrderfromEntity" table="orderfrom" schema="shoppingmall">
+        <property name="id" column="id"/>
+        <property name="orderNumber" column="orderNumber"/>
+        <property name="orderCreationTime" column="orderCreationTime"/>
+        <property name="orderEndTime" column="orderEndTime"/>
+        <property name="userId" column="userId"/>
+        <property name="paymentTypeId" column="paymentTypeId"/>
+        <property name="harvestAddressId" column="harvestAddressId"/>
+        <property name="orderfromPrice" column="orderfromPrice"/>
+        <property name="transactionNumber" column="transactionNumber"/>
+    </class>
+</hibernate-mapping>
