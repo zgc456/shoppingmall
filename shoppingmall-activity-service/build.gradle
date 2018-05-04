@@ -13,4 +13,11 @@ dependencies {
     compile group: 'org.springframework.session', name: 'spring-session-data-redis'
     compile group: 'redis.clients', name: 'jedis'
     compile group: 'org.apache.commons', name: 'commons-pool2'
+
+
+
+    //redis必备jar包
+    compile group: 'org.redisson', name: 'redisson', version: '3.6.5'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
 }
