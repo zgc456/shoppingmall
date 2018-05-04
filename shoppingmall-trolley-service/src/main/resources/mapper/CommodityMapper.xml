@@ -9,7 +9,7 @@
         <result property="commodityIntroduce" column="commodityIntroduce"/>
         <result property="bigPictureUrl" column="bigPictureUrl"/>
         <result property="commodityTypeRelationId" column="commodityTypeRelationId"/>
-        <association property="commoditytyperelationEntity" javaType="com.zhkj.entity.CommodityTypeRelationEntity">
+        <association property="commoditytyperelationEntity" javaType="com.zhkj.entity.CommoditytyperelationEntity">
             <result property="shopPrimaryTypeId" column="shopPrimaryTypeId"/>
             <result property="shopMinorTypeId" column="shopMinorTypeId"/>
         </association>
