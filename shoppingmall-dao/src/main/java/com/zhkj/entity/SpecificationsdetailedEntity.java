@@ -1,11 +1,10 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/21.
- */
+import java.util.Objects;
+
 public class SpecificationsdetailedEntity {
     private int id;
-    private String name;
+    private String dName;
 
     public int getId() {
         return id;
@@ -15,31 +14,26 @@ public class SpecificationsdetailedEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getdName() {
+        return dName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setdName(String dName) {
+        this.dName = dName;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         SpecificationsdetailedEntity that = (SpecificationsdetailedEntity) o;
-
-        if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(dName, that.dName);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, dName);
     }
 }

@@ -1,11 +1,11 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.math.BigDecimal;
+import java.util.Objects;
+
 public class DiscountEntity {
     private int id;
-    private Integer discountPrice;
+    private BigDecimal discountPrice;
     private String discountIntroduce;
     private Integer discountTypeId;
 
@@ -17,11 +17,11 @@ public class DiscountEntity {
         this.id = id;
     }
 
-    public Integer getDiscountPrice() {
+    public BigDecimal getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Integer discountPrice) {
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -45,26 +45,16 @@ public class DiscountEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         DiscountEntity that = (DiscountEntity) o;
-
-        if (id != that.id) return false;
-        if (discountPrice != null ? !discountPrice.equals(that.discountPrice) : that.discountPrice != null)
-            return false;
-        if (discountIntroduce != null ? !discountIntroduce.equals(that.discountIntroduce) : that.discountIntroduce != null)
-            return false;
-        if (discountTypeId != null ? !discountTypeId.equals(that.discountTypeId) : that.discountTypeId != null)
-            return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(discountPrice, that.discountPrice) &&
+                Objects.equals(discountIntroduce, that.discountIntroduce) &&
+                Objects.equals(discountTypeId, that.discountTypeId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (discountPrice != null ? discountPrice.hashCode() : 0);
-        result = 31 * result + (discountIntroduce != null ? discountIntroduce.hashCode() : 0);
-        result = 31 * result + (discountTypeId != null ? discountTypeId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, discountPrice, discountIntroduce, discountTypeId);
     }
 }

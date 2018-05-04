@@ -1,10 +1,11 @@
 package com.zhkj.entity;
 
-public class CommodityTypeRelationEntity {
+import java.util.Objects;
+
+public class CommoditytyperelationEntity {
     private int id;
     private Integer shopPrimaryTypeId;
     private Integer shopMinorTypeId;
-    private Integer commodityId;
 
     public int getId() {
         return id;
@@ -30,11 +31,19 @@ public class CommodityTypeRelationEntity {
         this.shopMinorTypeId = shopMinorTypeId;
     }
 
-    public Integer getCommodityId() {
-        return commodityId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommoditytyperelationEntity that = (CommoditytyperelationEntity) o;
+        return id == that.id &&
+                Objects.equals(shopPrimaryTypeId, that.shopPrimaryTypeId) &&
+                Objects.equals(shopMinorTypeId, that.shopMinorTypeId);
     }
 
-    public void setCommodityId(Integer commodityId) {
-        this.commodityId = commodityId;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, shopPrimaryTypeId, shopMinorTypeId);
     }
 }

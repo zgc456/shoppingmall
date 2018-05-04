@@ -1,16 +1,15 @@
 package com.zhkj.entity;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
 public class CustomerserviceEntity {
     private int id;
     private String causeOfReturn;
     private Integer demandTime;
     private Timestamp acceptanceTime;
     private Timestamp commitTime;
+    private Integer typeId;
     private Integer orderId;
     private Integer userId;
 
@@ -54,6 +53,14 @@ public class CustomerserviceEntity {
         this.commitTime = commitTime;
     }
 
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -74,31 +81,20 @@ public class CustomerserviceEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CustomerserviceEntity that = (CustomerserviceEntity) o;
-
-        if (id != that.id) return false;
-        if (causeOfReturn != null ? !causeOfReturn.equals(that.causeOfReturn) : that.causeOfReturn != null)
-            return false;
-        if (demandTime != null ? !demandTime.equals(that.demandTime) : that.demandTime != null) return false;
-        if (acceptanceTime != null ? !acceptanceTime.equals(that.acceptanceTime) : that.acceptanceTime != null)
-            return false;
-        if (commitTime != null ? !commitTime.equals(that.commitTime) : that.commitTime != null) return false;
-        if (orderId != null ? !orderId.equals(that.orderId) : that.orderId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(causeOfReturn, that.causeOfReturn) &&
+                Objects.equals(demandTime, that.demandTime) &&
+                Objects.equals(acceptanceTime, that.acceptanceTime) &&
+                Objects.equals(commitTime, that.commitTime) &&
+                Objects.equals(typeId, that.typeId) &&
+                Objects.equals(orderId, that.orderId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (causeOfReturn != null ? causeOfReturn.hashCode() : 0);
-        result = 31 * result + (demandTime != null ? demandTime.hashCode() : 0);
-        result = 31 * result + (acceptanceTime != null ? acceptanceTime.hashCode() : 0);
-        result = 31 * result + (commitTime != null ? commitTime.hashCode() : 0);
-        result = 31 * result + (orderId != null ? orderId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, causeOfReturn, demandTime, acceptanceTime, commitTime, typeId, orderId, userId);
     }
 }

@@ -1,8 +1,7 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.util.Objects;
+
 public class UserEntity {
     private int id;
     private String nickName;
@@ -72,32 +71,19 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UserEntity that = (UserEntity) o;
-
-        if (id != that.id) return false;
-        if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
-        if (loginName != null ? !loginName.equals(that.loginName) : that.loginName != null) return false;
-        if (logingPassword != null ? !logingPassword.equals(that.logingPassword) : that.logingPassword != null)
-            return false;
-        if (headPortraitUrl != null ? !headPortraitUrl.equals(that.headPortraitUrl) : that.headPortraitUrl != null)
-            return false;
-        if (userTypeId != null ? !userTypeId.equals(that.userTypeId) : that.userTypeId != null) return false;
-        if (authenticationId != null ? !authenticationId.equals(that.authenticationId) : that.authenticationId != null)
-            return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(nickName, that.nickName) &&
+                Objects.equals(loginName, that.loginName) &&
+                Objects.equals(logingPassword, that.logingPassword) &&
+                Objects.equals(headPortraitUrl, that.headPortraitUrl) &&
+                Objects.equals(userTypeId, that.userTypeId) &&
+                Objects.equals(authenticationId, that.authenticationId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
-        result = 31 * result + (loginName != null ? loginName.hashCode() : 0);
-        result = 31 * result + (logingPassword != null ? logingPassword.hashCode() : 0);
-        result = 31 * result + (headPortraitUrl != null ? headPortraitUrl.hashCode() : 0);
-        result = 31 * result + (userTypeId != null ? userTypeId.hashCode() : 0);
-        result = 31 * result + (authenticationId != null ? authenticationId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, nickName, loginName, logingPassword, headPortraitUrl, userTypeId, authenticationId);
     }
 }

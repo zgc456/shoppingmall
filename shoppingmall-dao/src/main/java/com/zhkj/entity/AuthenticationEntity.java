@@ -1,8 +1,7 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.util.Objects;
+
 public class AuthenticationEntity {
     private int id;
     private String userName;
@@ -54,27 +53,17 @@ public class AuthenticationEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AuthenticationEntity that = (AuthenticationEntity) o;
-
-        if (id != that.id) return false;
-        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
-        if (userAboutAddress != null ? !userAboutAddress.equals(that.userAboutAddress) : that.userAboutAddress != null)
-            return false;
-        if (userAddress != null ? !userAddress.equals(that.userAddress) : that.userAddress != null) return false;
-        if (userPhoneNumber != null ? !userPhoneNumber.equals(that.userPhoneNumber) : that.userPhoneNumber != null)
-            return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(userName, that.userName) &&
+                Objects.equals(userAboutAddress, that.userAboutAddress) &&
+                Objects.equals(userAddress, that.userAddress) &&
+                Objects.equals(userPhoneNumber, that.userPhoneNumber);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (userAboutAddress != null ? userAboutAddress.hashCode() : 0);
-        result = 31 * result + (userAddress != null ? userAddress.hashCode() : 0);
-        result = 31 * result + (userPhoneNumber != null ? userPhoneNumber.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, userName, userAboutAddress, userAddress, userPhoneNumber);
     }
 }

@@ -1,10 +1,8 @@
 package com.zhkj.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
-/**
- * Created by lenovo on 2018/4/21.
- */
 public class SpecificationsrelationEntity {
     private int id;
     private Integer commodityNumber;
@@ -83,35 +81,20 @@ public class SpecificationsrelationEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         SpecificationsrelationEntity that = (SpecificationsrelationEntity) o;
-
-        if (id != that.id) return false;
-        if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
-            return false;
-        if (commodityPrice != null ? !commodityPrice.equals(that.commodityPrice) : that.commodityPrice != null)
-            return false;
-        if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
-        if (smallPictureUrl != null ? !smallPictureUrl.equals(that.smallPictureUrl) : that.smallPictureUrl != null)
-            return false;
-        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
-        if (speciTopicId != null ? !speciTopicId.equals(that.speciTopicId) : that.speciTopicId != null) return false;
-        if (speciDetailedId != null ? !speciDetailedId.equals(that.speciDetailedId) : that.speciDetailedId != null)
-            return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(commodityNumber, that.commodityNumber) &&
+                Objects.equals(commodityPrice, that.commodityPrice) &&
+                Objects.equals(commodityId, that.commodityId) &&
+                Objects.equals(smallPictureUrl, that.smallPictureUrl) &&
+                Objects.equals(typeId, that.typeId) &&
+                Objects.equals(speciTopicId, that.speciTopicId) &&
+                Objects.equals(speciDetailedId, that.speciDetailedId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
-        result = 31 * result + (commodityPrice != null ? commodityPrice.hashCode() : 0);
-        result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
-        result = 31 * result + (smallPictureUrl != null ? smallPictureUrl.hashCode() : 0);
-        result = 31 * result + (typeId != null ? typeId.hashCode() : 0);
-        result = 31 * result + (speciTopicId != null ? speciTopicId.hashCode() : 0);
-        result = 31 * result + (speciDetailedId != null ? speciDetailedId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, commodityNumber, commodityPrice, commodityId, smallPictureUrl, typeId, speciTopicId, speciDetailedId);
     }
 }

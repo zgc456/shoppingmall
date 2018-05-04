@@ -1,8 +1,7 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.util.Objects;
+
 public class HarvestaddressEntity {
     private int id;
     private String harvestAddressName;
@@ -54,27 +53,17 @@ public class HarvestaddressEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         HarvestaddressEntity that = (HarvestaddressEntity) o;
-
-        if (id != that.id) return false;
-        if (harvestAddressName != null ? !harvestAddressName.equals(that.harvestAddressName) : that.harvestAddressName != null)
-            return false;
-        if (harvestIsDefault != null ? !harvestIsDefault.equals(that.harvestIsDefault) : that.harvestIsDefault != null)
-            return false;
-        if (typeId != null ? !typeId.equals(that.typeId) : that.typeId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(harvestAddressName, that.harvestAddressName) &&
+                Objects.equals(harvestIsDefault, that.harvestIsDefault) &&
+                Objects.equals(typeId, that.typeId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (harvestAddressName != null ? harvestAddressName.hashCode() : 0);
-        result = 31 * result + (harvestIsDefault != null ? harvestIsDefault.hashCode() : 0);
-        result = 31 * result + (typeId != null ? typeId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, harvestAddressName, harvestIsDefault, typeId, userId);
     }
 }

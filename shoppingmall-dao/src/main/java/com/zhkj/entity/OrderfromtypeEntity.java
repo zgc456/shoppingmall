@@ -1,8 +1,7 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/21.
- */
+import java.util.Objects;
+
 public class OrderfromtypeEntity {
     private int id;
     private String typeName;
@@ -27,19 +26,14 @@ public class OrderfromtypeEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrderfromtypeEntity that = (OrderfromtypeEntity) o;
-
-        if (id != that.id) return false;
-        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(typeName, that.typeName);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (typeName != null ? typeName.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, typeName);
     }
 }
