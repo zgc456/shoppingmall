@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class Orderfromshop1Entity {
     private Integer id;
-    private BigDecimal feight;
-    private BigDecimal commodityPrice;
+    private int feight;
+    private int commodityPrice;
     private Integer commodityNumber;
     private Integer logisticsTypeId;
     private Integer commodityId;
@@ -20,19 +20,19 @@ public class Orderfromshop1Entity {
         this.id = id;
     }
 
-    public BigDecimal getFeight() {
+    public int getFeight() {
         return feight;
     }
 
-    public void setFeight(BigDecimal feight) {
+    public void setFeight(int feight) {
         this.feight = feight;
     }
 
-    public BigDecimal getCommodityPrice() {
+    public int getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(BigDecimal commodityPrice) {
+    public void setCommodityPrice(int commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 
