@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.commodity_mapper.CommodityMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.CommodityEntity">
+        <id property="id" column="id"/>
+        <result property="commodityName" column="commodityName"/>
+        <result property="commodityIntroduce" column="commodityIntroduce"/>
+        <result property="bigPictureUrl" column="bigPictureUrl"/>
+        <result property="commodityTypeRelationId" column="commodityTypeRelationId"/>
+        <association property="commoditytyperelationEntity" javaType="com.zhkj.entity.CommodityTypeRelationEntity">
+            <result property="shopPrimaryTypeId" column="shopPrimaryTypeId"/>
+            <result property="shopMinorTypeId" column="shopMinorTypeId"/>
+        </association>
+        <association property="specificationsrelationEntity" javaType="com.zhkj.entity.SpecificationsrelationEntity">
+            <result property="commodityNumber" column="commodityNumber"/>
+            <result property="commodityPrice" column="commodityPrice"/>
+            <result property="commodityId" column="commodityId"/>
+            <result property="smallPictureUrl" column="smallPictureUrl"/>
+            <result property="typeId" column="typeId"/>
+            <result property="speciTopicId" column="speciTopicId"/>
+            <result property="speciDetailedId" column="speciDetailedId"/>
+        </association>
+        <association property="specificationstopicEntity" javaType="com.zhkj.entity.SpecificationstopicEntity">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="specificationsdetailedEntity" javaType="com.zhkj.entity.SpecificationsdetailedEntity">
+            <id property="id" column="id"/>
+            <result property="dName" column="dName"/>
+        </association>
+        <association property="typeEntity" javaType="com.zhkj.entity.TypeEntity">
+            <id property="id" column="id"/>
+            <result property="typeName" column="typeName"/>
+        </association>
+    </resultMap>
+    <select id="selectAll" resultMap="resultMap">
+--         SELECT * FROM commodity c ,commoditytyperelation ct,specificationsrelation s WHERE c.id=s.commodityId and c.commodityTypeRelationId =ct.id
+           SELECT c.id,c.commodityName,c.commodityIntroduce,c.bigPictureUrl,t.typeName,sd.dName,
+           s.commodityNumber,s.commodityPrice,s.smallPictureUrl,s.typeId,st.name FROM
+           commodity c ,commoditytyperelation ct,specificationsrelation s,type t,specificationstopic st,specificationsdetailed sd
+           WHERE c.id=s.commodityId and c.commodityTypeRelationId =ct.id and s.speciDetailedId=sd.id and s.speciTopicId =st.id and ct.shopPrimaryTypeId=t.id
+    </select>
+    <select id="selectByTypeId" resultType="map" resultMap="resultMap">
+        SELECT c.id,c.commodityName,c.commodityIntroduce,c.bigPictureUrl,t.typeName,ct.shopMinorTypeId,
+        s.commodityNumber,s.commodityPrice,s.smallPictureUrl,s.typeId,st.name,sd.dName FROM
+        commodity c ,commoditytyperelation ct,specificationsrelation s,type t,specificationstopic st,specificationsdetailed sd
+        WHERE c.id=s.commodityId and c.commodityTypeRelationId =ct.id and s.speciDetailedId=sd.id and s.speciTopicId =st.id and ct.shopPrimaryTypeId=t.id AND t.id=#{typeId}
+    </select>
+    <select id="selectByCommodityId" resultType="map" resultMap="resultMap">
+        SELECT c.id,c.commodityName,c.commodityIntroduce,c.bigPictureUrl,t.typeName,sd.dName,
+        s.commodityNumber,s.commodityPrice,s.smallPictureUrl,s.typeId,st.name FROM
+        commodity c ,commoditytyperelation ct,specificationsrelation s,type t,specificationstopic st,specificationsdetailed sd
+        WHERE c.id=s.commodityId and c.commodityTypeRelationId =ct.id and s.speciDetailedId=sd.id and s.speciTopicId =st.id and ct.shopPrimaryTypeId=t.id and c.id=#{commodityId}
+    </select>
+    <select id="selectCommodity" resultMap="resultMap">
+        SELECT * from commodity
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.mycollect_mapper.MyCollectMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.MycollectEntity">
+        <id property="id" column="id"/>
+        <result property="commdityId" column="commdityId"/>
+        <result property="userId" column="userId"/>
+    </resultMap>
+    <select id="queryByUserIdCollectAll" resultType="map" resultMap="resultMap">
+        select * from mycollect WHERE userId=#{userId}
+    </select>
+    <insert id="save" parameterType="com.zhkj.entity.MycollectEntity">
+        INSERT INTO myCollect (userId, commdityId) VALUES (#{userId},#{commdityId})
+    </insert>
+    <delete id="deleteCollectById" parameterType="map">
+        DELETE from shoppingcart where id in
+        <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
+            #{id}
+        </foreach>
+        AND userId=#{userId}
+    </delete>
+</mapper>

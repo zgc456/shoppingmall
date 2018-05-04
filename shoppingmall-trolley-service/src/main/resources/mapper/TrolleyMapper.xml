@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.shopping_mapper.ShoppingCartMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.ShoppingcartEntity">
+        <id property="id" column="id"/>
+        <result property="commdityNumber" column="commdityNumber"/>
+        <result property="commdityPrice" column="commdityPrice"/>
+        <result property="commdityId" column="commdityId"/>
+        <result property="userId" column="userId"/>
+    </resultMap>
+   <select id="queryAll" resultMap="resultMap">
+       select * from shoppingcart
+   </select>
+    <insert id="save" parameterType="com.zhkj.entity.ShoppingcartEntity">
+       INSERT INTO shoppingCart (commdityNumber, commdityPrice, commdityId, userId) VALUES (#{commdityNumber},#{commdityPrice},#{commdityId},#{userId})
+    </insert>
+    <delete id="delete" parameterType="map">
+        DELETE from shoppingcart where id in
+        <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
