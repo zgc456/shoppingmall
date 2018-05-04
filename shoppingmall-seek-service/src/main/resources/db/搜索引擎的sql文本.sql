@@ -12,8 +12,11 @@ File Encoding         : 65001
 
 Date: 2018-04-27 15:40:13
 */
-
-SET FOREIGN_KEY_CHECKS=0;
+-- #创建 shopping_mall 数据库
+DROP DATABASE IF EXISTS `shoppingMall`;
+CREATE DATABASE IF NOT EXISTS `shoppingMall` CHARSET 'utf8';
+USE `shoppingMall`;
+-- SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
 -- Table structure for `commodity`
