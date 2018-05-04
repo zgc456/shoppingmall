@@ -8,6 +8,11 @@ public class CommodityEntity {
     private String commodityIntroduce;
     private String bigPictureUrl;
     private Integer commodityTypeRelationId;
+    private CommoditytyperelationEntity commoditytyperelationEntity;
+    private SpecificationsrelationEntity specificationsrelationEntity;
+    private SpecificationstopicEntity specificationstopicEntity;
+    private SpecificationsdetailedEntity specificationsdetailedEntity;
+    private TypeEntity typeEntity;
 
     public int getId() {
         return id;
@@ -47,6 +52,46 @@ public class CommodityEntity {
 
     public void setCommodityTypeRelationId(Integer commodityTypeRelationId) {
         this.commodityTypeRelationId = commodityTypeRelationId;
+    }
+
+    public CommoditytyperelationEntity getCommoditytyperelationEntity() {
+        return commoditytyperelationEntity;
+    }
+
+    public void setCommoditytyperelationEntity(CommoditytyperelationEntity commoditytyperelationEntity) {
+        this.commoditytyperelationEntity = commoditytyperelationEntity;
+    }
+
+    public SpecificationsrelationEntity getSpecificationsrelationEntity() {
+        return specificationsrelationEntity;
+    }
+
+    public void setSpecificationsrelationEntity(SpecificationsrelationEntity specificationsrelationEntity) {
+        this.specificationsrelationEntity = specificationsrelationEntity;
+    }
+
+    public SpecificationstopicEntity getSpecificationstopicEntity() {
+        return specificationstopicEntity;
+    }
+
+    public void setSpecificationstopicEntity(SpecificationstopicEntity specificationstopicEntity) {
+        this.specificationstopicEntity = specificationstopicEntity;
+    }
+
+    public SpecificationsdetailedEntity getSpecificationsdetailedEntity() {
+        return specificationsdetailedEntity;
+    }
+
+    public void setSpecificationsdetailedEntity(SpecificationsdetailedEntity specificationsdetailedEntity) {
+        this.specificationsdetailedEntity = specificationsdetailedEntity;
+    }
+
+    public TypeEntity getTypeEntity() {
+        return typeEntity;
+    }
+
+    public void setTypeEntity(TypeEntity typeEntity) {
+        this.typeEntity = typeEntity;
     }
 
     @Override
