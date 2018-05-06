@@ -1,6 +1,6 @@
 package com.zhkj.controller;
 
-import com.zhkj.service.ISearchElasticDB;
+import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.SearchCondition;
 import com.zhkj.service.entity.Test;
@@ -13,9 +13,9 @@ public class ControllerTest {
     ISearchElasticDB serviceDB;
     @Autowired
     ISearchService service;
-    @GetMapping("/test")
-    public void test(){
-         serviceDB.search_Commodity("AWMJbnZt7fbkoutkVoaS");
+    @GetMapping("/getCommodityById")
+    public void test(@RequestParam("id") String id){
+         serviceDB.search_Commodity(id);
     }
     @PostMapping("/deleteByQuery")
     public void deleteByQuery(@RequestParam("name") String name){

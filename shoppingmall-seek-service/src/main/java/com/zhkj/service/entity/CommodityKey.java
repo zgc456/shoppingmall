@@ -12,13 +12,13 @@ public class CommodityKey {
      * 商品types
      */
     public static final String TYPES_COMMODITY="commodity";
-    public static final String COMMODITY_NAME="commodityName";//商品名称
+    public static final String COMMODITY_NAME="commodityname";//商品名称
     public static final String COMMODITY_INTRODUCE="commodityIntroduce";//商品介绍
     /**
      * 商品规格关系types OR 商品详情
      */
     public static final String TYPES_SPECIFICATIONSRELATION="specificationsrelation";
-    public static final String COMMODITY_PRICE="commodityPrice";//商品价格
+    public static final String COMMODITY_PRICE="commodityprice";//商品价格
     /**
      * 折扣types
      */
@@ -29,12 +29,12 @@ public class CommodityKey {
      * 商品类型tyeps
      */
     public static final String TYPES_TYPE="type";
-    public static final String TYPE_NAME="typeName";//商品类型
+    public static final String TYPE_NAME="typename";//商品类型
 
     /**
      * 商品类型关系types
      */
-    public static final String TYPES_COMMODITYTYPERELATION="COMMODITYTYPERELATION";
+    public static final String TYPES_COMMODITYTYPERELATION="commoditytyperelation";
     /**
      * 商品规格types
      */

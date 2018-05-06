@@ -1,14 +1,13 @@
-package com.zhkj.service.imp;
+package com.zhkj.service.getDB.imp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhkj.service.ISearchElasticDB;
+import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.entity.CommodityKey;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
-import org.elasticsearch.index.reindex.BulkByScrollTask;
 import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,34 +33,37 @@ public class SearchElasticDBImp implements ISearchElasticDB{
     }
 
     @Override
-    public void search_Commoditytyperelation(Integer id) {
+    public void search_Commoditytyperelation(String id) {
 
     }
 
     @Override
-    public void search_Specificationsrelation(Integer id) {
+    public void search_Specificationsrelation(String id) {
 
     }
 
     @Override
-    public void search_Specificationstopic(Integer id) {
+    public void search_Specificationstopic(String id) {
 
     }
 
     @Override
-    public void search_Specificationsdetailed(Integer id) {
+    public void search_Specificationsdetailed(String id) {
 
     }
 
     @Override
-    public void search_Discount(Integer id) {
+    public void search_Discount(String id) {
 
     }
 
     @Override
-    public void search_Type(Integer id) {
+    public void search_Type(String id) {
 
     }
+
+
+
 
     @Override
     public void searchDelete(String id) {

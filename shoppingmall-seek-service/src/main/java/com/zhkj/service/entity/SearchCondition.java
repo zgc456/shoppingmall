@@ -27,7 +27,7 @@ public class SearchCondition {
     /**
      * 商品类型
      */
-    private String typeNames;
+    private String typeName;
     /**
      * 排序
      */
@@ -77,12 +77,12 @@ public class SearchCondition {
         this.discountIntroduce = discountIntroduce;
     }
 
-    public String getTypeNames() {
-        return typeNames;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setTypeNames(String typeNames) {
-        this.typeNames = typeNames;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public String getOrderDesc() {
