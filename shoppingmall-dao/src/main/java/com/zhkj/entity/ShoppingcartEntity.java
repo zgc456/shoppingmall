@@ -1,12 +1,12 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.math.BigDecimal;
+import java.util.Objects;
+
 public class ShoppingcartEntity {
     private int id;
     private Integer commdityNumber;
-    private Integer commdityPrice;
+    private BigDecimal commdityPrice;
     private Integer commdityId;
     private Integer userId;
 
@@ -26,11 +26,11 @@ public class ShoppingcartEntity {
         this.commdityNumber = commdityNumber;
     }
 
-    public Integer getCommdityPrice() {
+    public BigDecimal getCommdityPrice() {
         return commdityPrice;
     }
 
-    public void setCommdityPrice(Integer commdityPrice) {
+    public void setCommdityPrice(BigDecimal commdityPrice) {
         this.commdityPrice = commdityPrice;
     }
 
@@ -54,27 +54,17 @@ public class ShoppingcartEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ShoppingcartEntity that = (ShoppingcartEntity) o;
-
-        if (id != that.id) return false;
-        if (commdityNumber != null ? !commdityNumber.equals(that.commdityNumber) : that.commdityNumber != null)
-            return false;
-        if (commdityPrice != null ? !commdityPrice.equals(that.commdityPrice) : that.commdityPrice != null)
-            return false;
-        if (commdityId != null ? !commdityId.equals(that.commdityId) : that.commdityId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(commdityNumber, that.commdityNumber) &&
+                Objects.equals(commdityPrice, that.commdityPrice) &&
+                Objects.equals(commdityId, that.commdityId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (commdityNumber != null ? commdityNumber.hashCode() : 0);
-        result = 31 * result + (commdityPrice != null ? commdityPrice.hashCode() : 0);
-        result = 31 * result + (commdityId != null ? commdityId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, commdityNumber, commdityPrice, commdityId, userId);
     }
 }

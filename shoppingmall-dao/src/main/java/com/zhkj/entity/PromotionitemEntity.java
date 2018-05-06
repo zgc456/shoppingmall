@@ -1,15 +1,14 @@
 package com.zhkj.entity;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
 public class PromotionitemEntity {
     private int id;
     private Timestamp startTime;
     private Timestamp endTime;
-    private Integer discountPrice;
+    private BigDecimal discountPrice;
     private Integer commodityNumber;
     private Integer commodityId;
 
@@ -37,11 +36,11 @@ public class PromotionitemEntity {
         this.endTime = endTime;
     }
 
-    public Integer getDiscountPrice() {
+    public BigDecimal getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Integer discountPrice) {
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
@@ -65,29 +64,18 @@ public class PromotionitemEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         PromotionitemEntity that = (PromotionitemEntity) o;
-
-        if (id != that.id) return false;
-        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
-        if (discountPrice != null ? !discountPrice.equals(that.discountPrice) : that.discountPrice != null)
-            return false;
-        if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
-            return false;
-        if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime) &&
+                Objects.equals(discountPrice, that.discountPrice) &&
+                Objects.equals(commodityNumber, that.commodityNumber) &&
+                Objects.equals(commodityId, that.commodityId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (discountPrice != null ? discountPrice.hashCode() : 0);
-        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
-        result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, startTime, endTime, discountPrice, commodityNumber, commodityId);
     }
 }

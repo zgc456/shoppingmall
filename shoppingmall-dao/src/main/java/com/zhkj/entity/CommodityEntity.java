@@ -1,16 +1,18 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.util.Objects;
+
 public class CommodityEntity {
     private int id;
     private String commodityName;
-    private Integer commodityPrice;
     private String commodityIntroduce;
-    private String commodityPictureUrl;
-    private Integer commodityNumber;
-    private Integer commodityTypeId;
+    private String bigPictureUrl;
+    private Integer commodityTypeRelationId;
+    private CommoditytyperelationEntity commoditytyperelationEntity;
+    private SpecificationsrelationEntity specificationsrelationEntity;
+    private SpecificationstopicEntity specificationstopicEntity;
+    private SpecificationsdetailedEntity specificationsdetailedEntity;
+    private TypeEntity typeEntity;
 
     public int getId() {
         return id;
@@ -28,14 +30,6 @@ public class CommodityEntity {
         this.commodityName = commodityName;
     }
 
-    public Integer getCommodityPrice() {
-        return commodityPrice;
-    }
-
-    public void setCommodityPrice(Integer commodityPrice) {
-        this.commodityPrice = commodityPrice;
-    }
-
     public String getCommodityIntroduce() {
         return commodityIntroduce;
     }
@@ -44,63 +38,77 @@ public class CommodityEntity {
         this.commodityIntroduce = commodityIntroduce;
     }
 
-    public String getCommodityPictureUrl() {
-        return commodityPictureUrl;
+    public String getBigPictureUrl() {
+        return bigPictureUrl;
     }
 
-    public void setCommodityPictureUrl(String commodityPictureUrl) {
-        this.commodityPictureUrl = commodityPictureUrl;
+    public void setBigPictureUrl(String bigPictureUrl) {
+        this.bigPictureUrl = bigPictureUrl;
     }
 
-    public Integer getCommodityNumber() {
-        return commodityNumber;
+    public Integer getCommodityTypeRelationId() {
+        return commodityTypeRelationId;
     }
 
-    public void setCommodityNumber(Integer commodityNumber) {
-        this.commodityNumber = commodityNumber;
+    public void setCommodityTypeRelationId(Integer commodityTypeRelationId) {
+        this.commodityTypeRelationId = commodityTypeRelationId;
     }
 
-    public Integer getCommodityTypeId() {
-        return commodityTypeId;
+    public CommoditytyperelationEntity getCommoditytyperelationEntity() {
+        return commoditytyperelationEntity;
     }
 
-    public void setCommodityTypeId(Integer commodityTypeId) {
-        this.commodityTypeId = commodityTypeId;
+    public void setCommoditytyperelationEntity(CommoditytyperelationEntity commoditytyperelationEntity) {
+        this.commoditytyperelationEntity = commoditytyperelationEntity;
+    }
+
+    public SpecificationsrelationEntity getSpecificationsrelationEntity() {
+        return specificationsrelationEntity;
+    }
+
+    public void setSpecificationsrelationEntity(SpecificationsrelationEntity specificationsrelationEntity) {
+        this.specificationsrelationEntity = specificationsrelationEntity;
+    }
+
+    public SpecificationstopicEntity getSpecificationstopicEntity() {
+        return specificationstopicEntity;
+    }
+
+    public void setSpecificationstopicEntity(SpecificationstopicEntity specificationstopicEntity) {
+        this.specificationstopicEntity = specificationstopicEntity;
+    }
+
+    public SpecificationsdetailedEntity getSpecificationsdetailedEntity() {
+        return specificationsdetailedEntity;
+    }
+
+    public void setSpecificationsdetailedEntity(SpecificationsdetailedEntity specificationsdetailedEntity) {
+        this.specificationsdetailedEntity = specificationsdetailedEntity;
+    }
+
+    public TypeEntity getTypeEntity() {
+        return typeEntity;
+    }
+
+    public void setTypeEntity(TypeEntity typeEntity) {
+        this.typeEntity = typeEntity;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CommodityEntity that = (CommodityEntity) o;
-
-        if (id != that.id) return false;
-        if (commodityName != null ? !commodityName.equals(that.commodityName) : that.commodityName != null)
-            return false;
-        if (commodityPrice != null ? !commodityPrice.equals(that.commodityPrice) : that.commodityPrice != null)
-            return false;
-        if (commodityIntroduce != null ? !commodityIntroduce.equals(that.commodityIntroduce) : that.commodityIntroduce != null)
-            return false;
-        if (commodityPictureUrl != null ? !commodityPictureUrl.equals(that.commodityPictureUrl) : that.commodityPictureUrl != null)
-            return false;
-        if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
-            return false;
-        if (commodityTypeId != null ? !commodityTypeId.equals(that.commodityTypeId) : that.commodityTypeId != null)
-            return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(commodityName, that.commodityName) &&
+                Objects.equals(commodityIntroduce, that.commodityIntroduce) &&
+                Objects.equals(bigPictureUrl, that.bigPictureUrl) &&
+                Objects.equals(commodityTypeRelationId, that.commodityTypeRelationId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (commodityName != null ? commodityName.hashCode() : 0);
-        result = 31 * result + (commodityPrice != null ? commodityPrice.hashCode() : 0);
-        result = 31 * result + (commodityIntroduce != null ? commodityIntroduce.hashCode() : 0);
-        result = 31 * result + (commodityPictureUrl != null ? commodityPictureUrl.hashCode() : 0);
-        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
-        result = 31 * result + (commodityTypeId != null ? commodityTypeId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, commodityName, commodityIntroduce, bigPictureUrl, commodityTypeRelationId);
     }
 }

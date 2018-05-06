@@ -1,38 +1,38 @@
 package com.zhkj.entity;
 
-/**
- * Created by lenovo on 2018/4/16.
- */
+import java.math.BigDecimal;
+import java.util.Objects;
+
 public class Orderfromshop1Entity {
-    private int id;
-    private Integer feight;
-    private Integer commodityPrice;
+    private Integer id;
+    private int feight;
+    private int commodityPrice;
     private Integer commodityNumber;
     private Integer logisticsTypeId;
     private Integer commodityId;
     private Integer orderFromId;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Integer getFeight() {
+    public int getFeight() {
         return feight;
     }
 
-    public void setFeight(Integer feight) {
+    public void setFeight(int feight) {
         this.feight = feight;
     }
 
-    public Integer getCommodityPrice() {
+    public int getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(Integer commodityPrice) {
+    public void setCommodityPrice(int commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 
@@ -72,32 +72,19 @@ public class Orderfromshop1Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Orderfromshop1Entity that = (Orderfromshop1Entity) o;
-
-        if (id != that.id) return false;
-        if (feight != null ? !feight.equals(that.feight) : that.feight != null) return false;
-        if (commodityPrice != null ? !commodityPrice.equals(that.commodityPrice) : that.commodityPrice != null)
-            return false;
-        if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
-            return false;
-        if (logisticsTypeId != null ? !logisticsTypeId.equals(that.logisticsTypeId) : that.logisticsTypeId != null)
-            return false;
-        if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
-        if (orderFromId != null ? !orderFromId.equals(that.orderFromId) : that.orderFromId != null) return false;
-
-        return true;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(feight, that.feight) &&
+                Objects.equals(commodityPrice, that.commodityPrice) &&
+                Objects.equals(commodityNumber, that.commodityNumber) &&
+                Objects.equals(logisticsTypeId, that.logisticsTypeId) &&
+                Objects.equals(commodityId, that.commodityId) &&
+                Objects.equals(orderFromId, that.orderFromId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (feight != null ? feight.hashCode() : 0);
-        result = 31 * result + (commodityPrice != null ? commodityPrice.hashCode() : 0);
-        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
-        result = 31 * result + (logisticsTypeId != null ? logisticsTypeId.hashCode() : 0);
-        result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
-        result = 31 * result + (orderFromId != null ? orderFromId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, feight, commodityPrice, commodityNumber, logisticsTypeId, commodityId, orderFromId);
     }
 }

@@ -60,7 +60,7 @@ public class CreateTimer {
         return cronTriggerFactoryBean;
     }
     @Bean(name = "scheduler")
-    public SchedulerFactoryBean schedulerFactoryBean(Trigger cronJobTrigger){
+    public SchedulerFactoryBean schedulerFactoryBean(org.quartz.Trigger cronJobTrigger){
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         //QuartzScheduler 启动时更新已存在的Job
         schedulerFactoryBean.setOverwriteExistingJobs(true);

@@ -1,10 +1,8 @@
 package com.zhkj.entity;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
-/**
- * Created by lenovo on 2018/4/21.
- */
 public class CommodityevaluationEntity {
     private int id;
     private Timestamp evaluationTime;
@@ -56,28 +54,17 @@ public class CommodityevaluationEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CommodityevaluationEntity that = (CommodityevaluationEntity) o;
-
-        if (id != that.id) return false;
-        if (evaluationTime != null ? !evaluationTime.equals(that.evaluationTime) : that.evaluationTime != null)
-            return false;
-        if (evaluationContent != null ? !evaluationContent.equals(that.evaluationContent) : that.evaluationContent != null)
-            return false;
-        if (evaluationTypeId != null ? !evaluationTypeId.equals(that.evaluationTypeId) : that.evaluationTypeId != null)
-            return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(evaluationTime, that.evaluationTime) &&
+                Objects.equals(evaluationContent, that.evaluationContent) &&
+                Objects.equals(evaluationTypeId, that.evaluationTypeId) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (evaluationTime != null ? evaluationTime.hashCode() : 0);
-        result = 31 * result + (evaluationContent != null ? evaluationContent.hashCode() : 0);
-        result = 31 * result + (evaluationTypeId != null ? evaluationTypeId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, evaluationTime, evaluationContent, evaluationTypeId, userId);
     }
 }
