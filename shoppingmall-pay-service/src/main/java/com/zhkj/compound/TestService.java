@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestService {
-    @Autowired
-    OrderFromUpdate orderFromUpdate;
-    @Autowired
-    OutputService outputService;
-    @GetMapping("/updateShopApi/json/{json}")
-    public int updateShopApi(@PathVariable String json){
-        OrderFromVo orderFromVo = JSON.parseObject(json,OrderFromVo.class);
-        return orderFromUpdate.updateShopApi(orderFromVo);
-    }
-    @RequestMapping("/kafka")
-    public int kafka(){
-        return outputService.send();
-    }
+//    @Autowired
+//    OrderFromUpdate orderFromUpdate;
+//    @Autowired
+//    OutputService outputService;
+//    @GetMapping("/updateShopApi/json/{json}")
+//    public int updateShopApi(@PathVariable String json){
+//        OrderFromVo orderFromVo = JSON.parseObject(json,OrderFromVo.class);
+//        return orderFromUpdate.updateShopApi(orderFromVo);
+//    }
+//    @RequestMapping("/kafka")
+//    public int kafka(){
+//        return outputService.send();
+//    }
 }

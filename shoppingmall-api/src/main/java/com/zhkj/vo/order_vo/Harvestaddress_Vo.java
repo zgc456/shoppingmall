@@ -19,4 +19,5 @@ public class Harvestaddress_Vo {
     public void setHarvestAddress(HarvestaddressEntity_Dto harvestAddress) {
         this.harvestAddress = harvestAddress;
     }
+
 }

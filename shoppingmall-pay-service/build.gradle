@@ -2,6 +2,7 @@
 dependencies {
     compile project(":shoppingmall-api")
     compile project(":shoppingmall-dao")
+    compile project(":shoppingmall-tools")
     // 支付宝沙箱jar
     compile group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '3.0.0'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix'
@@ -15,12 +16,8 @@ dependencies {
     compile group: 'org.springframework.session', name: 'spring-session-data-redis'
     compile group: 'redis.clients', name: 'jedis'
     compile group: 'org.apache.commons', name: 'commons-pool2'
-
-
-
-
-
-
-
+    compile('org.springframework.cloud:spring-cloud-stream')
+    compile('org.springframework.cloud:spring-cloud-stream-binder-kafka')
+    compile('org.springframework.kafka:spring-kafka')
 
 }
