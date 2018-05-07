@@ -7,6 +7,6 @@ import com.zhkj.util.ServiceMultiResult;
 
 public interface ISearchService {
     ServiceMultiResult<CommodityTemplate> byConditionSearch(SearchCondition searchCondition);
-    void search(SearchCondition searchCondition);
+    ServiceMultiResult<CommodityTemplate> search(SearchCondition searchCondition);
     void searchEay(Test test);
 }

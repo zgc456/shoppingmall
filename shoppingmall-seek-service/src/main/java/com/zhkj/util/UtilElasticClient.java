@@ -4,6 +4,7 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,5 +21,8 @@ public class UtilElasticClient {
         transportClient.addTransportAddress(node);
         return transportClient;
     }
-
+    @Bean
+    public ModelMapper aotuModelMapper(){
+        return new ModelMapper();
+    }
 }

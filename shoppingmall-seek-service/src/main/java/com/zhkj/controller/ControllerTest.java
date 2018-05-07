@@ -1,13 +1,16 @@
 package com.zhkj.controller;
 
+import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.SearchCondition;
 import com.zhkj.service.entity.Test;
+import com.zhkj.util.ServiceMultiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class ControllerTest {
     @Autowired
     ISearchElasticDB serviceDB;
@@ -21,9 +24,10 @@ public class ControllerTest {
     public void deleteByQuery(@RequestParam("name") String name){
         serviceDB.searchDeleteByQuery(name);
     }
-    @PostMapping("/searchByCondition")
-    public void searchByCondition(@ModelAttribute SearchCondition searchCondition){
-        service.search(searchCondition);
+    @GetMapping("/searchByCondition")
+    public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchCondition searchCondition){
+        System.out.println(searchCondition.toString());
+        return service.search(searchCondition);
     }
     @PostMapping("/searchEay")
     public void seachEay(@ModelAttribute Test test){

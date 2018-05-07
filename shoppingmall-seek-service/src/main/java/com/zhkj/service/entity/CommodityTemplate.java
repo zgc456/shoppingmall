@@ -11,23 +11,23 @@ public class CommodityTemplate {
     /**
      * 商品名称
      */
-    private String commodityName;
+    private String commodityname;
     /**
      * 商品介绍
      */
-    private String commodityIntroduce;
+    private String commodityintroduce;
     /**
      * 商品图片路径
      */
-    private String bigPictureUrl;
+    private String bigpictureurl;
     /**
      * 商品数量
      */
-    private Long commodityNumber;
+    private Long commoditynumber;
     /**
      * 商品价格
      */
-    private Long commodityPrice;
+    private Long commodityprice;
 
     public Long getId() {
         return id;
@@ -37,43 +37,55 @@ public class CommodityTemplate {
         this.id = id;
     }
 
-    public String getCommodityName() {
-        return commodityName;
+    public String getCommodityname() {
+        return commodityname;
     }
 
-    public void setCommodityName(String commodityName) {
-        this.commodityName = commodityName;
+    public void setCommodityname(String commodityname) {
+        this.commodityname = commodityname;
     }
 
-    public String getCommodityIntroduce() {
-        return commodityIntroduce;
+    public String getCommodityintroduce() {
+        return commodityintroduce;
     }
 
-    public void setCommodityIntroduce(String commodityIntroduce) {
-        this.commodityIntroduce = commodityIntroduce;
+    public void setCommodityintroduce(String commodityintroduce) {
+        this.commodityintroduce = commodityintroduce;
     }
 
-    public String getBigPictureUrl() {
-        return bigPictureUrl;
+    public String getBigpictureurl() {
+        return bigpictureurl;
     }
 
-    public void setBigPictureUrl(String bigPictureUrl) {
-        this.bigPictureUrl = bigPictureUrl;
+    public void setBigpictureurl(String bigpictureurl) {
+        this.bigpictureurl = bigpictureurl;
     }
 
-    public Long getCommodityNumber() {
-        return commodityNumber;
+    public Long getCommoditynumber() {
+        return commoditynumber;
     }
 
-    public void setCommodityNumber(Long commodityNumber) {
-        this.commodityNumber = commodityNumber;
+    public void setCommoditynumber(Long commoditynumber) {
+        this.commoditynumber = commoditynumber;
     }
 
-    public Long getCommodityPrice() {
-        return commodityPrice;
+    public Long getCommodityprice() {
+        return commodityprice;
     }
 
-    public void setCommodityPrice(Long commodityPrice) {
-        this.commodityPrice = commodityPrice;
+    public void setCommodityprice(Long commodityprice) {
+        this.commodityprice = commodityprice;
+    }
+
+    @Override
+    public String toString() {
+        return "CommodityTemplate{" +
+                "id=" + id +
+                ", commodityname='" + commodityname + '\'' +
+                ", commodityintroduce='" + commodityintroduce + '\'' +
+                ", bigpictureurl='" + bigpictureurl + '\'' +
+                ", commoditynumber=" + commoditynumber +
+                ", commodityprice=" + commodityprice +
+                '}';
     }
 }

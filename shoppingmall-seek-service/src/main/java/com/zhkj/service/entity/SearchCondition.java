@@ -100,4 +100,18 @@ public class SearchCondition {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
+
+    @Override
+    public String toString() {
+        return "SearchCondition{" +
+                "commodityName='" + commodityName + '\'' +
+                ", commodityIntroduce='" + commodityIntroduce + '\'' +
+                ", commodityPriceLTE=" + commodityPriceLTE +
+                ", commodityPriceGTE=" + commodityPriceGTE +
+                ", discountIntroduce='" + discountIntroduce + '\'' +
+                ", typeName='" + typeName + '\'' +
+                ", orderDesc='" + orderDesc + '\'' +
+                ", orderBy='" + orderBy + '\'' +
+                '}';
+    }
 }

@@ -8,16 +8,18 @@ public class CommodityKey {
      * elastic索引
      */
     public static final String INDEX="shoppingmall";
+    public static final String ID="id";
     /**
      * 商品types
      */
     public static final String TYPES_COMMODITY="commodity";
     public static final String COMMODITY_NAME="commodityname";//商品名称
-    public static final String COMMODITY_INTRODUCE="commodityIntroduce";//商品介绍
+    public static final String COMMODITY_INTRODUCE="commodityintroduce";//商品介绍
     /**
      * 商品规格关系types OR 商品详情
      */
     public static final String TYPES_SPECIFICATIONSRELATION="specificationsrelation";
+    public static final String COMMODITY_ID="commodityid";
     public static final String COMMODITY_PRICE="commodityprice";//商品价格
     /**
      * 折扣types
