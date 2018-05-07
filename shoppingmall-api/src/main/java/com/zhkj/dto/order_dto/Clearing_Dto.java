@@ -14,15 +14,41 @@ public class Clearing_Dto<T> {
     private int status;
     //商品呢数据集合
     private List<T> list;
-    //加密返回数据对象
-    private Encrypt_Returning encrypt_returning;
 
-    public Encrypt_Returning getEncrypt_returning() {
-        return encrypt_returning;
+
+    //传输的json 对象 用string表示
+    private String json_Name;
+    //私钥
+    private String private_Key;
+    //加密的密文
+    private String encrypt;
+
+
+
+    public void setEncrypt(String encrypt) {
+        this.encrypt = encrypt;
     }
 
-    public void setEncrypt_returning(Encrypt_Returning encrypt_returning) {
-        this.encrypt_returning = encrypt_returning;
+
+
+    public String getJson_Name() {
+        return json_Name;
+    }
+
+    public void setJson_Name(String json_Name) {
+        this.json_Name = json_Name;
+    }
+
+    public String getPrivate_Key() {
+        return private_Key;
+    }
+
+    public void setPrivate_Key(String private_Key) {
+        this.private_Key = private_Key;
+    }
+
+    public String getEncrypt() {
+        return encrypt;
     }
 
     public int getStatus() {
