@@ -27,7 +27,7 @@ public class CommodityTemplate {
     /**
      * 商品价格
      */
-    private Long commodityprice;
+    private Double commodityprice;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ public class CommodityTemplate {
         this.commoditynumber = commoditynumber;
     }
 
-    public Long getCommodityprice() {
+    public Double getCommodityprice() {
         return commodityprice;
     }
 
-    public void setCommodityprice(Long commodityprice) {
+    public void setCommodityprice(Double commodityprice) {
         this.commodityprice = commodityprice;
     }
 

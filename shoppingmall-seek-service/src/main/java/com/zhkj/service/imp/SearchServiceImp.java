@@ -14,8 +14,8 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.metrics.min.Min;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,16 +41,18 @@ public class SearchServiceImp implements ISearchService {
     public ServiceMultiResult<CommodityTemplate> search(SearchCondition searchCondition) {
         ServiceMultiResult<CommodityTemplate> serviceMultiResult =new ServiceMultiResult<>();
         BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
+        //商品名称
         if (searchCondition.getCommodityName()!=null&&!searchCondition.getCommodityName().isEmpty()){
             boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.COMMODITY_NAME,searchCondition.getCommodityName()));
         }
+        //商品介绍
         if (searchCondition.getCommodityIntroduce()!=null&&!searchCondition.getCommodityIntroduce().isEmpty()){
             boolQueryBuilder.filter(
                     QueryBuilders.termQuery(CommodityKey.COMMODITY_INTRODUCE,searchCondition.getCommodityIntroduce())
             );
         }
 
-        //待修改
+        //待修改 商品区间  占时不做
         RangeQueryBuilder rangeQueryBuilder= QueryBuilders.rangeQuery(CommodityKey.COMMODITY_PRICE);
         if ((searchCondition.getCommodityPriceGTE()!=null&&searchCondition.getCommodityPriceGTE()>0)||(searchCondition.getCommodityPriceLTE()!=null&&searchCondition.getCommodityPriceLTE()>0)){
             if (searchCondition.getCommodityPriceGTE()!=null&&searchCondition.getCommodityPriceGTE()>0){
@@ -61,36 +63,50 @@ public class SearchServiceImp implements ISearchService {
             }
             boolQueryBuilder.filter(rangeQueryBuilder);
         }
-        //
-
+        //打折介绍
         if (searchCondition.getDiscountIntroduce()!=null&&!searchCondition.getDiscountIntroduce().isEmpty()){
             boolQueryBuilder.filter(
                     QueryBuilders.termQuery(CommodityKey.DISCOUNT_INTRODUCE,searchCondition.getDiscountIntroduce())
             );
         }
+        //商品类型
         if (searchCondition.getTypeName()!=null&&!searchCondition.getTypeName().isEmpty()){
             boolQueryBuilder.filter(
                     QueryBuilders.termQuery(CommodityKey.TYPE_NAME,searchCondition.getTypeName())
             );
         }
+        /*
+           不查询的type
+           ,CommodityKey.TYPES_TYPE 商品类型
+           ,CommodityKey.TYPES_SPECIFICATIONSTOPIC 商品规格表
+           ,CommodityKey.TYPES_SPECIFICATIONSDETAILED 商品详细规格
+           ,CommodityKey.TYPES_DISCOUNT 商品详细规格
+           ,CommodityKey.TYPES_COMMODITYTYPERELATION 这里不查询商品关系表 在下面已经查询过了
+         */
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setTypes(
                         CommodityKey.TYPES_COMMODITY
-                        ,CommodityKey.TYPES_TYPE
-                        ,CommodityKey.TYPES_COMMODITYTYPERELATION
-                        ,CommodityKey.TYPES_SPECIFICATIONSTOPIC
-                        ,CommodityKey.TYPES_SPECIFICATIONSDETAILED
-                        ,CommodityKey.TYPES_DISCOUNT
                 )
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setQuery(boolQueryBuilder)
-                .setFrom(0).setSize(10).setExplain(true).get();
+                .setFrom(0)
+                .setSize(100)
+                .setExplain(true)
+                .get();
         List<CommodityTemplate> lists=new ArrayList<>();
         for (SearchHit hit:response.getHits()){
+            System.out.println(hit.getSourceAsString());
             try {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
-                List<CommodityTemplate> list=this.getCommodityPrice(template.getId());
-
+                CommodityTemplate specificationsrelationTemplate=this.getCommodityPrice(template.getId());
+                if (specificationsrelationTemplate!=null) {
+                    template.setCommodityprice(specificationsrelationTemplate.getCommodityprice());
+                    template.setCommoditynumber(specificationsrelationTemplate.getCommoditynumber());
+                }else{
+                    template.setCommodityprice(0.0);
+                    template.setCommoditynumber(0L);
+                }
+                System.out.println(template.toString());
                 if (template!=null){
                     lists.add(template);
                 }
@@ -112,23 +128,30 @@ public class SearchServiceImp implements ISearchService {
      * @param id
      * @return
      */
-    public List<CommodityTemplate> getCommodityPrice(Long id){
-        List<CommodityTemplate> lists=new ArrayList<>();
+    public CommodityTemplate getCommodityPrice(Long id){
+
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setTypes(CommodityKey.TYPES_SPECIFICATIONSRELATION)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setQuery(QueryBuilders.termQuery(CommodityKey.COMMODITY_ID,id))
-                .addAggregation(AggregationBuilders.min(CommodityKey.COMMODITY_PRICE).field(CommodityKey.COMMODITY_PRICE))
+                .addAggregation(AggregationBuilders.min("min"+CommodityKey.COMMODITY_PRICE).field(CommodityKey.COMMODITY_PRICE))
                 .get();
+        Min min=response.getAggregations().get("min"+CommodityKey.COMMODITY_PRICE);
+        System.out.println(min.getValue());
         for (SearchHit hit : response.getHits()) {
             try {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
-                lists.add(template);
+                System.out.println(template.toString());
+                Double price=template.getCommodityprice();
+                if (price==min.getValue()){
+                    return template;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         }
-        return lists;
+        return null;
     }
     @Override
     public void searchEay(Test test) {
