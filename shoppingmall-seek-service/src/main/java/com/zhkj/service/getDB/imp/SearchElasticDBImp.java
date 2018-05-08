@@ -1,6 +1,7 @@
 package com.zhkj.service.getDB.imp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhkj.service.entity.SearchCondition;
 import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.entity.CommodityKey;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -19,56 +20,46 @@ public class SearchElasticDBImp implements ISearchElasticDB{
     @Autowired
     private ObjectMapper objectMapper;
     @Override
-    public void search_Commodity(String  id) {
-        GetResponse response=transportClient.prepareGet(CommodityKey.INDEX,CommodityKey.TYPES_COMMODITY,id)
+    public String search_Commodity(SearchCondition searchCondition) {
+        GetResponse response=transportClient.prepareGet(CommodityKey.INDEX,CommodityKey.TYPES_COMMODITY,searchCondition.getId())
                 .setOperationThreaded(false).get();
-        String entity=response.getSourceAsString();
-        System.out.println(entity);
-//        try {
-//            objectMapper.readValue(entity,);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        return response.getSourceAsString();
+    }
+
+    @Override
+    public void search_Commoditytyperelation(SearchCondition searchCondition) {
 
     }
 
     @Override
-    public void search_Commoditytyperelation(String id) {
+    public void search_Specificationsrelation(SearchCondition searchCondition) {
 
     }
 
     @Override
-    public void search_Specificationsrelation(String id) {
+    public void search_Specificationstopic(SearchCondition searchCondition) {
 
     }
 
     @Override
-    public void search_Specificationstopic(String id) {
+    public void search_Specificationsdetailed(SearchCondition searchCondition) {
 
     }
 
     @Override
-    public void search_Specificationsdetailed(String id) {
+    public void search_Discount(SearchCondition searchCondition) {
 
     }
 
     @Override
-    public void search_Discount(String id) {
+    public void search_Type(SearchCondition searchCondition) {
 
     }
-
-    @Override
-    public void search_Type(String id) {
-
-    }
-
-
 
 
     @Override
     public void searchDelete(String id) {
        DeleteResponse response= transportClient.prepareDelete(CommodityKey.INDEX,CommodityKey.TYPES_COMMODITY,id).get();
-        System.out.println();
     }
 
     @Override

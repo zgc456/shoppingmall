@@ -1,16 +1,18 @@
 package com.zhkj.service.getDB;
 
+import com.zhkj.service.entity.SearchCondition;
+
 /**
  * 查询elastic types下的数据
  */
 public interface ISearchElasticDB {
-    void search_Commodity(String id);
-    void search_Commoditytyperelation(String id);
-    void search_Specificationsrelation(String id);
-    void search_Specificationstopic(String id);
-    void search_Specificationsdetailed(String id);
-    void search_Discount(String id);
-    void search_Type(String id);
+    String search_Commodity(SearchCondition searchCondition);
+    void search_Commoditytyperelation(SearchCondition searchCondition);
+    void search_Specificationsrelation(SearchCondition searchCondition);
+    void search_Specificationstopic(SearchCondition searchCondition);
+    void search_Specificationsdetailed(SearchCondition searchCondition);
+    void search_Discount(SearchCondition searchCondition);
+    void search_Type(SearchCondition searchCondition);
 
     /**
      * 删除接口

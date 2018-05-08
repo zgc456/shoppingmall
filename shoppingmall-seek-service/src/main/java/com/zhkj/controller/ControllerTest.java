@@ -5,6 +5,7 @@ import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.SearchCondition;
 import com.zhkj.service.entity.Test;
+import com.zhkj.service.imp.SearchServiceImp;
 import com.zhkj.util.ServiceMultiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,9 @@ public class ControllerTest {
     @PostMapping("/searchEay")
     public void seachEay(@ModelAttribute Test test){
         service.searchEay(test);
+    }
+    @GetMapping("test")
+    public void test(){
+        service.byTypeSearch();
     }
 }

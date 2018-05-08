@@ -5,6 +5,10 @@ package com.zhkj.service.entity;
  */
 public class SearchCondition {
     /**
+     * 商品id
+     */
+    private String id;
+    /**
      * 商品名称
      */
     private String commodityName;
@@ -99,6 +103,14 @@ public class SearchCondition {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

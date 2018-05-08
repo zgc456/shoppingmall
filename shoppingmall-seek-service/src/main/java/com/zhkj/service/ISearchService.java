@@ -8,7 +8,7 @@ import com.zhkj.util.ServiceMultiResult;
 import java.util.List;
 
 public interface ISearchService {
-    ServiceMultiResult<CommodityTemplate> byConditionSearch(SearchCondition searchCondition);
+    ServiceMultiResult<CommodityTemplate> byTypeSearch();
     ServiceMultiResult<CommodityTemplate> search(SearchCondition searchCondition);
     void searchEay(Test test);
 }

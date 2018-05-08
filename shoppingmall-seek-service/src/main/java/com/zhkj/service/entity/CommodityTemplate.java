@@ -1,5 +1,6 @@
 package com.zhkj.service.entity;
 
+
 /**
  * 返回给前台对象
  */
@@ -28,6 +29,10 @@ public class CommodityTemplate {
      * 商品价格
      */
     private Double commodityprice;
+    /**
+     * 商品类型名字
+     */
+    private String typename;
 
     public Long getId() {
         return id;

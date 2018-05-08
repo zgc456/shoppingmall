@@ -2,10 +2,8 @@ package com.zhkj.service.imp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.service.ISearchService;
-import com.zhkj.service.entity.CommodityKey;
-import com.zhkj.service.entity.CommodityTemplate;
-import com.zhkj.service.entity.SearchCondition;
-import com.zhkj.service.entity.Test;
+import com.zhkj.service.entity.*;
+import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.util.ServiceMultiResult;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -23,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SearchServiceImp implements ISearchService {
@@ -32,8 +31,18 @@ public class SearchServiceImp implements ISearchService {
     private ModelMapper modelMapper;
     @Autowired
     private ObjectMapper objectMapper;
+
     @Override
-    public ServiceMultiResult<CommodityTemplate> byConditionSearch(SearchCondition searchCondition) {
+    public ServiceMultiResult<CommodityTemplate> byTypeSearch() {
+        BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
+        List<CommodityType> types=getCommodityType();
+        if (types.size()>0){
+            for (CommodityType type : types) {
+
+            }
+
+        }
+
         return null;
     }
 
@@ -154,6 +163,13 @@ public class SearchServiceImp implements ISearchService {
         return null;
     }
     @Override
+    /**
+     * piPiXia
+     * @Author: Jiankang.Ren
+     * @Description:
+     * @Date: 22:59 2018/5/8 0008
+     * @param test
+     */
     public void searchEay(Test test) {
         BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
         boolQueryBuilder.filter(
@@ -170,5 +186,28 @@ public class SearchServiceImp implements ISearchService {
         for (SearchHit hit:response.getHits()){
             System.out.println(hit.getSourceAsString());
         }
+    }
+
+    /**
+     * 获取商品类型
+     * @return 返回商品类型集合
+     */
+    public List<CommodityType> getCommodityType(){
+        List<CommodityType> list=new ArrayList<>();
+        SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                .setTypes(CommodityKey.TYPES_TYPE)
+                .get();
+        for (SearchHit hit : response.getHits()) {
+            try {
+                CommodityType type=objectMapper.readValue(hit.getSourceAsString(),CommodityType.class);
+                if (type!=null){
+                    list.add(type);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 }
