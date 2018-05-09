@@ -1,11 +1,10 @@
 package com.zhkj.controller;
 
-import com.zhkj.service.entity.CommodityTemplate;
-import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.service.ISearchService;
+import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchCondition;
 import com.zhkj.service.entity.Test;
-import com.zhkj.service.imp.SearchServiceImp;
+import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.util.ServiceMultiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,10 @@ public class ControllerTest {
     @Autowired
     ISearchService service;
     @GetMapping("/getCommodityById")
-    public void test(@RequestParam("id") String id){
-         serviceDB.search_Commodity(id);
+    public void test(@ModelAttribute SearchCondition condition){
+        if (condition!=null&&condition.getId().isEmpty()) {
+            serviceDB.search_Commodity(condition);
+        }
     }
     @PostMapping("/deleteByQuery")
     public void deleteByQuery(@RequestParam("name") String name){
