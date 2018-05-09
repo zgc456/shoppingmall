@@ -32,9 +32,9 @@ public class SearchServiceImp implements ISearchService {
     @Override
     public List<ServiceMultiResult<CommodityTemplate>> getAllTypeCommodity() {
         List<ServiceMultiResult<CommodityTemplate>> serviceMultiResults=new ArrayList<>();
-        List<CommodityType> types=getCommodityType();
+        List<CommodityTemplate> types=getCommodityType();
         if (types.size()>0){
-            for (CommodityType type : types) {
+            for (CommodityTemplate type : types) {
                 ServiceMultiResult<CommodityTemplate> serviceMultiResult=new ServiceMultiResult<>();
                 SearchResponse response= transportClient.prepareSearch(CommodityKey.INDEX)
                         .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
@@ -80,16 +80,16 @@ public class SearchServiceImp implements ISearchService {
         }
 
         //待修改 商品区间  占时不做
-        RangeQueryBuilder rangeQueryBuilder= QueryBuilders.rangeQuery(CommodityKey.COMMODITY_PRICE);
-        if ((searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0)||(searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0)){
-            if (searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0){
-                rangeQueryBuilder.gte(searchConditionPageVO.getCommodityPriceGTE());
-            }
-            if (searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0){
-                rangeQueryBuilder.lte(searchConditionPageVO.getCommodityPriceLTE());
-            }
-            boolQueryBuilder.filter(rangeQueryBuilder);
-        }
+//        RangeQueryBuilder rangeQueryBuilder= QueryBuilders.rangeQuery(CommodityKey.COMMODITY_PRICE);
+//        if ((searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0)||(searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0)){
+//            if (searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0){
+//                rangeQueryBuilder.gte(searchConditionPageVO.getCommodityPriceGTE());
+//            }
+//            if (searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0){
+//                rangeQueryBuilder.lte(searchConditionPageVO.getCommodityPriceLTE());
+//            }
+//            boolQueryBuilder.filter(rangeQueryBuilder);
+//        }
 
         /*
            不查询的type
@@ -168,45 +168,20 @@ public class SearchServiceImp implements ISearchService {
         }
         return null;
     }
-    @Override
-    /**
-     * piPiXia
-     * @Author: Jiankang.Ren
-     * @Description:
-     * @Date: 22:59 2018/5/8 0008
-     * @param test
-     */
-    public void searchEay(Test test) {
-        BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
-        boolQueryBuilder.filter(
-                QueryBuilders.termQuery("name",test.getName())
-        );
-        SearchResponse response=transportClient.prepareSearch("test")
-                .setTypes("t")
-                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setQuery(boolQueryBuilder)
-                .setFrom(0)
-                .setSize(3)
-                .setExplain(true)
-                .get();
-        for (SearchHit hit:response.getHits()){
-            System.out.println(hit.getSourceAsString());
-        }
-    }
 
     /**
      * 获取商品类型
      * @return 返回商品类型集合
      */
-    public List<CommodityType> getCommodityType(){
-        List<CommodityType> list=new ArrayList<>();
+    public List<CommodityTemplate> getCommodityType(){
+        List<CommodityTemplate> list=new ArrayList<>();
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setTypes(CommodityKey.TYPES_TYPE)
                 .get();
         for (SearchHit hit : response.getHits()) {
             try {
-                CommodityType type=objectMapper.readValue(hit.getSourceAsString(),CommodityType.class);
+                CommodityTemplate type=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
                 if (type!=null){
                     list.add(type);
                 }
