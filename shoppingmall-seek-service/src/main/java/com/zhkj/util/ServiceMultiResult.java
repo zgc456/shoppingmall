@@ -8,9 +8,18 @@ import java.util.List;
  */
 public class ServiceMultiResult<T> {
     private Long total;
+    private String typename;
     private List<T> result;
 
     public ServiceMultiResult() {
+    }
+
+    public String getTypename() {
+        return typename;
+    }
+
+    public void setTypename(String typename) {
+        this.typename = typename;
     }
 
     public ServiceMultiResult(Long total, List<T> result) {
