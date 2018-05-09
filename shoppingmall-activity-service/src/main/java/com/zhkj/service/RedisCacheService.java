@@ -2,12 +2,9 @@ package com.zhkj.service;
 
 import com.alibaba.fastjson.JSON;
 import com.zhkj.api.activity_api.RedisCache_Api;
-import com.zhkj.dto.activity_dto.RedisCacheObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,7 +17,6 @@ public class RedisCacheService implements RedisCache_Api {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     private Map map = null;
-
     //查找redis
     @Override
     public Map getRedis(String key) {
@@ -29,7 +25,6 @@ public class RedisCacheService implements RedisCache_Api {
         map = (Map) JSON.parseObject(json);
         return map;
     }
-
     //修改redis
     @Override
     public void updateRedis(String key, String id, int count) {
@@ -52,7 +47,6 @@ public class RedisCacheService implements RedisCache_Api {
             }
         }
     }
-
     //查找库存数量
     @Override
     public int countRedisCache(String id) {
@@ -73,5 +67,4 @@ public class RedisCacheService implements RedisCache_Api {
         }
         return -1;
     }
-
 }
