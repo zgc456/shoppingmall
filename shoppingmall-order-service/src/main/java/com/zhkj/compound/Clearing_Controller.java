@@ -9,7 +9,6 @@ import com.zhkj.vo.order_vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,26 +22,21 @@ public class Clearing_Controller {
     private Encrypt_Service encrypt_service;
     @Autowired
     private HarvestAddressService harvestAddressService;
+    @Autowired
+    private OrderFromService orderFromService;
 @Autowired
     DiscountService discountService;
     /**
      * 访问示例
-     * localhost:8805/clearingController1/json/{"price": 3000,"list": {"name11111": "11111111111123","password": "4564"},"private_Key": 123456,"encrypt":"5D946D76A99E7D09E90C3D48FE05C132CD26662D514400057769412E8C8BE194EAB590BAC91C6C74C1977294BEF26EC12F073A873E54499B78F448B8C7AC2C4B"}/ciphertext/{"name11111": "11111111111123","password": "4564"}/userid/1
+     * localhost:8805/clearingController1/json/{"price": 3000,"list": {"name11111": "11111111111123","password": "4564"},"encrypt_returning": {"json_Name": {"name11111": "11111111111123","password": "4564"},"private_Key": 123456,"encrypt":"5D946D76A99E7D09E90C3D48FE05C132CD26662D514400057769412E8C8BE194EAB590BAC91C6C74C1977294BEF26EC12F073A873E54499B78F448B8C7AC2C4B"}}/ciphertext/{"name11111": "11111111111123","password": "4564"}
      * 测试
      * @param
      * @return
      */
-    @RequestMapping("clearingController1/json/{json}/ciphertext/{ciphertext}/userid/{userid}")
-    public Clearing_Dto Clearing_Controller1(@PathVariable("json")String json,@PathVariable("ciphertext")String ciphertext,@PathVariable("userid")Integer userid) {
+    @RequestMapping("clearingController1/json/{json}/ciphertext/{ciphertext}")
+    public Clearing_Dto Clearing_Controller1(@PathVariable("json")String json,@PathVariable("ciphertext")String ciphertext) {
         Clearing_Vo clearing_vo = JSON.parseObject(json,Clearing_Vo.class);
-        Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo();
-        HarvestaddressEntity_Dto harvestaddressEntity_dto= new HarvestaddressEntity_Dto();
-        harvestaddressEntity_dto.setUserId(userid);
-        harvestaddress_vo.setHarvestAddress(harvestaddressEntity_dto);
-        clearing_vo.setJson_Name(ciphertext);
-        //将地址给clearing_vo
-        clearing_vo.setAddress( harvestAddressService.gainMyInformation(harvestaddress_vo));
-        return data_service.transfer_Clearing(clearing_vo,clearing_vo.getJson_Name());
+        return data_service.transfer_Clearing(clearing_vo,ciphertext);
     }
 
     /**
@@ -61,7 +55,7 @@ public class Clearing_Controller {
      * @param
      * @return
      */
-    @RequestMapping("clearingController/json/{json}/userid/{userid}")
+    @RequestMapping("clearingController/json/{json}/ciphertext/{ciphertext}")
     public Clearing_Dto Clearing_Controller(@PathVariable("json")String json,@PathVariable("ciphertext")String ciphertext) {
         Clearing_Vo clearing_vo = JSON.parseObject(json,Clearing_Vo.class);
         return data_service.transfer_Clearing(clearing_vo,ciphertext);
@@ -136,23 +130,8 @@ public class Clearing_Controller {
         Discount_Vo  discount_vo = JSON.parseObject(json,Discount_Vo.class);
         return discountService.calculatePrice(discount_vo);
     }
-    @Autowired
-   private OrderFromService orderFromService;
     /**
-     * 查询特定用户订单
-     * @param json
-     * {"userId": "1"}
-     * @return 特定用户的订单
-     */
-    @RequestMapping(value = "selectOrderFrom/json/{json}",method = RequestMethod.GET)
-    public HashMap<String,Object> selectOrderFrom(@PathVariable("json")String json){
-        OrderFrom_Vo orderFrom_vo = JSON.parseObject(json,OrderFrom_Vo.class);
-        HashMap<String,Object> map = orderFromService.selectUserOrderFrom(orderFrom_vo);
-        return map;
-    }
-
-    /**
-     * 添加订单 并且添加失效为两小时
+     * 添加订单
      * @param json
      * {"commodityId": [{"feight": "0","commodityPrice": "15","commodityNumber": "2","commodityId": "1"},{"feight": "5","commodityPrice": "80","commodityNumber": "2","commodityId": "2"}],"userId": "1","orderFromPrice": "200","harvestAddressId": "1"}
      * @return 是否成功

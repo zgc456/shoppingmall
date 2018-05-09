@@ -1,11 +1,8 @@
 package com.zhkj.service.timer;
 
-import org.quartz.Scheduler;
 import org.quartz.Trigger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.config.ScheduledTask;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -60,14 +57,14 @@ public class CreateTimer {
         return cronTriggerFactoryBean;
     }
     @Bean(name = "scheduler")
-    public SchedulerFactoryBean schedulerFactoryBean(org.quartz.Trigger cronJobTrigger){
+    public SchedulerFactoryBean schedulerFactoryBean(Trigger jobTigger){
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
         //QuartzScheduler 启动时更新已存在的Job
         schedulerFactoryBean.setOverwriteExistingJobs(true);
         //延迟 1 秒启动
         schedulerFactoryBean.setStartupDelay(1);
         //触发器
-        schedulerFactoryBean.setTriggers(cronJobTrigger);
+        schedulerFactoryBean.setTriggers(jobTigger);
         return schedulerFactoryBean;
     }
 }
