@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.activity_mapper.PromotionitemMapper">
+    <select id="selectByTodayShop" resultType="com.zhkj.entity.PromotionitemEntity">
+        SELECT * FROM promotionitem
+        where startTime &gt;= ${todayTime} AND ${todayTime}&lt;= endTime
+    </select>
+    <update id="updateById">
+        UPDATE shoppingmall.promotionitem
+        SET commodityNumber = #{pro.commodityNumber}
+        WHERE id = #{pro.id}
+    </update>
+</mapper>
