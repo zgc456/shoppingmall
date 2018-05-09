@@ -3,10 +3,10 @@ package com.zhkj.result;
 import java.util.List;
 
 /**
- * Created by lenovo on 2018/4/26.
+ * 定义统一的返回值
  */
 public class ResultUtils<T> {
-    public ResultAll resultAll(int status, String message, T DtoObject){
+    public  ResultAll resultAll(int status, String message, T DtoObject){
         ResultAll resultAll=new ResultAll();
         resultAll.setStatus(status);
         resultAll.setMessage(message);

@@ -36,7 +36,7 @@ public class OrderFromService implements OrderFromService_Api {
     private SimpleKeyService simpleKeyService;
     static Logger logger = Logger.getLogger(OrderFromService.class);
     @Override
-    public boolean additionOrderFrom(OrderFrom_Vo orderFrom_vo) {
+    public OrderFrom_Dto additionOrderFrom(OrderFrom_Vo orderFrom_vo) {
         OrderFrom_Dto orderFrom_dto = new OrderFrom_Dto();
         boolean result = false;
         Date date = new Date();
@@ -58,7 +58,7 @@ public class OrderFromService implements OrderFromService_Api {
                     result = true;
                     if(result){
                         additionOrderFromShop(orderFrom_vo.getCommodityId(),orderFromNumber);
-                        return true;
+                        return orderFrom_dto;
                     }
                 }catch (Exception e){
                     logger.error("添加订单失败，错误信息"+e.getMessage()+"参数:"+orderFrom_vo);
@@ -67,7 +67,7 @@ public class OrderFromService implements OrderFromService_Api {
             }
         }
 
-        return false;
+        return null;
     }
 
     @Override

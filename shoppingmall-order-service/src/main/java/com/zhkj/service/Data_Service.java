@@ -1,10 +1,13 @@
 package com.zhkj.service;
 
 import com.zhkj.api.order_api.Data_Api;
+import com.zhkj.compound.Clearing_Controller;
 import com.zhkj.dto.order_dto.Clearing_Dto;
 import com.zhkj.dto.order_dto.Order_Dto;
 import com.zhkj.vo.order_vo.Clearing_Vo;
 import com.zhkj.vo.order_vo.Order_Vo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class Data_Service implements Data_Api {
     @Autowired
     private Encrypt_Service encrypt_service;
-
+    private  static Logger logger=LoggerFactory.getLogger(Data_Api.class);
     /**
      *
      * 数据接收传输方
@@ -38,6 +41,7 @@ public class Data_Service implements Data_Api {
             clearing_dto.setPrivate_Key(clearing_vo.getPrivate_Key());
             return clearing_dto;
         } else {
+            logger.info("密文匹配不正确");
             return null;
         }
     }

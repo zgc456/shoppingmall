@@ -19,5 +19,4 @@ public class TestRibbon {
     public List<UserEntity> selectAll(){
         return restTemplate.getForEntity("http://SHOPPING-MALL-TEST/test",List.class).getBody();
     }
-
 }

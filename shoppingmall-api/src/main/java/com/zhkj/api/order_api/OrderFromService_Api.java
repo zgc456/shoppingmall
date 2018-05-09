@@ -13,7 +13,7 @@ public interface OrderFromService_Api {
      * 添加订单
      * @return 是否成功
      */
-    boolean additionOrderFrom(OrderFrom_Vo orderFrom_vo);
+    OrderFrom_Dto additionOrderFrom(OrderFrom_Vo orderFrom_vo);
 
     /**
      * 根据用户id查询订单

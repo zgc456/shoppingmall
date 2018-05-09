@@ -50,7 +50,8 @@ public class Test_Config {
 //        shardingRuleConfig.getTableRuleConfigs().add(orderTableRuleConfig);
 //        // 获取数据源对象
 //        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap(), new Properties());
-      return  ShardingDataSourceFactory.createDataSource(new File("F:\\代码\\shopping_mall\\shoppingmall-order-service\\src\\main\\resources\\sharding-jdbc\\sharding-jdbc.yml"));
+        return  ShardingDataSourceFactory.createDataSource(new File(getClass().getResource("/sharding-jdbc/sharding-jdbc.yml").getFile()));
+
     }
 
     @Autowired
