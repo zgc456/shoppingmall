@@ -3,7 +3,6 @@ package com.zhkj.service.imp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.*;
-import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.util.ServiceMultiResult;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -19,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SearchServiceImp implements ISearchService {
@@ -33,57 +30,67 @@ public class SearchServiceImp implements ISearchService {
     private ObjectMapper objectMapper;
 
     @Override
-    public ServiceMultiResult<CommodityTemplate> byTypeSearch() {
-        BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
+    public List<ServiceMultiResult<CommodityTemplate>> getAllTypeCommodity() {
+        List<ServiceMultiResult<CommodityTemplate>> serviceMultiResults=new ArrayList<>();
         List<CommodityType> types=getCommodityType();
         if (types.size()>0){
             for (CommodityType type : types) {
-
+                ServiceMultiResult<CommodityTemplate> serviceMultiResult=new ServiceMultiResult<>();
+                SearchResponse response= transportClient.prepareSearch(CommodityKey.INDEX)
+                        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                        .setTypes(CommodityKey.TYPES_COMMODITY)
+                        .setQuery(QueryBuilders.termQuery(CommodityKey.COMMODITY_TYPE_RELATION_ID,type.getId()))
+                        .get();
+                List<CommodityTemplate> lists=new ArrayList<>();
+                for (SearchHit hit : response.getHits()) {
+                    try {
+                        CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
+                        CommodityTemplate minTemplate=this.getCommodityPrice(template.getId());
+                        if (minTemplate!=null){
+                            template.setCommodityprice(minTemplate.getCommodityprice());
+                            template.setCommoditynumber(minTemplate.getCommoditynumber());
+                            lists.add(template);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                serviceMultiResult.setTypename(type.getTypename());
+                serviceMultiResult.setResult(lists);
+                serviceMultiResult.setTotal(new Long(lists.size()));
+                serviceMultiResults.add(serviceMultiResult);
             }
-
         }
-
-        return null;
+        return serviceMultiResults;
     }
 
     @Override
-    public ServiceMultiResult<CommodityTemplate> search(SearchCondition searchCondition) {
+    public ServiceMultiResult<CommodityTemplate> search(SearchConditionPageVO searchConditionPageVO) {
         ServiceMultiResult<CommodityTemplate> serviceMultiResult =new ServiceMultiResult<>();
         BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
         //商品名称
-        if (searchCondition.getCommodityName()!=null&&!searchCondition.getCommodityName().isEmpty()){
-            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.COMMODITY_NAME,searchCondition.getCommodityName()));
+        if (searchConditionPageVO.getCommodityName()!=null&&!searchConditionPageVO.getCommodityName().isEmpty()){
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.COMMODITY_NAME, searchConditionPageVO.getCommodityName()));
         }
         //商品介绍
-        if (searchCondition.getCommodityIntroduce()!=null&&!searchCondition.getCommodityIntroduce().isEmpty()){
+        if (searchConditionPageVO.getCommodityIntroduce()!=null&&!searchConditionPageVO.getCommodityIntroduce().isEmpty()){
             boolQueryBuilder.filter(
-                    QueryBuilders.termQuery(CommodityKey.COMMODITY_INTRODUCE,searchCondition.getCommodityIntroduce())
+                    QueryBuilders.termQuery(CommodityKey.COMMODITY_INTRODUCE, searchConditionPageVO.getCommodityIntroduce())
             );
         }
 
         //待修改 商品区间  占时不做
         RangeQueryBuilder rangeQueryBuilder= QueryBuilders.rangeQuery(CommodityKey.COMMODITY_PRICE);
-        if ((searchCondition.getCommodityPriceGTE()!=null&&searchCondition.getCommodityPriceGTE()>0)||(searchCondition.getCommodityPriceLTE()!=null&&searchCondition.getCommodityPriceLTE()>0)){
-            if (searchCondition.getCommodityPriceGTE()!=null&&searchCondition.getCommodityPriceGTE()>0){
-                rangeQueryBuilder.gte(searchCondition.getCommodityPriceGTE());
+        if ((searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0)||(searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0)){
+            if (searchConditionPageVO.getCommodityPriceGTE()!=null&& searchConditionPageVO.getCommodityPriceGTE()>0){
+                rangeQueryBuilder.gte(searchConditionPageVO.getCommodityPriceGTE());
             }
-            if (searchCondition.getCommodityPriceLTE()!=null&&searchCondition.getCommodityPriceLTE()>0){
-                rangeQueryBuilder.lte(searchCondition.getCommodityPriceLTE());
+            if (searchConditionPageVO.getCommodityPriceLTE()!=null&& searchConditionPageVO.getCommodityPriceLTE()>0){
+                rangeQueryBuilder.lte(searchConditionPageVO.getCommodityPriceLTE());
             }
             boolQueryBuilder.filter(rangeQueryBuilder);
         }
-        //打折介绍
-        if (searchCondition.getDiscountIntroduce()!=null&&!searchCondition.getDiscountIntroduce().isEmpty()){
-            boolQueryBuilder.filter(
-                    QueryBuilders.termQuery(CommodityKey.DISCOUNT_INTRODUCE,searchCondition.getDiscountIntroduce())
-            );
-        }
-        //商品类型
-        if (searchCondition.getTypeName()!=null&&!searchCondition.getTypeName().isEmpty()){
-            boolQueryBuilder.filter(
-                    QueryBuilders.termQuery(CommodityKey.TYPE_NAME,searchCondition.getTypeName())
-            );
-        }
+
         /*
            不查询的type
            ,CommodityKey.TYPES_TYPE 商品类型
@@ -92,19 +99,17 @@ public class SearchServiceImp implements ISearchService {
            ,CommodityKey.TYPES_DISCOUNT 商品详细规格
            ,CommodityKey.TYPES_COMMODITYTYPERELATION 这里不查询商品关系表 在下面已经查询过了
          */
+
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setTypes(
                         CommodityKey.TYPES_COMMODITY
                 )
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setQuery(boolQueryBuilder)
-                .setFrom(0)
-                .setSize(100)
-                .setExplain(true)
                 .get();
         List<CommodityTemplate> lists=new ArrayList<>();
         for (SearchHit hit:response.getHits()){
-            System.out.println(hit.getSourceAsString());
+            System.out.println(hit.getSourceAsString());//打印查询的信息
             try {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
                 CommodityTemplate specificationsrelationTemplate=this.getCommodityPrice(template.getId());
@@ -115,7 +120,6 @@ public class SearchServiceImp implements ISearchService {
                     template.setCommodityprice(0.0);
                     template.setCommoditynumber(0L);
                 }
-                System.out.println(template.toString());
                 if (template!=null){
                     lists.add(template);
                 }
@@ -125,6 +129,11 @@ public class SearchServiceImp implements ISearchService {
             }
         }
         if (lists!=null&&lists.size()>0){
+            if (searchConditionPageVO.getOrderDesc()>0){
+                Collections.sort(lists,Collections.reverseOrder());
+            }else {
+                Collections.sort(lists);
+            }
             serviceMultiResult.setResult(lists);
             Long total= Long.valueOf(lists.size());
             serviceMultiResult.setTotal(total);
@@ -133,12 +142,11 @@ public class SearchServiceImp implements ISearchService {
     }
 
     /**
-     * 根据商品id获取价钱
+     * 根据商品id获取价钱最低的商品
      * @param id
      * @return
      */
     public CommodityTemplate getCommodityPrice(Long id){
-
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setTypes(CommodityKey.TYPES_SPECIFICATIONSRELATION)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
@@ -146,11 +154,9 @@ public class SearchServiceImp implements ISearchService {
                 .addAggregation(AggregationBuilders.min("min"+CommodityKey.COMMODITY_PRICE).field(CommodityKey.COMMODITY_PRICE))
                 .get();
         Min min=response.getAggregations().get("min"+CommodityKey.COMMODITY_PRICE);
-        System.out.println(min.getValue());
         for (SearchHit hit : response.getHits()) {
             try {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
-                System.out.println(template.toString());
                 Double price=template.getCommodityprice();
                 if (price==min.getValue()){
                     return template;

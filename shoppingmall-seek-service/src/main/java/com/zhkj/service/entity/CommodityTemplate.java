@@ -4,7 +4,7 @@ package com.zhkj.service.entity;
 /**
  * 返回给前台对象
  */
-public class CommodityTemplate {
+public class CommodityTemplate implements Comparable<CommodityTemplate> {
     /**
      * 商品
      */
@@ -92,5 +92,13 @@ public class CommodityTemplate {
                 ", commoditynumber=" + commoditynumber +
                 ", commodityprice=" + commodityprice +
                 '}';
+    }
+
+    @Override
+    public int compareTo(CommodityTemplate o) {
+        if (this.commodityprice>=o.getCommodityprice()){
+            return 1;
+        }
+        return -1;
     }
 }

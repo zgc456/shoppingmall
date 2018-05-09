@@ -3,7 +3,7 @@ package com.zhkj.service.entity;
 /**
  * 查询筛选的条件实体
  */
-public class SearchCondition {
+public class SearchConditionPageVO {
     /**
      * 商品id
      */
@@ -29,17 +29,13 @@ public class SearchCondition {
      */
     private String discountIntroduce;
     /**
-     * 商品类型
-     */
-    private String typeName;
-    /**
      * 排序
      */
-    private String orderDesc = "asc";
+    private Integer orderDesc = 0;
     /**
      * 根据商品价钱排序
      */
-    private String orderBy = "commodityPrice";
+    private String orderBy = "commodityprice";
 
     public String getCommodityName() {
         return commodityName;
@@ -81,19 +77,11 @@ public class SearchCondition {
         this.discountIntroduce = discountIntroduce;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
-
-    public String getOrderDesc() {
+    public Integer getOrderDesc() {
         return orderDesc;
     }
 
-    public void setOrderDesc(String orderDesc) {
+    public void setOrderDesc(Integer orderDesc) {
         this.orderDesc = orderDesc;
     }
 
@@ -115,13 +103,13 @@ public class SearchCondition {
 
     @Override
     public String toString() {
-        return "SearchCondition{" +
-                "commodityName='" + commodityName + '\'' +
+        return "SearchConditionPageVO{" +
+                "id='" + id + '\'' +
+                ", commodityName='" + commodityName + '\'' +
                 ", commodityIntroduce='" + commodityIntroduce + '\'' +
                 ", commodityPriceLTE=" + commodityPriceLTE +
                 ", commodityPriceGTE=" + commodityPriceGTE +
                 ", discountIntroduce='" + discountIntroduce + '\'' +
-                ", typeName='" + typeName + '\'' +
                 ", orderDesc='" + orderDesc + '\'' +
                 ", orderBy='" + orderBy + '\'' +
                 '}';
