@@ -50,7 +50,7 @@ public class Test_Config {
 //        shardingRuleConfig.getTableRuleConfigs().add(orderTableRuleConfig);
 //        // 获取数据源对象
 //        return ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig, new ConcurrentHashMap(), new Properties());
-      return  ShardingDataSourceFactory.createDataSource(new File(getClass().getResource("/sharding-jdbc/sharding-jdbc.yml").getFile()));
+      return  ShardingDataSourceFactory.createDataSource(new File("F:\\代码\\shopping_mall\\shoppingmall-order-service\\src\\main\\resources\\sharding-jdbc\\sharding-jdbc.yml"));
     }
 
     @Autowired
@@ -59,6 +59,7 @@ public class Test_Config {
     public SqlSessionFactoryBean sqlSessionFactoryBean() throws Exception{
         SqlSessionFactoryBean sqlSessionFactoryBean=new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
+
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources("mapper/*.xml"));
