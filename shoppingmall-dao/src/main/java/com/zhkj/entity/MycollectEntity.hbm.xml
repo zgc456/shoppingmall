@@ -7,6 +7,9 @@
     <class name="com.zhkj.entity.MycollectEntity" table="mycollect" schema="shoppingmall">
         <property name="id" column="id"/>
         <property name="userId" column="userId"/>
-        <property name="commdityId" column="commdityId"/>
+        <property name="commodityId" column="commodityId"/>
+        <property name="commodityIntroduce" column="commodityIntroduce"/>
+        <property name="commodityPrice" column="commodityPrice"/>
+        <property name="smallPictureUrl" column="smallPictureUrl"/>
     </class>
 </hibernate-mapping>
