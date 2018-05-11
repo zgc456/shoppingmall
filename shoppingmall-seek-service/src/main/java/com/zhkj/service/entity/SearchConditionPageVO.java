@@ -36,6 +36,30 @@ public class SearchConditionPageVO {
      * 根据商品价钱排序
      */
     private String orderBy = "commodityprice";
+    /**
+     * 启示条数
+     */
+    private int from=0;
+    /**
+     * 显示条数
+     */
+    private int size=0;
+
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public String getCommodityName() {
         return commodityName;

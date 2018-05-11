@@ -66,6 +66,13 @@ public class SearchServiceImp implements ISearchService {
 
     @Override
     public ServiceMultiResult<CommodityTemplate> search(SearchConditionPageVO searchConditionPageVO) {
+        int from=0;
+        int size=0;
+        if (searchConditionPageVO.getSize()>0&&searchConditionPageVO.getSize()>searchConditionPageVO.getFrom()){
+            from=searchConditionPageVO.getFrom();
+            size=searchConditionPageVO.getSize();
+        }
+
         ServiceMultiResult<CommodityTemplate> serviceMultiResult =new ServiceMultiResult<>();
         BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
         //商品名称
@@ -91,21 +98,14 @@ public class SearchServiceImp implements ISearchService {
 //            boolQueryBuilder.filter(rangeQueryBuilder);
 //        }
 
-        /*
-           不查询的type
-           ,CommodityKey.TYPES_TYPE 商品类型
-           ,CommodityKey.TYPES_SPECIFICATIONSTOPIC 商品规格表
-           ,CommodityKey.TYPES_SPECIFICATIONSDETAILED 商品详细规格
-           ,CommodityKey.TYPES_DISCOUNT 商品详细规格
-           ,CommodityKey.TYPES_COMMODITYTYPERELATION 这里不查询商品关系表 在下面已经查询过了
-         */
-
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setTypes(
                         CommodityKey.TYPES_COMMODITY
                 )
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setQuery(boolQueryBuilder)
+                .setFrom(from)
+                .setSize(size)
                 .get();
         List<CommodityTemplate> lists=new ArrayList<>();
         for (SearchHit hit:response.getHits()){
