@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class SpecificationsrelationDTO {
     private Integer id;
     private Integer commodityNumber;
-    private BigDecimal commodityPrice;
+    private Double commodityPrice;
     private Integer commodityId;
     private String smallPictureUrl;
     private Integer typeId;
@@ -28,11 +28,11 @@ public class SpecificationsrelationDTO {
         this.commodityNumber = commodityNumber;
     }
 
-    public BigDecimal getCommodityPrice() {
+    public Double getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(BigDecimal commodityPrice) {
+    public void setCommodityPrice(Double commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 

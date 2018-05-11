@@ -1,23 +1,16 @@
-package com.zhkj.dto.shoppingcart_dto;
+package com.zhkj.vo.shoppingCart_vo;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ShoppingCartDTO {
-    private int id;
+public class ShoppingCartVO {
     private Integer commodityNumber;
     private Double commodityPrice;
     private Integer commodityId;
     private String smallPictureUrl;
     private String commodityIntroduce;
     private Integer userId;
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private List list;
 
     public Integer getCommodityNumber() {
         return commodityNumber;
@@ -67,5 +60,11 @@ public class ShoppingCartDTO {
         this.userId = userId;
     }
 
+    public List getList() {
+        return list;
+    }
 
+    public void setList(List list) {
+        this.list = list;
+    }
 }
