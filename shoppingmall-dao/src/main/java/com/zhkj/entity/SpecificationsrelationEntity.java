@@ -6,7 +6,7 @@ import java.util.Objects;
 public class SpecificationsrelationEntity {
     private int id;
     private Integer commodityNumber;
-    private BigDecimal commodityPrice;
+    private Double commodityPrice;
     private Integer commodityId;
     private String smallPictureUrl;
     private Integer typeId;
@@ -29,11 +29,11 @@ public class SpecificationsrelationEntity {
         this.commodityNumber = commodityNumber;
     }
 
-    public BigDecimal getCommodityPrice() {
+    public Double getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(BigDecimal commodityPrice) {
+    public void setCommodityPrice(Double commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 

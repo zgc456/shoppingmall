@@ -11,7 +11,7 @@ public class OrderfromEntity {
     private Timestamp orderEndTime;
     private Integer userId;
     private Integer paymentTypeId;
-    private BigDecimal orderfromPrice;
+    private Double orderfromPrice;
     private Integer harvestAddressId;
     private String transactionNumber;
 
@@ -63,11 +63,11 @@ public class OrderfromEntity {
         this.paymentTypeId = paymentTypeId;
     }
 
-    public BigDecimal getOrderfromPrice() {
+    public Double getOrderfromPrice() {
         return orderfromPrice;
     }
 
-    public void setOrderfromPrice(BigDecimal orderfromPrice) {
+    public void setOrderfromPrice(Double orderfromPrice) {
         this.orderfromPrice = orderfromPrice;
     }
 

@@ -7,7 +7,7 @@ public class MycollectEntity {
     private Integer userId;
     private Integer commodityId;
     private String commodityIntroduce;
-    private BigDecimal commodityPrice;
+    private Double commodityPrice;
     private String smallPictureUrl;
 
     public int getId() {
@@ -42,11 +42,11 @@ public class MycollectEntity {
         this.commodityIntroduce = commodityIntroduce;
     }
 
-    public BigDecimal getCommodityPrice() {
+    public Double getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(BigDecimal commodityPrice) {
+    public void setCommodityPrice(Double commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 

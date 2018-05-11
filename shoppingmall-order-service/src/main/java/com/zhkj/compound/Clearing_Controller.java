@@ -31,6 +31,8 @@ public class Clearing_Controller {
     private HarvestAddressService harvestAddressService;
     @Autowired
     DiscountService discountService;
+    @Autowired
+    private ShoppingCartService shoppingCartService;
     //公有的返回值类
     ResultUtils resultUtils=new ResultUtils();
     private  static Logger logger=LoggerFactory.getLogger(Clearing_Controller.class);
@@ -41,10 +43,13 @@ public class Clearing_Controller {
      * @param
      * @return
      */
-    @RequestMapping("clearingController1/json/{json}/ciphertext/{ciphertext}/userid/{userid}")
-    public Clearing_Dto Clearing_Controller1(@PathVariable("json")String json,@PathVariable("ciphertext")String ciphertext,@PathVariable("userid")Integer userid) {
+    @RequestMapping("clearingController1/userid/{userid}")
+    public Clearing_Dto Clearing_Controller1(@PathVariable("userid")Integer userid) {
+
        //拿到json 转成对象
-        Clearing_Vo clearing_vo = JSON.parseObject(json,Clearing_Vo.class);
+        Clearing_Vo clearing_vo = new Clearing_Vo();
+        //设置购物车商品
+        clearing_vo.setList(shoppingCartService.gainUserInformation(String.valueOf(userid)));
         //创建地址对象
         Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo();
         //创建地址对象返回值
@@ -53,10 +58,9 @@ public class Clearing_Controller {
         harvestaddressEntity_dto.setUserId(userid);
         //获取地址信息
         harvestaddress_vo.setHarvestAddress(harvestaddressEntity_dto);
-        clearing_vo.setJson_Name(ciphertext);
         //将地址给clearing_vo
         clearing_vo.setAddress( harvestAddressService.gainMyInformation(harvestaddress_vo));
-        return data_service.transfer_Clearing(clearing_vo,clearing_vo.getJson_Name());
+        return data_service.transfer_Clearing(clearing_vo);
     }
    @RequestMapping("c")
    public String a(){

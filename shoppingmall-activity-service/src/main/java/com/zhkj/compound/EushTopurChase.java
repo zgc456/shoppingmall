@@ -5,6 +5,7 @@ import com.zhkj.result.ResultAll;
 import com.zhkj.result.ResultUtils;
 import com.zhkj.service.DealQueueThread;
 import com.zhkj.service.RedisCacheService;
+import com.zhkj.tools.RedisKeyList;
 import com.zhkj.vo.activity_vo.UserVo;
 import org.redisson.api.RDeque;
 import org.redisson.api.RedissonClient;
@@ -32,6 +33,8 @@ public class EushTopurChase {
     private RedissonClient redisson;
     @Autowired
     private RedisCacheService redisCacheService;
+    @Autowired
+    private RedisKeyList redisKeyList;
     ResultUtils resultUtils=new ResultUtils();
     //设置队列为空
     private static RDeque<UserVo> buyqueue = null;//线程安全的请求队列
@@ -45,6 +48,8 @@ public class EushTopurChase {
     public ResultAll addOrders(@PathVariable("json") String json) {
 
         UserVo userVo = JSON.parseObject(json, UserVo.class);
+        //将所有redis中的key存入redis
+        redisKeyList.RedisKeyLists();
         Date date=new Date();
         int hours=date.getHours();
         if (userVo.getStartTime()!=hours){
@@ -104,4 +109,18 @@ public class EushTopurChase {
         }
            return resultUtils.resultAll(1,"",results);
     }
+    /**
+     * 给前台返回
+     */
+    public String getRedisKeyToString(){
+        String a=null;
+        redisKeyList.RedisKeyLists();
+        for (String list:RedisKeyList.redisKeyList
+             ) {
+             a=stringRedisTemplate.opsForValue().get(list)+",";
+        }
+         return a;
+
+    }
+
 }

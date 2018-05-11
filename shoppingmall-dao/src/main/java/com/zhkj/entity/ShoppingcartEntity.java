@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class ShoppingcartEntity {
     private int id;
     private Integer commodityNumber;
-    private BigDecimal commodityPrice;
+    private Double commodityPrice;
     private Integer commodityId;
     private String smallPictureUrl;
     private String commodityIntroduce;
@@ -27,11 +27,11 @@ public class ShoppingcartEntity {
         this.commodityNumber = commodityNumber;
     }
 
-    public BigDecimal getCommodityPrice() {
+    public Double getCommodityPrice() {
         return commodityPrice;
     }
 
-    public void setCommodityPrice(BigDecimal commodityPrice) {
+    public void setCommodityPrice(Double commodityPrice) {
         this.commodityPrice = commodityPrice;
     }
 

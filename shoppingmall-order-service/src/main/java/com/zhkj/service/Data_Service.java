@@ -26,25 +26,13 @@ public class Data_Service implements Data_Api {
      * @return 返回给前端页面
      */
     @Override
-    public Clearing_Dto transfer_Clearing(Clearing_Vo clearing_vo,String json) {
-        String private_Key = clearing_vo.getPrivate_Key();
-        String enctypt = clearing_vo.getEncrypt();
-        Boolean boolean_Enctypt = encrypt_service.cipher_Text_Alignment(json, private_Key, enctypt);
-        if (boolean_Enctypt) {
+    public Clearing_Dto transfer_Clearing(Clearing_Vo clearing_vo) {
             Clearing_Dto clearing_dto = new Clearing_Dto();
             clearing_dto.setList(clearing_vo.getList());
             clearing_dto.setPrice(clearing_vo.getPrice());
             clearing_dto.setStatus(1);
-            //折扣信息缺少
-            clearing_dto.setEncrypt(clearing_vo.getEncrypt());
-            clearing_dto.setJson_Name(clearing_vo.getJson_Name());
-            clearing_dto.setPrivate_Key(clearing_vo.getPrivate_Key());
             clearing_dto.setAddress(clearing_vo.getAddress());
             return clearing_dto;
-        } else {
-            logger.info("密文匹配不正确");
-            return null;
-        }
     }
 
     /**

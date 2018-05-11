@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class DiscountEntity {
     private int id;
-    private BigDecimal discountPrice;
+    private Double discountPrice;
     private String discountIntroduce;
     private Integer discountTypeId;
 
@@ -17,11 +17,11 @@ public class DiscountEntity {
         this.id = id;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 

@@ -14,7 +14,7 @@ public class OrderFrom_Dto {
     private Integer userId;
     private Integer paymentTypeId;
     private Integer harvestAddressId;
-    private BigDecimal orderfromPrice;
+    private Double orderfromPrice;
     private String transactionNumber;
 
     public int getId() {
@@ -73,11 +73,11 @@ public class OrderFrom_Dto {
         this.harvestAddressId = harvestAddressId;
     }
 
-    public BigDecimal getOrderfromPrice() {
+    public Double getOrderfromPrice() {
         return orderfromPrice;
     }
 
-    public void setOrderfromPrice(BigDecimal orderfromPrice) {
+    public void setOrderfromPrice(Double orderfromPrice) {
         this.orderfromPrice = orderfromPrice;
     }
 
