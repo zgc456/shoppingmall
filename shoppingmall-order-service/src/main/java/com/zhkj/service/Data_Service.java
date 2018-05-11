@@ -39,6 +39,7 @@ public class Data_Service implements Data_Api {
             clearing_dto.setEncrypt(clearing_vo.getEncrypt());
             clearing_dto.setJson_Name(clearing_vo.getJson_Name());
             clearing_dto.setPrivate_Key(clearing_vo.getPrivate_Key());
+            clearing_dto.setAddress(clearing_vo.getAddress());
             return clearing_dto;
         } else {
             logger.info("密文匹配不正确");

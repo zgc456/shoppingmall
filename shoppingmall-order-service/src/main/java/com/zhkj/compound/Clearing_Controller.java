@@ -21,6 +21,7 @@ import java.util.List;
  * 给用户提供
  */
 @RestController
+@CrossOrigin
 public class Clearing_Controller {
     @Autowired
     private Data_Service data_service;
@@ -42,17 +43,25 @@ public class Clearing_Controller {
      */
     @RequestMapping("clearingController1/json/{json}/ciphertext/{ciphertext}/userid/{userid}")
     public Clearing_Dto Clearing_Controller1(@PathVariable("json")String json,@PathVariable("ciphertext")String ciphertext,@PathVariable("userid")Integer userid) {
+       //拿到json 转成对象
         Clearing_Vo clearing_vo = JSON.parseObject(json,Clearing_Vo.class);
+        //创建地址对象
         Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo();
+        //创建地址对象返回值
         HarvestaddressEntity_Dto harvestaddressEntity_dto= new HarvestaddressEntity_Dto();
+        //传入用户id
         harvestaddressEntity_dto.setUserId(userid);
+        //获取地址信息
         harvestaddress_vo.setHarvestAddress(harvestaddressEntity_dto);
         clearing_vo.setJson_Name(ciphertext);
         //将地址给clearing_vo
         clearing_vo.setAddress( harvestAddressService.gainMyInformation(harvestaddress_vo));
         return data_service.transfer_Clearing(clearing_vo,clearing_vo.getJson_Name());
     }
-
+   @RequestMapping("c")
+   public String a(){
+         return "成功";
+   }
 //    /**
 //     * 测试加密
 //     * @param a
@@ -95,8 +104,9 @@ public class Clearing_Controller {
         ResultUtils resultUtils=new ResultUtils();
         try {
             Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
-            harvestAddressService.addHarvestAddress(harvestaddress_vo);
-            return resultUtils.resultAll(1,"添加成功",null);
+             harvestAddressService.addHarvestAddress(harvestaddress_vo);
+            List<HarvestaddressEntity_Dto> lists=  harvestAddressService.gainMyInformation(harvestaddress_vo);
+            return resultUtils.resultAll(1,"添加成功",lists);
         }catch (Exception e){
             logger.error("添加失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加失败",null);
@@ -115,7 +125,8 @@ public class Clearing_Controller {
         try {
             Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
             harvestAddressService.updateHarvestAddress(harvestaddress_vo);
-            return resultUtils.resultAll(1,"修改成功",null);
+            List<HarvestaddressEntity_Dto> lists=  harvestAddressService.gainMyInformation(harvestaddress_vo);
+            return resultUtils.resultAll(1,"修改成功",lists);
         }catch (Exception e){
             logger.error("修改失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加失败",null);
@@ -152,7 +163,8 @@ public class Clearing_Controller {
         try {
             Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
             harvestAddressService.removeHarvestAddress(harvestaddress_vo);
-            return resultUtils.resultAll(1,"删除成功", null);
+            List<HarvestaddressEntity_Dto>  listHarvestaddressEntity_Dto=   harvestAddressService.gainMyInformation(harvestaddress_vo);
+            return resultUtils.resultAll(1,"删除成功", listHarvestaddressEntity_Dto);
         }catch (Exception e){
             logger.error("修改失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"删除失败",null);
@@ -193,7 +205,7 @@ public class Clearing_Controller {
     /**
      * 添加订单 并且添加失效为两小时
      * @param json
-     * {"commodityId": [{"feight": "0","commodityPrice": "15","commodityNumber": "2","commodityId": "1"},{"feight": "5","commodityPrice": "80","commodityNumber": "2","commodityId": "2"}],"userId": "1","orderFromPrice": "200","harvestAddressId": "1"}
+     *
      * @return 是否成功
      */
     @RequestMapping(value = "additionOrderFrom/json/{json}",method = RequestMethod.GET)
