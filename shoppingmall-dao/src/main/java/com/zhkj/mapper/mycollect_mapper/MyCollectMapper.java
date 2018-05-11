@@ -1,5 +1,6 @@
 package com.zhkj.mapper.mycollect_mapper;
 
+import com.zhkj.entity.MycollectEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

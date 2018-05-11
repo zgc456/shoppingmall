@@ -34,12 +34,7 @@ public interface CommodityMapper {
      */
     List<CommodityEntity> selectCommodity();
 
-    /**
-     * 查询出所有购物车和收藏商品的id信息
-     * @param map
-     * @return
-     */
-    List<CommodityEntity> queryByCommodityId(Map<String, Object> map);
+
 }
 
 
