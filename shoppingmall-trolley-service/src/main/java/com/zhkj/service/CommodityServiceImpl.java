@@ -38,4 +38,6 @@ public class CommodityServiceImpl implements CommodityService {
         List<CommodityDTO> list=new ArrayList<>();
         return Conver_Type.convertToList(list,commodityMapper.selectCommodity(),"com.zhkj.dto.commodity_dto.CommodityDTO") ;
     }
+
+
 }
