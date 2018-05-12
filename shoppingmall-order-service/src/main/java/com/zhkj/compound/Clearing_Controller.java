@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.zhkj.dto.order_dto.Clearing_Dto;
 import com.zhkj.dto.order_dto.HarvestaddressEntity_Dto;
 import com.zhkj.dto.order_dto.OrderFrom_Dto;
-import com.zhkj.dto.order_dto.Order_Dto;
 import com.zhkj.result.ResultAll;
 import com.zhkj.result.ResultUtils;
 import com.zhkj.service.*;
@@ -32,7 +31,7 @@ public class Clearing_Controller {
     @Autowired
     DiscountService discountService;
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private ShoppingCartServices shoppingCartService;
     //公有的返回值类
     ResultUtils resultUtils=new ResultUtils();
     private  static Logger logger=LoggerFactory.getLogger(Clearing_Controller.class);
