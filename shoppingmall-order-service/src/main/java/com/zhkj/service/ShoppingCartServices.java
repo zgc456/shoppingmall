@@ -29,7 +29,7 @@ public class ShoppingCartServices {
             //HarvestaddressEntity harvestaddressEntity = harvestAddressMapper.selectByUserAndHarvestAddressId(orderFrom_dto.getUserId(),orderFrom_dto.getHarvestAddressId());
             entityList.forEach(
                     shoppingCart->{
-                        CommodityEntity commodityEntity = orderFromMapper.selectByCommodityId(shoppingCart.getCommdityId());
+                        CommodityEntity commodityEntity = orderFromMapper.selectByCommodityId(shoppingCart.getCommodityId());
                         commodityEntities.add(commodityEntity);
                     }
             );
