@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -41,13 +38,14 @@ public class EushTopurChase {
     Logger logger=LoggerFactory.getLogger(EushTopurChase.class);
     /**
      * {"name": "张三","hoppingName": "1","startTime": "13"}
-     * @param json
+     * @param
      * @return
      */
-    @RequestMapping("/addOrders.do/json/{json}")
-    public ResultAll addOrders(@PathVariable("json") String json) {
+    //@RequestMapping("/addOrders.do/json/{json}")
+    @RequestMapping("/addOrders.do")
+    public ResultAll addOrders(@RequestBody UserVo userVo) {
 
-        UserVo userVo = JSON.parseObject(json, UserVo.class);
+       // UserVo userVo = JSON.parseObject(json, UserVo.class);
         //将所有redis中的key存入redis
         redisKeyList.RedisKeyLists();
         Date date=new Date();
@@ -112,6 +110,7 @@ public class EushTopurChase {
     /**
      * 给前台返回
      */
+    @RequestMapping("/selectMessage")
     public String getRedisKeyToString(){
         String a=null;
         redisKeyList.RedisKeyLists();

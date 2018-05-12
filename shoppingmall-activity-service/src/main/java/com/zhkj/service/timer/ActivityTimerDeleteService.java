@@ -3,6 +3,7 @@ package com.zhkj.service.timer;
 import com.alibaba.fastjson.JSON;
 import com.zhkj.entity.PromotionitemEntity;
 import com.zhkj.mapper.activity_mapper.PromotionitemMapper;
+import com.zhkj.tools.RedisKeyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ActivityTimerDeleteService {
      */
     public void getRedisSource(StringRedisTemplate stringRedisTemplate){
         List<PromotionitemEntity> redisHashMap = new ArrayList<>();
-        Set<String> strings = stringRedisTemplate.keys("*");
+        List<String> strings = RedisKeyList.redisKeyList;
         if(null != strings && strings.size() > 0){
             List<String> keys = new ArrayList<>();
             strings.forEach(set->{ keys.add(set); });
@@ -50,7 +51,8 @@ public class ActivityTimerDeleteService {
                 logger.info("读取 Redis 数据失败,作用于凌晨修改数据库信息");
             }
         }else {
-            logger.info("读取 Redis 数据失败");
+            //kafka
+            logger.info("当日，没有促销商品");
         }
     }
 
