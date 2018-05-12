@@ -28,7 +28,7 @@ public class Data_Service implements Data_Api {
     @Override
     public Clearing_Dto transfer_Clearing(Clearing_Vo clearing_vo) {
             Clearing_Dto clearing_dto = new Clearing_Dto();
-            clearing_dto.setList(clearing_vo.getList());
+            clearing_dto.setLists(clearing_vo.getLists());
             clearing_dto.setPrice(clearing_vo.getPrice());
             clearing_dto.setStatus(1);
             clearing_dto.setAddress(clearing_vo.getAddress());

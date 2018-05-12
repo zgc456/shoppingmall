@@ -41,4 +41,9 @@
         SET harvestIsDefault = 0
         WHERE userId = #{userId} AND harvestIsDefault = 1
     </update>
+
+    <select id="selectByUserAndHarvestAddressId" resultType="com.zhkj.entity.HarvestaddressEntity">
+        SELECT * FROM harvestaddress
+        WHERE id = #{userId} AND userId = #{HarvestAddressId}
+    </select>
 </mapper>

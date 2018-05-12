@@ -38,26 +38,28 @@ public class Clearing_Controller {
     private  static Logger logger=LoggerFactory.getLogger(Clearing_Controller.class);
     /**
      * 访问示例
-     * localhost:8805/clearingController1/json/{"price": 3000,"list": {"name11111": "11111111111123","password": "4564"},"private_Key": 123456,"encrypt":"5D946D76A99E7D09E90C3D48FE05C132CD26662D514400057769412E8C8BE194EAB590BAC91C6C74C1977294BEF26EC12F073A873E54499B78F448B8C7AC2C4B"}/ciphertext/{"name11111": "11111111111123","password": "4564"}/userid/1
+     *localhost:8805/clearingController1/json/{"userId":1,"OrderfromPrice":3000}
      * 测试
      * @param
      * @return
      */
-    @RequestMapping("clearingController1/userid/{userid}")
-    public Clearing_Dto Clearing_Controller1(@PathVariable("userid")Integer userid) {
+    @RequestMapping("clearingController1/json/{json}")
+    public Clearing_Dto Clearing_Controller1(@PathVariable("json")String json) {
 
        //拿到json 转成对象
         Clearing_Vo clearing_vo = new Clearing_Vo();
+        OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
         //设置购物车商品
-        clearing_vo.setList(shoppingCartService.gainUserInformation(String.valueOf(userid)));
+        clearing_vo.setLists(shoppingCartService.gainUserInformation(orderFrom_dto));
         //创建地址对象
         Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo();
         //创建地址对象返回值
         HarvestaddressEntity_Dto harvestaddressEntity_dto= new HarvestaddressEntity_Dto();
         //传入用户id
-        harvestaddressEntity_dto.setUserId(userid);
+        harvestaddressEntity_dto.setUserId(orderFrom_dto.getUserId());
         //获取地址信息
         harvestaddress_vo.setHarvestAddress(harvestaddressEntity_dto);
+        clearing_vo.setPrice(orderFrom_dto.getOrderfromPrice());
         //将地址给clearing_vo
         clearing_vo.setAddress( harvestAddressService.gainMyInformation(harvestaddress_vo));
         return data_service.transfer_Clearing(clearing_vo);
@@ -97,7 +99,6 @@ public class Clearing_Controller {
 //        Order_Vo order_vo = JSON.parseObject(json,Order_Vo.class);
 //        return data_service.transfer_Order(order_vo,ciphertext);
 //    }
-
     /**
      * 添加地址
      * @param json
@@ -115,9 +116,7 @@ public class Clearing_Controller {
             logger.error("添加失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加失败",null);
         }
-
     }
-
     /**
      *{"harvestAddress": {"id": "1","harvestAddressName": "111","harvestIsDefault": "0","typeId": "1","userId": "1"}}
      * 修改地址
@@ -135,9 +134,7 @@ public class Clearing_Controller {
             logger.error("修改失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加失败",null);
         }
-
     }
-
     /**
      * 查询地址
      * @param json
@@ -153,9 +150,7 @@ public class Clearing_Controller {
             logger.error("修改失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"查询失败",null);
         }
-
     }
-
     /**
      * 删除地址
      * localhost:8805/removeAddress/json/{"harvestAddress":{“id”:"1","harvestAddressName":"1","harvestIsDefault":"0","typeId":"1","userId":"1"}}
@@ -174,7 +169,6 @@ public class Clearing_Controller {
             return resultUtils.resultAll(-1,"删除失败",null);
         }
     }
-
     /**
      * 验证金钱
      * @param json
@@ -203,9 +197,7 @@ public class Clearing_Controller {
             logger.error("修改失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"查询失败",null);
         }
-
     }
-
     /**
      * 添加订单 并且添加失效为两小时
      * @param json
@@ -226,7 +218,5 @@ public class Clearing_Controller {
             logger.error("添加订单失败 参数信息"+json+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加订单失败",null);
         }
-
-
     }
 }

@@ -15,7 +15,7 @@ public class OrderFrom_Vo {
     /**
      * 订单总价
      */
-    private BigDecimal orderFromPrice;
+    private double orderFromPrice;
     /**
      * 所属地址
      */
@@ -37,11 +37,11 @@ public class OrderFrom_Vo {
         this.userId = userId;
     }
 
-    public BigDecimal getOrderFromPrice() {
+    public double getOrderFromPrice() {
         return orderFromPrice;
     }
 
-    public void setOrderFromPrice(BigDecimal orderFromPrice) {
+    public void setOrderFromPrice(double orderFromPrice) {
         this.orderFromPrice = orderFromPrice;
     }
 

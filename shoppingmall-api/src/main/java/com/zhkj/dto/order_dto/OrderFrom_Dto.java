@@ -11,10 +11,10 @@ public class OrderFrom_Dto {
     private String orderNumber;
     private Timestamp orderCreationTime;
     private Timestamp orderEndTime;
-    private Integer userId;
+    private Integer userId; //用户名id
     private Integer paymentTypeId;
-    private Integer harvestAddressId;
-    private Double orderfromPrice;
+    private Integer harvestAddressId;//地址id
+    private double orderfromPrice;
     private String transactionNumber;
 
     public int getId() {

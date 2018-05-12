@@ -19,4 +19,8 @@
         SET paymentTypeId = 1
         WHERE orderNumber = #{orderFromNumber}
     </update>
+    <select id="selectByCommodityId" resultType="com.zhkj.entity.CommodityEntity">
+        SELECT * FROM commodity
+        WHERE id = #{commodityId}
+    </select>
 </mapper>

@@ -14,6 +14,16 @@ public class Clearing_Dto<T> {
     private int status;
     //商品呢数据集合
     private List<T> list;
+    private T lists;
+
+    public T getLists() {
+        return lists;
+    }
+
+    public void setLists(T lists) {
+        this.lists = lists;
+    }
+
     private List<HarvestaddressEntity_Dto> address;
 
     public List<HarvestaddressEntity_Dto> getAddress() {

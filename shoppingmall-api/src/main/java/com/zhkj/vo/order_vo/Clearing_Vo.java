@@ -14,6 +14,15 @@ public class Clearing_Vo<T> {
     //商品呢数据集合
     private List<T> list;
     private List<T> address;
+    private T lists;
+
+    public T getLists() {
+        return lists;
+    }
+
+    public void setLists(T lists) {
+        this.lists = lists;
+    }
 
     public List<T> getAddress() {
         return address;
