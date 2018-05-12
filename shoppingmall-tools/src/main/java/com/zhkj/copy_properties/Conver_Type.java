@@ -2,7 +2,6 @@ package com.zhkj.copy_properties;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.sun.istack.internal.Nullable;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
@@ -35,9 +34,8 @@ public class Conver_Type {
      */
     public static <T,R> List<T> convertToList(List<T> entity1, List<R> entity2,String name){
         entity1 = Lists.transform(entity2, new Function<R, T>() {
-            @Nullable
             @Override
-            public T apply(@Nullable R input) {
+            public T apply(R input) {
                 T t = null;
                 try {
                     t = (T) Class.forName(name).newInstance();
