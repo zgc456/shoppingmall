@@ -46,6 +46,7 @@ public class HarvestAddressService implements HarvestAddressService_Api {
             HarvestaddressEntity harvestaddressEntity = new HarvestaddressEntity();
             harvestaddressEntity = Conver_Type.convert(harvestaddressEntity, harvesaddress_vo.getHarvestAddress());
             harvestAddressMapper.addHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId(), harvestaddressEntity);
+
             result = true;
         }
         return result;

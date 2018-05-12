@@ -8,7 +8,7 @@ public class PromotionitemEntity {
     private int id;
     private Timestamp startTime;
     private Timestamp endTime;
-    private BigDecimal discountPrice;
+    private Double discountPrice;
     private Integer commodityNumber;
     private Integer commodityId;
 
@@ -36,11 +36,11 @@ public class PromotionitemEntity {
         this.endTime = endTime;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 

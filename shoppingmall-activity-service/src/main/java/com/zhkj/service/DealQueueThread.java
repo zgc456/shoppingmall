@@ -1,9 +1,11 @@
 package com.zhkj.service;
 
 import com.zhkj.vo.activity_vo.UserVo;
+import org.apache.naming.factory.ResourceFactory;
 import org.redisson.api.RDeque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,6 @@ public class DealQueueThread {
     }
 
     public void run() {
-
         try {
             excute = true;//修改线程的默认执行标志为执行状态
             //开始处理请求队列中的请求,按照队列的FIFO的规则,先处理先放入到队列中的请求
@@ -80,6 +81,7 @@ public class DealQueueThread {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     /**

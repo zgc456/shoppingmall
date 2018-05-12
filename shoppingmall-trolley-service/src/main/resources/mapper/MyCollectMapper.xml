@@ -5,20 +5,22 @@
 <mapper namespace="com.zhkj.mapper.mycollect_mapper.MyCollectMapper">
     <resultMap id="resultMap" type="com.zhkj.entity.MycollectEntity">
         <id property="id" column="id"/>
-        <result property="commdityId" column="commdityId"/>
+        <result property="commodityId" column="commodityId"/>
         <result property="userId" column="userId"/>
+        <result property="commodityIntroduce" column="commodityIntroduce"/>
+        <result property="commodityPrice" column="commodityPrice"/>
+        <result property="smallPictureUrl" column="smallPictureUrl"/>
     </resultMap>
     <select id="queryByUserIdCollectAll" resultType="map" resultMap="resultMap">
         select * from mycollect WHERE userId=#{userId}
     </select>
-    <insert id="save" parameterType="com.zhkj.entity.MycollectEntity">
-        INSERT INTO myCollect (userId, commdityId) VALUES (#{userId},#{commdityId})
+    <insert id="save" parameterType="map">
+        INSERT INTO mycollect (userId, commodityId, commodityIntroduce, commodityPrice, smallPictureUrl)  VALUES (#{userId},#{commodityId},#{commodityIntroduce},#{commodityPrice},#{smallPictureUrl})
     </insert>
     <delete id="deleteCollectById" parameterType="map">
-        DELETE from shoppingcart where id in
+        DELETE from myCollect where id in
         <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
             #{id}
         </foreach>
-        AND userId=#{userId}
     </delete>
 </mapper>

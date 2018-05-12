@@ -1,15 +1,20 @@
 package com.zhkj.dto.mycollect_dto;
 
-public class MyCollectDTO {
-    private Integer id;
-    private Integer userId;
-    private Integer commdityId;
+import java.math.BigDecimal;
 
-    public Integer getId() {
+public class MyCollectDTO {
+    private int id;
+    private Integer userId;
+    private Integer commodityId;
+    private String commodityIntroduce;
+    private Double commodityPrice;
+    private String smallPictureUrl;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -21,11 +26,35 @@ public class MyCollectDTO {
         this.userId = userId;
     }
 
-    public Integer getCommdityId() {
-        return commdityId;
+    public Integer getCommodityId() {
+        return commodityId;
     }
 
-    public void setCommdityId(Integer commdityId) {
-        this.commdityId = commdityId;
+    public void setCommodityId(Integer commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public String getCommodityIntroduce() {
+        return commodityIntroduce;
+    }
+
+    public void setCommodityIntroduce(String commodityIntroduce) {
+        this.commodityIntroduce = commodityIntroduce;
+    }
+
+    public Double getCommodityPrice() {
+        return commodityPrice;
+    }
+
+    public void setCommodityPrice(Double commodityPrice) {
+        this.commodityPrice = commodityPrice;
+    }
+
+    public String getSmallPictureUrl() {
+        return smallPictureUrl;
+    }
+
+    public void setSmallPictureUrl(String smallPictureUrl) {
+        this.smallPictureUrl = smallPictureUrl;
     }
 }

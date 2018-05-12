@@ -15,7 +15,7 @@ public interface Data_Api {
      * @param clearing_vo 返回对象
      * @return
      */
-  public Clearing_Dto transfer_Clearing(Clearing_Vo clearing_vo,String json);
+  public Clearing_Dto transfer_Clearing(Clearing_Vo clearing_vo);
   public Order_Dto transfer_Order(Order_Vo order_vo,String json);
 
 }

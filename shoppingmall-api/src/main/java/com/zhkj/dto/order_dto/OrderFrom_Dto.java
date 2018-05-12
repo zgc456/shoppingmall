@@ -11,10 +11,10 @@ public class OrderFrom_Dto {
     private String orderNumber;
     private Timestamp orderCreationTime;
     private Timestamp orderEndTime;
-    private Integer userId;
+    private Integer userId; //用户名id
     private Integer paymentTypeId;
-    private Integer harvestAddressId;
-    private BigDecimal orderfromPrice;
+    private Integer harvestAddressId;//地址id
+    private double orderfromPrice;
     private String transactionNumber;
 
     public int getId() {
@@ -73,11 +73,11 @@ public class OrderFrom_Dto {
         this.harvestAddressId = harvestAddressId;
     }
 
-    public BigDecimal getOrderfromPrice() {
+    public Double getOrderfromPrice() {
         return orderfromPrice;
     }
 
-    public void setOrderfromPrice(BigDecimal orderfromPrice) {
+    public void setOrderfromPrice(Double orderfromPrice) {
         this.orderfromPrice = orderfromPrice;
     }
 

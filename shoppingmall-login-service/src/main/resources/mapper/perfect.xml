@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.login_mapper.PerfectInfoMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.UserEntity">
+        <id property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="userAboutAddress" column="userAboutAddress"/>
+        <result property="userAddress" column="userAddress"/>
+        <result property="userPhoneNumber" column="userPhoneNumber"/>
+    </resultMap>
+    <insert id="insertPerfect">
+      INSERT INTO authorization(userName,userAboutAddress,userAddress,userPhoneNumber)
+      value (#{userName},#{userAboutAddress},#{userAddress},#{userPhoneNumber})
+    </insert>
+    <select id="selectPerfect" resultMap="resultMap">
+        select * from authorization
+        <where>
+            userPhoneNumber=#{userPhoneNumber}
+        </where>
+    </select>
+</mapper>

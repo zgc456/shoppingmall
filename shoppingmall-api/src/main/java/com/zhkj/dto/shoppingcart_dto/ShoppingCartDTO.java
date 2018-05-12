@@ -1,13 +1,16 @@
 package com.zhkj.dto.shoppingcart_dto;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public class ShoppingCartDTO {
     private int id;
-    private Integer commdityNumber;
-    private Integer commdityPrice;
-    private Integer commdityId;
+    private Integer commodityNumber;
+    private Double commodityPrice;
+    private Integer commodityId;
+    private String smallPictureUrl;
+    private String commodityIntroduce;
     private Integer userId;
-
-
     public int getId() {
         return id;
     }
@@ -16,28 +19,44 @@ public class ShoppingCartDTO {
         this.id = id;
     }
 
-    public Integer getCommdityNumber() {
-        return commdityNumber;
+    public Integer getCommodityNumber() {
+        return commodityNumber;
     }
 
-    public void setCommdityNumber(Integer commdityNumber) {
-        this.commdityNumber = commdityNumber;
+    public void setCommodityNumber(Integer commodityNumber) {
+        this.commodityNumber = commodityNumber;
     }
 
-    public Integer getCommdityPrice() {
-        return commdityPrice;
+    public Double getCommodityPrice() {
+        return commodityPrice;
     }
 
-    public void setCommdityPrice(Integer commdityPrice) {
-        this.commdityPrice = commdityPrice;
+    public void setCommodityPrice(Double commodityPrice) {
+        this.commodityPrice = commodityPrice;
     }
 
-    public Integer getCommdityId() {
-        return commdityId;
+    public Integer getCommodityId() {
+        return commodityId;
     }
 
-    public void setCommdityId(Integer commdityId) {
-        this.commdityId = commdityId;
+    public void setCommodityId(Integer commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public String getSmallPictureUrl() {
+        return smallPictureUrl;
+    }
+
+    public void setSmallPictureUrl(String smallPictureUrl) {
+        this.smallPictureUrl = smallPictureUrl;
+    }
+
+    public String getCommodityIntroduce() {
+        return commodityIntroduce;
+    }
+
+    public void setCommodityIntroduce(String commodityIntroduce) {
+        this.commodityIntroduce = commodityIntroduce;
     }
 
     public Integer getUserId() {
@@ -47,5 +66,6 @@ public class ShoppingCartDTO {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
 
 }

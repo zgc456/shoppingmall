@@ -60,4 +60,11 @@ public interface HarvestAddressMapper {
      * @return 收货地址
      */
     List<HarvestaddressEntity>  gainMyInformation(@Param("userId") Integer userId);
+    /**
+     * 根据用户id和地址id获取地址
+     * @param userId 用户id
+     * @param HarvestAddressId 地址id
+     * @return 地址信息
+     */
+    HarvestaddressEntity selectByUserAndHarvestAddressId(@Param("userId") Integer userId,@Param("HarvestAddressId") Integer HarvestAddressId);
 }

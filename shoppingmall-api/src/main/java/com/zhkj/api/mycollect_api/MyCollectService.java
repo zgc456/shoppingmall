@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 public interface MyCollectService {
-    @GetMapping("/queryByUserId")
+    @GetMapping(" /queryByUserIdCollectAll")
     List<MyCollectDTO> queryByUserIdCollectAll(MyCollectVO myCollectVO);
     @GetMapping("/addMyCollect")
-    int save(MyCollectDTO myCollectDTO);
+    int save(MyCollectVO myCollectVO);
     @GetMapping("/deleteMyCollect")
     int deleteCollectById(MyCollectVO myCollectVO);
 }

@@ -1,5 +1,6 @@
 package com.zhkj.mapper.order_mapper;
 
+import com.zhkj.entity.CommodityEntity;
 import com.zhkj.entity.OrderfromEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -33,4 +34,11 @@ public interface OrderFromMapper {
      * @return
      */
     List<OrderfromEntity> selectByNowTime(@Param("nowTime")String nowTime);
+    /**
+     * 根据商品id查询商品
+     * @param commodityId 商品id
+     * @return 商品信息
+     */
+    CommodityEntity selectByCommodityId(@Param("commodityId")Integer commodityId);
+
 }
