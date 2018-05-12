@@ -44,7 +44,7 @@ public class Clearing_Controller {
      */
    // @RequestMapping("clearingController1/json/{json}")
     @RequestMapping("clearingController1")
-    public Clearing_Dto Clearing_Controller1(@RequestBody  OrderFrom_Dto orderFrom_dto) {
+    public Clearing_Dto Clearing_Controller1(@ModelAttribute OrderFrom_Dto orderFrom_dto) {
        //拿到json 转成对象
         Clearing_Vo clearing_vo = new Clearing_Vo();
    //     OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
