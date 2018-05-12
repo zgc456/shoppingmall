@@ -34,6 +34,7 @@ public class ShoppingCartController {
         List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCart(shoppingCartVO.getUserId());
         for (ShoppingCartDTO shop:list) {
             if(shoppingCartVO.getCommodityId()==shop.getCommodityId()&&shoppingCartVO.getUserId()==shop.getUserId()){
+                shoppingCartVO.setCommodityNumber(shoppingCartVO.getCommodityNumber()+shop.getCommodityNumber());
                 if(updateShoppingCart(shoppingCartVO)>0){
                     queryShoppingCart(shoppingCartVO.getUserId());
                     return;
