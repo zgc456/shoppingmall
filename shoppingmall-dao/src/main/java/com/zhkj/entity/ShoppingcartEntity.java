@@ -5,9 +5,11 @@ import java.util.Objects;
 
 public class ShoppingcartEntity {
     private int id;
-    private Integer commdityNumber;
-    private double commdityPrice;
-    private Integer commdityId;
+    private Integer commodityNumber;
+    private Double commodityPrice;
+    private Integer commodityId;
+    private String smallPictureUrl;
+    private String commodityIntroduce;
     private Integer userId;
 
     public int getId() {
@@ -18,28 +20,44 @@ public class ShoppingcartEntity {
         this.id = id;
     }
 
-    public Integer getCommdityNumber() {
-        return commdityNumber;
+    public Integer getCommodityNumber() {
+        return commodityNumber;
     }
 
-    public void setCommdityNumber(Integer commdityNumber) {
-        this.commdityNumber = commdityNumber;
+    public void setCommodityNumber(Integer commodityNumber) {
+        this.commodityNumber = commodityNumber;
     }
 
-    public double getCommdityPrice() {
-        return commdityPrice;
+    public Double getCommodityPrice() {
+        return commodityPrice;
     }
 
-    public void setCommdityPrice(double commdityPrice) {
-        this.commdityPrice = commdityPrice;
+    public void setCommodityPrice(Double commodityPrice) {
+        this.commodityPrice = commodityPrice;
     }
 
-    public Integer getCommdityId() {
-        return commdityId;
+    public Integer getCommodityId() {
+        return commodityId;
     }
 
-    public void setCommdityId(Integer commdityId) {
-        this.commdityId = commdityId;
+    public void setCommodityId(Integer commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public String getSmallPictureUrl() {
+        return smallPictureUrl;
+    }
+
+    public void setSmallPictureUrl(String smallPictureUrl) {
+        this.smallPictureUrl = smallPictureUrl;
+    }
+
+    public String getCommodityIntroduce() {
+        return commodityIntroduce;
+    }
+
+    public void setCommodityIntroduce(String commodityIntroduce) {
+        this.commodityIntroduce = commodityIntroduce;
     }
 
     public Integer getUserId() {
@@ -54,17 +72,33 @@ public class ShoppingcartEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         ShoppingcartEntity that = (ShoppingcartEntity) o;
-        return id == that.id &&
-                Objects.equals(commdityNumber, that.commdityNumber) &&
-                Objects.equals(commdityPrice, that.commdityPrice) &&
-                Objects.equals(commdityId, that.commdityId) &&
-                Objects.equals(userId, that.userId);
+
+        if (id != that.id) return false;
+        if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
+            return false;
+        if (commodityPrice != null ? !commodityPrice.equals(that.commodityPrice) : that.commodityPrice != null)
+            return false;
+        if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
+        if (smallPictureUrl != null ? !smallPictureUrl.equals(that.smallPictureUrl) : that.smallPictureUrl != null)
+            return false;
+        if (commodityIntroduce != null ? !commodityIntroduce.equals(that.commodityIntroduce) : that.commodityIntroduce != null)
+            return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, commdityNumber, commdityPrice, commdityId, userId);
+        int result = id;
+        result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
+        result = 31 * result + (commodityPrice != null ? commodityPrice.hashCode() : 0);
+        result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
+        result = 31 * result + (smallPictureUrl != null ? smallPictureUrl.hashCode() : 0);
+        result = 31 * result + (commodityIntroduce != null ? commodityIntroduce.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        return result;
     }
 }
