@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.login_mapper.RegisterMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.UserEntity">
+        <id property="id" column="id"/>
+        <result property="nickName" column="NickName"/>
+        <result property="loginName" column="LoginName"/>
+        <result property="headPortraitUrl" column="headPortraitUrl"/>
+        <result property="userTypeId" column="userTypeId"/>
+        <result property="loginPassword" column="loginPassword"/>
+        <result property="authenticationId" column="authenticationId"/>
+    </resultMap>
+      <insert id="addUser">
+         INSERT INTO USER(nickName,loginName,headPortraitUrl,userTypeId,loginPassword)VALUE(
+         #{nickName},#{loginName},#{headPortraitUrl},#{userTypeId},#{loginPassword}
+         )
+      </insert>
+    <update id="updateUser">
+    update user set authenticationId=#{authenticationId}
+    <where>
+        id=#{id}
+    </where>
+    </update>
+</mapper>

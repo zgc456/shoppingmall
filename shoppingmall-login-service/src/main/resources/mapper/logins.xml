@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.login_mapper.LoginMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.UserEntity">
+        <id property="id" column="id"/>
+        <result property="nickName" column="NickName"/>
+        <result property="loginName" column="LoginName"/>
+        <result property="headPortraitUrl" column="headPortraitUrl"/>
+        <result property="userTypeId" column="userTypeId"/>
+        <result property="loginPassword" column="loginPassword"/>
+    </resultMap>
+    <select id="findByClassesEntity" resultMap="resultMap">
+        select * from user
+        <where>
+            loginName=#{loginName} AND loginPassword=#{loginPassword}
+        </where>
+    </select>
+</mapper>

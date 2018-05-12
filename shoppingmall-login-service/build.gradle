@@ -2,6 +2,7 @@
 dependencies {
     compile project(":shoppingmall-api")
     compile project(":shoppingmall-dao")
+    compile project(":shoppingmall-tools")
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-hystrix-dashboard'
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
@@ -13,5 +14,13 @@ dependencies {
     compile group: 'org.springframework.session', name: 'spring-session-data-redis'
     compile group: 'redis.clients', name: 'jedis'
     compile group: 'org.apache.commons', name: 'commons-pool2'
+
+    // 短信验证
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+// https://mvnrepository.com/artifact/commons-codec/commons-codec
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile 'commons-httpclient:commons-httpclient:3.1'
+    compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
 
 }
