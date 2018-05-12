@@ -1,14 +1,14 @@
 package com.zhkj.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.backstage.IBackstageHandleSearch;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.service.entity.Test;
-import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.util.ServiceMultiResult;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,18 +25,10 @@ public class ControllerTest {
     ISearchService service;
     @GetMapping("/searchByCondition")
     public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
-        System.out.println(searchConditionPageVO.toString());
         return service.search(searchConditionPageVO);
     }
     @GetMapping("searchAllCommodity")
     public List<ServiceMultiResult<CommodityTemplate>> searchAllCommodity(){
         return service.getAllTypeCommodity();
-    }
-
-
-    @GetMapping("test")
-    public void test(@ModelAttribute Test test){
-//        iBackstageHandleSearch.addSearch(test.getIndex(),test.getType(),test.getId(),test);
-        iBackstageHandleSearch.deleteSeach(test.getIndex(),test.getType(),test.getId(),null);
     }
 }
