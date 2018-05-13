@@ -1,7 +1,5 @@
 package com.zhkj.dto.seek_dto;
 
-import java.util.Objects;
-
 /**
  * ${user}
  *
@@ -11,8 +9,8 @@ import java.util.Objects;
  */
 public class CommoditytyperelationDTO {
     private int id;
-    private Integer shopprimarytypeid;
-    private Integer shopminortypeid;
+    private Integer shopPrimaryTypeId;
+    private Integer shopMinorTypeId;
 
     public int getId() {
         return id;
@@ -22,19 +20,19 @@ public class CommoditytyperelationDTO {
         this.id = id;
     }
 
-    public Integer getShopprimarytypeid() {
-        return shopprimarytypeid;
+    public Integer getShopPrimaryTypeId() {
+        return shopPrimaryTypeId;
     }
 
-    public void setShopprimarytypeid(Integer shopprimarytypeid) {
-        this.shopprimarytypeid = shopprimarytypeid;
+    public void setShopPrimaryTypeId(Integer shopPrimaryTypeId) {
+        this.shopPrimaryTypeId = shopPrimaryTypeId;
     }
 
-    public Integer getShopminortypeid() {
-        return shopminortypeid;
+    public Integer getShopMinorTypeId() {
+        return shopMinorTypeId;
     }
 
-    public void setShopminortypeid(Integer shopminortypeid) {
-        this.shopminortypeid = shopminortypeid;
+    public void setShopMinorTypeId(Integer shopMinorTypeId) {
+        this.shopMinorTypeId = shopMinorTypeId;
     }
 }

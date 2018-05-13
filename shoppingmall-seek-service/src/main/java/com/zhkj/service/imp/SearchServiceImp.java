@@ -1,27 +1,35 @@
 package com.zhkj.service.imp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhkj.dto.seek_dto.PromotionitemDTO;
 import com.zhkj.service.ISearchService;
-import com.zhkj.service.entity.*;
+import com.zhkj.service.entity.CommodityKey;
+import com.zhkj.service.entity.CommodityTemplate;
+import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.metrics.min.Min;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 @Service
 public class SearchServiceImp implements ISearchService {
+    private static final Logger logger=LoggerFactory.getLogger(SearchServiceImp.class);
     @Autowired
     private TransportClient transportClient;
     @Autowired
@@ -48,14 +56,14 @@ public class SearchServiceImp implements ISearchService {
                         CommodityTemplate minTemplate=this.getCommodityPrice(template.getId());
                         if (minTemplate!=null){
                             template.setCommodityprice(minTemplate.getCommodityprice());
-                            template.setCommoditynumber(minTemplate.getCommoditynumber());
+                            template.setCommodityNumber(minTemplate.getCommodityNumber());
                             lists.add(template);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-                serviceMultiResult.setTypename(type.getTypename());
+                serviceMultiResult.setTypename(type.getTypeName());
                 serviceMultiResult.setResult(lists);
                 serviceMultiResult.setTotal(new Long(lists.size()));
                 serviceMultiResults.add(serviceMultiResult);
@@ -115,10 +123,10 @@ public class SearchServiceImp implements ISearchService {
                 CommodityTemplate specificationsrelationTemplate=this.getCommodityPrice(template.getId());
                 if (specificationsrelationTemplate!=null) {
                     template.setCommodityprice(specificationsrelationTemplate.getCommodityprice());
-                    template.setCommoditynumber(specificationsrelationTemplate.getCommoditynumber());
+                    template.setCommodityNumber(specificationsrelationTemplate.getCommodityNumber());
                 }else{
                     template.setCommodityprice(0.0);
-                    template.setCommoditynumber(0L);
+                    template.setCommodityNumber(0L);
                 }
                 if (template!=null){
                     lists.add(template);
@@ -139,6 +147,37 @@ public class SearchServiceImp implements ISearchService {
             serviceMultiResult.setTotal(total);
         }
         return serviceMultiResult;
+    }
+
+    @Override
+    public ServiceMultiResult<CommodityTemplate> byDateSearchCommodity(SearchConditionPageVO searchConditionPageVO) {
+        BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
+        if (searchConditionPageVO!=null){
+            ServiceMultiResult<CommodityTemplate> serviceMultiResult=new ServiceMultiResult<>();
+            if (searchConditionPageVO.getStartDate()!=null&&searchConditionPageVO!=null){
+                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.START_TIME,searchConditionPageVO.getStartDate().getTime()));
+                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.END_TIME,searchConditionPageVO.getStartDate().getTime()));
+                SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                        .setTypes(CommodityKey.TYPES_PROMOTIONITEM)
+                        .setQuery(boolQueryBuilder)
+                        .get();
+                for (SearchHit hit : response.getHits()) {
+                    try {
+                        PromotionitemDTO promotionitemDTO = objectMapper.readValue(hit.getSourceAsString(),PromotionitemDTO.class);
+                        /*
+                        今晚到这里 如果上面代码没有问题就可以查到 促销表数据
+                        接下来该拿商品id查商品的信息了
+                         */
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        logger.error("parameter cannot null:"+searchConditionPageVO);
+        return null;
     }
 
     /**
@@ -191,4 +230,5 @@ public class SearchServiceImp implements ISearchService {
         }
         return list;
     }
+
 }

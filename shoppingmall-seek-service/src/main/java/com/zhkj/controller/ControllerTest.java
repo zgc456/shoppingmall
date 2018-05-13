@@ -1,13 +1,10 @@
 package com.zhkj.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.backstage.IBackstageHandleSearch;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
-import com.zhkj.service.entity.Test;
 import com.zhkj.util.ServiceMultiResult;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

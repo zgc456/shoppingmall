@@ -1,7 +1,5 @@
 package com.zhkj.dto.seek_dto;
 
-import java.util.Objects;
-
 /**
  * ${user}
  *
@@ -11,10 +9,10 @@ import java.util.Objects;
  */
 public class CommodityDTO {
     private int id;
-    private String commodityname;
-    private String commodityintroduce;
-    private String bigpictureurl;
-    private Integer commoditytyperelationid;
+    private String commodityName;
+    private String commodityIntroduce;
+    private String bigPictureUrl;
+    private Integer commodityTypeRelationId;
 
     public int getId() {
         return id;
@@ -24,35 +22,35 @@ public class CommodityDTO {
         this.id = id;
     }
 
-    public String getCommodityname() {
-        return commodityname;
+    public String getCommodityName() {
+        return commodityName;
     }
 
-    public void setCommodityname(String commodityname) {
-        this.commodityname = commodityname;
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
     }
 
-    public String getCommodityintroduce() {
-        return commodityintroduce;
+    public String getCommodityIntroduce() {
+        return commodityIntroduce;
     }
 
-    public void setCommodityintroduce(String commodityintroduce) {
-        this.commodityintroduce = commodityintroduce;
+    public void setCommodityIntroduce(String commodityIntroduce) {
+        this.commodityIntroduce = commodityIntroduce;
     }
 
-    public String getBigpictureurl() {
-        return bigpictureurl;
+    public String getBigPictureUrl() {
+        return bigPictureUrl;
     }
 
-    public void setBigpictureurl(String bigpictureurl) {
-        this.bigpictureurl = bigpictureurl;
+    public void setBigPictureUrl(String bigPictureUrl) {
+        this.bigPictureUrl = bigPictureUrl;
     }
 
-    public Integer getCommoditytyperelationid() {
-        return commoditytyperelationid;
+    public Integer getCommodityTypeRelationId() {
+        return commodityTypeRelationId;
     }
 
-    public void setCommoditytyperelationid(Integer commoditytyperelationid) {
-        this.commoditytyperelationid = commoditytyperelationid;
+    public void setCommodityTypeRelationId(Integer commodityTypeRelationId) {
+        this.commodityTypeRelationId = commodityTypeRelationId;
     }
 }
