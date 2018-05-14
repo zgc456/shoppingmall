@@ -5,6 +5,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class GetTheOrderData {
      * @throws AlipayApiException
      */
     @RequestMapping("alipay.trade.page.pay")
-    public String alipay_trade_page_pay(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+    public String alipay_trade_page_pay(@ModelAttribute HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
 
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
@@ -71,7 +72,7 @@ public class GetTheOrderData {
      * @throws AlipayApiException
      */
     @RequestMapping("Refun.the.query")
-    public String Refun_the_query(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+    public String Refun_the_query(@ModelAttribute HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
@@ -100,7 +101,7 @@ public class GetTheOrderData {
      * 交易关闭
      */
     @RequestMapping("close")
-    public String close(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+    public String close(@ModelAttribute HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
@@ -126,7 +127,7 @@ public class GetTheOrderData {
      * @return
      */
     @RequestMapping("alipay.trade.query")
-    public String alipay_trade_query(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+    public String alipay_trade_query(@ModelAttribute HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
@@ -156,7 +157,7 @@ public class GetTheOrderData {
      * @throws AlipayApiException
      */
     @RequestMapping("alipay.trade.refund")
-    public String alipay_trade_refund(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+    public String alipay_trade_refund(@ModelAttribute HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
