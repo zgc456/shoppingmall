@@ -43,7 +43,7 @@ public class EushTopurChase {
      */
     //@RequestMapping("/addOrders.do/json/{json}")
     @RequestMapping("/addOrders.do")
-    public ResultAll addOrders(@RequestBody UserVo userVo) {
+    public ResultAll addOrders(@ModelAttribute UserVo userVo) {
 
        // UserVo userVo = JSON.parseObject(json, UserVo.class);
         //将所有redis中的key存入redis
