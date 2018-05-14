@@ -22,8 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -151,20 +154,33 @@ public class SearchServiceImp implements ISearchService {
 
     @Override
     public ServiceMultiResult<CommodityTemplate> byDateSearchCommodity(SearchConditionPageVO searchConditionPageVO) {
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
         if (searchConditionPageVO!=null){
             ServiceMultiResult<CommodityTemplate> serviceMultiResult=new ServiceMultiResult<>();
             if (searchConditionPageVO.getStartDate()!=null&&searchConditionPageVO!=null){
-                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.START_TIME,searchConditionPageVO.getStartDate().getTime()));
-                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.END_TIME,searchConditionPageVO.getStartDate().getTime()));
+                Long starDate=null;
+                Long endDate=null;
+                try {
+                    starDate=format.parse(searchConditionPageVO.getStartDate()).getTime();
+                    endDate=format.parse(searchConditionPageVO.getEndDate()).getTime();
+                    boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.START_TIME,starDate));
+                    boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.END_TIME,endDate));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                         .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                         .setTypes(CommodityKey.TYPES_PROMOTIONITEM)
                         .setQuery(boolQueryBuilder)
                         .get();
+                List<CommodityTemplate> lists=new ArrayList<>();
                 for (SearchHit hit : response.getHits()) {
                     try {
+                        CommodityTemplate template=new CommodityTemplate();
                         PromotionitemDTO promotionitemDTO = objectMapper.readValue(hit.getSourceAsString(),PromotionitemDTO.class);
+                        System.out.println(promotionitemDTO.toString());
+
                         /*
                         今晚到这里 如果上面代码没有问题就可以查到 促销表数据
                         接下来该拿商品id查商品的信息了
@@ -174,6 +190,7 @@ public class SearchServiceImp implements ISearchService {
                         e.printStackTrace();
                     }
                 }
+                serviceMultiResult.setTotal(response.getHits().totalHits);
             }
         }
         logger.error("parameter cannot null:"+searchConditionPageVO);
@@ -231,4 +248,14 @@ public class SearchServiceImp implements ISearchService {
         return list;
     }
 
+//    public static void main(String[] args) {
+//        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date;
+//        try {
+//            date=format.parse("2018-05-14 8:30:00");
+//            System.out.println(date.getTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

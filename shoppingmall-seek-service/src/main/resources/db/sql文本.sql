@@ -155,7 +155,7 @@ CREATE TABLE `commodityEvaluation`(
   `userId` INT COMMENT '所属用户_外键 User(用户表)'
 )CHARSET 'utf8';
 #创建 promotionItem(促销商品表)
-DROP TABLE IF EXISTS `promotionItem`;
+DROP TABLE IF EXISTS `promotionitem`;
 CREATE TABLE `promotionItem`(
   `id` INT AUTO_INCREMENT UNIQUE COMMENT '促销商品id',
   `startTime` DATETIME COMMENT '促销开始时间',
