@@ -44,7 +44,7 @@ public class Clearing_Controller {
      */
    // @RequestMapping("clearingController1/json/{json}")
     @RequestMapping("clearingController1")
-    public Clearing_Dto Clearing_Controller1(@RequestBody  OrderFrom_Dto orderFrom_dto) {
+    public Clearing_Dto Clearing_Controller1(@ModelAttribute OrderFrom_Dto orderFrom_dto) {
        //拿到json 转成对象
         Clearing_Vo clearing_vo = new Clearing_Vo();
    //     OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
@@ -105,7 +105,7 @@ public class Clearing_Controller {
      */
    // @RequestMapping("addAddress/json/{json}")
     @RequestMapping("addAddress")
-    public ResultAll addAddress(@RequestBody  Harvestaddress_Vo harvestaddress_vo) {
+    public ResultAll addAddress(@ModelAttribute  Harvestaddress_Vo harvestaddress_vo) {
         ResultUtils resultUtils=new ResultUtils();
         try {
        //     Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
@@ -125,7 +125,7 @@ public class Clearing_Controller {
      */
  //   @RequestMapping("updateAddress/json/{json}")
     @RequestMapping("updateAddress")
-    public ResultAll updateAddress(@RequestBody Harvestaddress_Vo harvestaddress_vo) {
+    public ResultAll updateAddress(@ModelAttribute Harvestaddress_Vo harvestaddress_vo) {
         try {
          //   Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
             harvestAddressService.updateHarvestAddress(harvestaddress_vo);
@@ -143,7 +143,7 @@ public class Clearing_Controller {
      */
   //  @RequestMapping("selectAddress/json/{json}")
     @RequestMapping("selectAddress")
-    public ResultAll selectAddress(@RequestBody Harvestaddress_Vo harvestaddress_vo) {
+    public ResultAll selectAddress(@ModelAttribute Harvestaddress_Vo harvestaddress_vo) {
         try {
          //   Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
             List<HarvestaddressEntity_Dto>  listHarvestaddressEntity_Dto=   harvestAddressService.gainMyInformation(harvestaddress_vo);
@@ -161,7 +161,7 @@ public class Clearing_Controller {
      */
   //  @RequestMapping("removeAddress/json/{json}")
     @RequestMapping("removeAddress")
-    public ResultAll removeAddress(@RequestBody Harvestaddress_Vo harvestaddress_vo) {
+    public ResultAll removeAddress(@ModelAttribute Harvestaddress_Vo harvestaddress_vo) {
         try {
          //   Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
             harvestAddressService.removeHarvestAddress(harvestaddress_vo);
@@ -179,7 +179,7 @@ public class Clearing_Controller {
      */
     //@RequestMapping("discount/json/{json}")
     @RequestMapping("discount")
-    public double discount(@RequestBody Discount_Vo discount_vo) {
+    public double discount(@ModelAttribute Discount_Vo discount_vo) {
        // Discount_Vo  discount_vo = JSON.parseObject(json,Discount_Vo.class);
 
         return discountService.calculatePrice(discount_vo);
@@ -194,7 +194,7 @@ public class Clearing_Controller {
      */
     //@RequestMapping(value = "selectOrderFrom/json/{json}",method = RequestMethod.GET)
     @RequestMapping(value = "selectOrderFrom")
-    public ResultAll selectOrderFrom(@RequestBody OrderFrom_Vo orderFrom_vo){
+    public ResultAll selectOrderFrom(@ModelAttribute OrderFrom_Vo orderFrom_vo){
         try{
             //OrderFrom_Vo orderFrom_vo = JSON.parseObject(json,OrderFrom_Vo.class);
             HashMap<String,Object> map = orderFromService.selectUserOrderFrom(orderFrom_vo);
@@ -211,7 +211,7 @@ public class Clearing_Controller {
      * @return 是否成功
      */
     @RequestMapping(value = "additionOrderFrom")
-    public ResultAll additionOrderFrom(@RequestBody OrderFrom_Vo orderFrom_vo){
+    public ResultAll additionOrderFrom(@ModelAttribute OrderFrom_Vo orderFrom_vo){
         try{
          //   OrderFrom_Vo orderFrom_vo = JSON.parseObject(json,OrderFrom_Vo.class);
             OrderFrom_Dto orderFrom_dto= orderFromService.additionOrderFrom(orderFrom_vo);

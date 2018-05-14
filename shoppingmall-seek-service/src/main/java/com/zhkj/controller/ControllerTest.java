@@ -1,9 +1,9 @@
 package com.zhkj.controller;
 
 import com.zhkj.service.ISearchService;
+import com.zhkj.service.backstage.IBackstageHandleSearch;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
-import com.zhkj.service.getDB.ISearchElasticDB;
 import com.zhkj.util.ServiceMultiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,12 +17,11 @@ import java.util.List;
 @CrossOrigin
 public class ControllerTest {
     @Autowired
-    ISearchElasticDB serviceDB;
+    private IBackstageHandleSearch iBackstageHandleSearch;
     @Autowired
     ISearchService service;
     @GetMapping("/searchByCondition")
     public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
-        System.out.println(searchConditionPageVO.toString());
         return service.search(searchConditionPageVO);
     }
     @GetMapping("searchAllCommodity")

@@ -11,6 +11,7 @@ import com.alipay.api.request.AlipayTradeRefundRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeFastpayRefundQueryResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,7 @@ public class PayCompound {
      * @throws UnsupportedEncodingException
      */
     @RequestMapping("/pay")
-    public String pay(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    public String pay(@ModelAttribute HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         if (request.getParameter(   "WIDout_trade_no") != null) {
             // 商户订单号，商户网站订单系统中唯一订单号，必填
             String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"), "UTF-8");
@@ -91,7 +92,7 @@ public class PayCompound {
      * @return
      */
     @RequestMapping("/selectRefundQuery")
-   public String selectRefundQuery(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException {
+   public String selectRefundQuery(@ModelAttribute HttpServletRequest request, HttpServletResponse response) throws AlipayApiException {
         if (request.getParameter("WIDout_trade_no") != null || request.getParameter("WIDtrade_no") != null && request.getParameter("WIDout_request_no") != null) {
             //商户订单号和支付宝交易号不能同时为空。 trade_no、  out_trade_no如果同时存在优先取trade_no
             //商户订单号，和支付宝交易号二选一
@@ -125,7 +126,7 @@ public class PayCompound {
      * @return
      */
     @RequestMapping("/refund")
-   public String refund(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException {
+   public String refund(@ModelAttribute HttpServletRequest request, HttpServletResponse response) throws AlipayApiException {
         if (request.getParameter("WIDout_trade_no") != null || request.getParameter("WIDtrade_no") != null) {
             //商户订单号和支付宝交易号不能同时为空。 trade_no、  out_trade_no如果同时存在优先取trade_no
             //商户订单号，和支付宝交易号二选一

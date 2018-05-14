@@ -12,19 +12,19 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
     /**
      * 商品名称
      */
-    private String commodityname;
+    private String commodityName;
     /**
      * 商品介绍
      */
-    private String commodityintroduce;
+    private String commodityIntroduce;
     /**
      * 商品图片路径
      */
-    private String bigpictureurl;
+    private String bigPictureUrl;
     /**
      * 商品数量
      */
-    private Long commoditynumber;
+    private Long commodityNumber;
     /**
      * 商品价格
      */
@@ -32,15 +32,7 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
     /**
      * 商品类型名字
      */
-    private String typename;
-
-    public String getTypename() {
-        return typename;
-    }
-
-    public void setTypename(String typename) {
-        this.typename = typename;
-    }
+    private String typeName;
 
     public Long getId() {
         return id;
@@ -50,36 +42,36 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
         this.id = id;
     }
 
-    public String getCommodityname() {
-        return commodityname;
+    public String getCommodityName() {
+        return commodityName;
     }
 
-    public void setCommodityname(String commodityname) {
-        this.commodityname = commodityname;
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
     }
 
-    public String getCommodityintroduce() {
-        return commodityintroduce;
+    public String getCommodityIntroduce() {
+        return commodityIntroduce;
     }
 
-    public void setCommodityintroduce(String commodityintroduce) {
-        this.commodityintroduce = commodityintroduce;
+    public void setCommodityIntroduce(String commodityIntroduce) {
+        this.commodityIntroduce = commodityIntroduce;
     }
 
-    public String getBigpictureurl() {
-        return bigpictureurl;
+    public String getBigPictureUrl() {
+        return bigPictureUrl;
     }
 
-    public void setBigpictureurl(String bigpictureurl) {
-        this.bigpictureurl = bigpictureurl;
+    public void setBigPictureUrl(String bigPictureUrl) {
+        this.bigPictureUrl = bigPictureUrl;
     }
 
-    public Long getCommoditynumber() {
-        return commoditynumber;
+    public Long getCommodityNumber() {
+        return commodityNumber;
     }
 
-    public void setCommoditynumber(Long commoditynumber) {
-        this.commoditynumber = commoditynumber;
+    public void setCommodityNumber(Long commodityNumber) {
+        this.commodityNumber = commodityNumber;
     }
 
     public Double getCommodityprice() {
@@ -90,16 +82,12 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
         this.commodityprice = commodityprice;
     }
 
-    @Override
-    public String toString() {
-        return "CommodityTemplate{" +
-                "id=" + id +
-                ", commodityname='" + commodityname + '\'' +
-                ", commodityintroduce='" + commodityintroduce + '\'' +
-                ", bigpictureurl='" + bigpictureurl + '\'' +
-                ", commoditynumber=" + commoditynumber +
-                ", commodityprice=" + commodityprice +
-                '}';
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     @Override
