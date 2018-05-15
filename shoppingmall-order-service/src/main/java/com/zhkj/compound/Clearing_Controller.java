@@ -12,6 +12,8 @@ import com.zhkj.vo.order_vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Transient;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -213,6 +215,7 @@ public class Clearing_Controller {
      * @return 是否成功
      */
     @RequestMapping(value = "additionOrderFrom")
+    @Transactional
     public ResultAll additionOrderFrom(@ModelAttribute OrderFrom_Vo orderFrom_vo){
         try{
          //   OrderFrom_Vo orderFrom_vo = JSON.parseObject(json,OrderFrom_Vo.class);
@@ -223,6 +226,7 @@ public class Clearing_Controller {
             }
             return resultUtils.resultAll(1,"添加订单成功",orderFrom_dto);
         }catch (Exception e){
+
             logger.error("添加订单失败 参数信息"+orderFrom_vo+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加订单失败",null);
         }

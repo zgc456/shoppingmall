@@ -42,7 +42,7 @@ public class GetOrPostData {
     public String getRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
           if (null==request.getParameter("out_trade_no")&&null==request.getParameter("trade_no")){
               logger.error("传入参数为空，支付成功但是数据库未修改");
-              return "404";
+              return "404，请联系工作人员";
           }
         OrderFromVo orderFromVo=new OrderFromVo();
         orderFromVo.setOrderNumber(request.getParameter("out_trade_no"));
@@ -51,7 +51,7 @@ public class GetOrPostData {
       int i=  orderFromUpdate.updateShopApi(orderFromVo);
       if (i==0){
           logger.error("数据库修改失败，支付成功但是数据库未修改");
-          return "404";
+          return "404,请联系工作人员";
       }
          // request.getRequestDispatcher("http://192.168.43.43:8080/home").forward(request,response);
         System.out.println(111);
