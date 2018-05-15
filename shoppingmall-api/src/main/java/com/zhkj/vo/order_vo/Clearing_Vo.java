@@ -8,6 +8,7 @@ import java.util.List;
  * 订单模块参数对象
  */
 public class Clearing_Vo<T> {
+
     //总价
     private double price;
 

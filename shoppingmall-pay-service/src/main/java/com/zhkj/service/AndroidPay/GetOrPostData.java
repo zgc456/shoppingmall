@@ -4,6 +4,8 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.zhkj.service.order_from_service.OrderFromUpdate;
 import com.zhkj.vo.order_from_shop_vo.OrderFromVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +28,7 @@ import java.util.Map;
 public class GetOrPostData {
     @Autowired
     OrderFromUpdate orderFromUpdate;
+    private  static Logger logger=LoggerFactory.getLogger(GetOrPostData.class);
     /**
      * 异步接收Get请求
      * @param request
@@ -37,15 +40,22 @@ public class GetOrPostData {
     @RequestMapping("getdata")
     @ResponseBody
     public String getRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-//        OrderFromVo orderFromVo=new OrderFromVo();
-//        orderFromVo.setOrderNumber(request.getParameter("out_trade_no"));
-//        orderFromVo.setPaymentTypeId(3);
-//        orderFromVo.setTransactionNumber(request.getParameter("trade_no"));
-//        orderFromUpdate.updateShopApi(orderFromVo);
-       //   request.getRequestDispatcher("http://192.168.43.43:8080/home").forward(request,response);
+          if (null==request.getParameter("out_trade_no")&&null==request.getParameter("trade_no")){
+              logger.error("传入参数为空，支付成功但是数据库未修改");
+              return "404";
+          }
+        OrderFromVo orderFromVo=new OrderFromVo();
+        orderFromVo.setOrderNumber(request.getParameter("out_trade_no"));
+        orderFromVo.setPaymentTypeId(3);
+        orderFromVo.setTransactionNumber(request.getParameter("trade_no"));
+      int i=  orderFromUpdate.updateShopApi(orderFromVo);
+      if (i==0){
+          logger.error("数据库修改失败，支付成功但是数据库未修改");
+          return "404";
+      }
+         // request.getRequestDispatcher("http://192.168.43.43:8080/home").forward(request,response);
         System.out.println(111);
-        String a="<!DOCTYPE html>\n" +
+        String html="<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +
@@ -55,7 +65,7 @@ public class GetOrPostData {
                 "<a href=\"http://localhost:8080/#/home\">111</a>\n" +
                 "</body>\n" +
                 "</html>";
-       return a;
+       return html;
     }
     @RequestMapping("postdata")
     @ResponseBody

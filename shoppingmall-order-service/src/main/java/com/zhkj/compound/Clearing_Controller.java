@@ -51,14 +51,15 @@ public class Clearing_Controller {
        //OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
         //设置购物车商品
         clearing_vo.setLists(shoppingCartService.gainUserInformation(orderFrom_dto));
-        //创建地址对象
-        Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo();
+
         //创建地址对象返回值
         HarvestaddressEntity_Dto harvestaddressEntity_dto= new HarvestaddressEntity_Dto();
         //传入用户id
         harvestaddressEntity_dto.setUserId(orderFrom_dto.getUserId());
         //获取地址信息
-        harvestaddress_vo.setHarvestAddress(harvestaddressEntity_dto);
+            //创建地址对象
+       Harvestaddress_Vo harvestaddress_vo=new Harvestaddress_Vo(harvestaddressEntity_dto.getId(),harvestaddressEntity_dto.getHarvestAddressName() ,harvestaddressEntity_dto.getHarvestIsDefault() ,harvestaddressEntity_dto.getTypeId() ,harvestaddressEntity_dto.getUserId() ,harvestaddressEntity_dto.getUserName() ,harvestaddressEntity_dto.getUserPhone() );
+//            harvestaddressEntity_dto.getId(),harvestaddressEntity_dto.get
         clearing_vo.setPrice(orderFrom_dto.getOrderfromPrice());
         //将地址给clearing_vo
         clearing_vo.setAddress( harvestAddressService.gainMyInformation(harvestaddress_vo));
@@ -101,11 +102,13 @@ public class Clearing_Controller {
 //    }
     /**
      * 添加地址
+     * harvestAddressName 地址  harvestIsDefault 默认地址 userId 所属用户id  userName 收货姓名  userPhone 收货电话
+     * harvestAddressName=123,harvestIsDefault=1&userId=1&userName=1&userPhone=13838448089
      * @param
      * @return
      */
    // @RequestMapping("addAddress/json/{json}")
-    @RequestMapping("addAddress")
+    @RequestMapping("/addAddress")
     public ResultAll addAddress(@ModelAttribute  Harvestaddress_Vo harvestaddress_vo) {
         ResultUtils resultUtils=new ResultUtils();
         try {
@@ -119,7 +122,6 @@ public class Clearing_Controller {
         }
     }
     /**
-     *{"harvestAddress": {"id": "1","harvestAddressName": "111","harvestIsDefault": "0","typeId": "1","userId": "1"}}
      * 修改地址
      * @param
      * @return
@@ -139,6 +141,7 @@ public class Clearing_Controller {
     }
     /**
      * 查询地址
+     * uerId 用户id
      * @param
      * @return
      */
@@ -156,12 +159,11 @@ public class Clearing_Controller {
     }
     /**
      * 删除地址
-     * localhost:8805/removeAddress/json/{"harvestAddress":{“id”:"1","harvestAddressName":"1","harvestIsDefault":"0","typeId":"1","userId":"1"}}
+     *  userId=1 用户id &id=1  地址id
      * @param
      * @return
      */
-  //  @RequestMapping("removeAddress/json/{json}")
-    @RequestMapping("removeAddress")
+    @RequestMapping("/removeAddress")
     public ResultAll removeAddress(@ModelAttribute Harvestaddress_Vo harvestaddress_vo) {
         try {
          //   Harvestaddress_Vo harvestaddress_vo = JSON.parseObject(json,Harvestaddress_Vo.class);
@@ -226,7 +228,12 @@ public class Clearing_Controller {
         }
     }
 
-
+    /**
+     * 根据用户id查询特定的订单
+     * @param userId
+     * @param typeId
+     * @return
+     */
     @RequestMapping(value = "/selectOrderFromByUserId")
     public ResultAll selectOrderFrom(@ModelAttribute Integer userId ,@ModelAttribute Integer typeId){
         ResultAll resultAll=new ResultAll();
