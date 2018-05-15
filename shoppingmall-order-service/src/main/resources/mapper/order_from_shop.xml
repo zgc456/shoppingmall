@@ -1,9 +1,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zhkj.mapper.pay_mapper.OrderFromShopMapper">
+<mapper namespace="com.zhkj.mapper.order_mapper.OrderFromShopMapper
+">
 <insert id="insert">
     INSERT INTO t_order(feight,commodityNumber,logisticsTypeId,commodityId,orderFromId,commodityPrice) VALUES (#{feight},#{commodityNumber},#{logisticsTypeId},#{commodityId},#{orderFromId},#{commodityPrice})
+</insert>
+<insert id="insertShop">
+     INSERT INTO t_order(feight,commodityNumber,logisticsTypeId,commodityId,orderFromId,commodityPrice)
+     VALUES (#{orderFromShop.feight},#{orderFromShop.commodityNumber},#{orderFromShop.logisticsTypeId},#{orderFromShop.commodityId},#{orderFromShop.orderFromId},#{orderFromShop.commodityPrice})
 </insert>
 <select id="selectAllToOrderfromshop1" resultType="com.zhkj.entity.Orderfromshop1Entity">
   select * FROM orderfromshop1
@@ -11,4 +16,5 @@
 <select id="selectAllToOrderfromshop0" resultType="com.zhkj.entity.Orderfromshop0Entity">
   select * FROM orderfromshop0
 </select>
+
 </mapper>

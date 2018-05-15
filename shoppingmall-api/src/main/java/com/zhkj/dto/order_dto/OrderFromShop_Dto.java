@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class OrderFromShop_Dto {
     private int id;
-    private Integer feight;
+    private Integer feight = Integer.valueOf(0);
     private double commodityPrice;
     private Integer commodityNumber;
     private Integer logisticsTypeId;

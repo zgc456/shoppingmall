@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.zhkj.dto.order_dto.Clearing_Dto;
 import com.zhkj.dto.order_dto.HarvestaddressEntity_Dto;
 import com.zhkj.dto.order_dto.OrderFrom_Dto;
+import com.zhkj.entity.OrderfromEntity;
 import com.zhkj.result.ResultAll;
 import com.zhkj.result.ResultUtils;
 import com.zhkj.service.*;
@@ -43,11 +44,11 @@ public class Clearing_Controller {
      * @return
      */
    // @RequestMapping("clearingController1/json/{json}")
-    @RequestMapping("clearingController1")
+        @RequestMapping("clearingController1")
     public Clearing_Dto Clearing_Controller1(@ModelAttribute OrderFrom_Dto orderFrom_dto) {
        //拿到json 转成对象
         Clearing_Vo clearing_vo = new Clearing_Vo();
-   //     OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
+       //OrderFrom_Dto orderFrom_dto=JSON.parseObject(json,OrderFrom_Dto.class);
         //设置购物车商品
         clearing_vo.setLists(shoppingCartService.gainUserInformation(orderFrom_dto));
         //创建地址对象
@@ -207,7 +208,6 @@ public class Clearing_Controller {
     /**
      * 添加订单 并且添加失效为两小时
      * @param
-     *
      * @return 是否成功
      */
     @RequestMapping(value = "additionOrderFrom")
@@ -224,5 +224,22 @@ public class Clearing_Controller {
             logger.error("添加订单失败 参数信息"+orderFrom_vo+"错误类型"+e.getMessage());
             return resultUtils.resultAll(-1,"添加订单失败",null);
         }
+    }
+
+
+    @RequestMapping(value = "/selectOrderFromByUserId")
+    public ResultAll selectOrderFrom(@ModelAttribute Integer userId ,@ModelAttribute Integer typeId){
+        ResultAll resultAll=new ResultAll();
+     try {
+         List<OrderfromEntity> orderfromEntityList=   orderFromService.selectOrderFromByUserIdOrTypeId(userId,typeId);
+         resultAll.setStatus(1);
+         resultAll.setDtoObject(orderfromEntityList);
+         resultAll.setMessage("成功");
+     }catch (Exception e){
+         resultAll.setStatus(-1);
+         resultAll.setDtoObject(null);
+         resultAll.setMessage("失败");
+     }
+        return resultAll;
     }
 }
