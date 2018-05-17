@@ -24,7 +24,6 @@ public class ControllerTest {
     public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
         System.out.println(1);
         return service.search(searchConditionPageVO);
-
     }
     @GetMapping("/searchAllCommodity")
     public List<ServiceMultiResult<CommodityTemplate>> searchAllCommodity(){
