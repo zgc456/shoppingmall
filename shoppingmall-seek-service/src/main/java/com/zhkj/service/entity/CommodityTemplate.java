@@ -1,6 +1,10 @@
 package com.zhkj.service.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * 返回给前台对象
  */
@@ -28,11 +32,37 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
     /**
      * 商品价格
      */
-    private Double commodityprice;
+    private Double commodityPrice;
     /**
      * 商品类型名字
      */
     private String typeName;
+    /**
+     * 抢购开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
+    /**
+     * 抢购结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
 
     public Long getId() {
         return id;
@@ -74,12 +104,12 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
         this.commodityNumber = commodityNumber;
     }
 
-    public Double getCommodityprice() {
-        return commodityprice;
+    public Double getCommodityPrice() {
+        return commodityPrice;
     }
 
-    public void setCommodityprice(Double commodityprice) {
-        this.commodityprice = commodityprice;
+    public void setCommodityPrice(Double commodityPrice) {
+        this.commodityPrice = commodityPrice;
     }
 
     public String getTypeName() {
@@ -92,7 +122,7 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
 
     @Override
     public int compareTo(CommodityTemplate o) {
-        if (this.commodityprice>=o.getCommodityprice()){
+        if (this.commodityPrice>=o.getCommodityPrice()){
             return 1;
         }
         return -1;

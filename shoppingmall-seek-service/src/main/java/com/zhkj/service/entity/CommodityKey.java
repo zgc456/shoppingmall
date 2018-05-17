@@ -35,6 +35,9 @@ public class CommodityKey {
     public static final String TYPES_PROMOTIONITEM="promotionitem";
     public static final String START_TIME="startTime";//促销开始时间
     public static final String END_TIME="endTime";//促销结束时间
+    public static final String DISCOUNT_PRICE="discountPrice";//促销价钱
+    public static final String COMMODITY_NUMBER="commodityNumber";//促销商品数量
+    public static final String COMMODITYID="commodityId";//商品id
 
 
     /**

@@ -1,7 +1,5 @@
 package com.zhkj.service.entity;
 
-import java.util.Date;
-
 /**
  * 查询筛选的条件实体
  */
@@ -39,7 +37,7 @@ public class SearchConditionPageVO {
      */
     private String orderBy = "commodityprice";
     /**
-     * 启示条数
+     * 起始条数
      */
     private int from=0;
     /**

@@ -1,5 +1,6 @@
 package com.zhkj.service.backstage.imp;
 
+import static org.elasticsearch.common.xcontent.XContentFactory.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.dto.seek_dto.*;
@@ -10,6 +11,7 @@ import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.modelmapper.ModelMapper;
@@ -145,17 +147,40 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
 
     @Override
     public void addSearch(String index, String type, String id, Object object) {
-        try {
-            byte[] source=objectMapper.writeValueAsBytes(object);
-            IndexResponse response=this.client.prepareIndex(index,type,id)
-                    .setSource(source,XContentType.JSON)
-                    .get();
-            RestStatus restStatus=response.status();
-            System.out.println(restStatus);
-        } catch (IOException e) {
-            e.printStackTrace();
+        PromotionitemDTO promotionitemDTO;
+        IndexResponse response=null;
+        XContentBuilder builder;
+        if (object instanceof PromotionitemDTO){
+            promotionitemDTO=(PromotionitemDTO)object;
+            try {
+                builder=jsonBuilder()
+                        .startObject()
+                        .field(CommodityKey.ID,promotionitemDTO.getId())
+                        .field(CommodityKey.END_TIME,promotionitemDTO.getEndTime().getTime())
+                        .field(CommodityKey.START_TIME,promotionitemDTO.getStartTime().getTime())
+                        .field(CommodityKey.DISCOUNT_PRICE,promotionitemDTO.getDiscountPrice())
+                        .field(CommodityKey.COMMODITY_NUMBER,promotionitemDTO.getCommodityNumber())
+                        .field(CommodityKey.COMMODITYID,promotionitemDTO.getCommodityId())
+                        .endObject();
+                response=this.client.prepareIndex(index,type,id)
+                        .setSource(builder)
+                        .get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                byte[] source=objectMapper.writeValueAsBytes(object);
+                response=this.client.prepareIndex(index,type,id)
+                        .setSource(source,XContentType.JSON)
+                        .get();
+                RestStatus restStatus=response.status();
+                System.out.println(restStatus);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
+        System.out.println(response.status());
 
     }
 

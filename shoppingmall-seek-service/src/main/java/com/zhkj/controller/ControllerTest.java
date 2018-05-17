@@ -29,7 +29,7 @@ public class ControllerTest {
         return service.getAllTypeCommodity();
     }
     @GetMapping("/byDateSearchCommodity")
-    public void byDateSearchCommodity(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
-        service.byDateSearchCommodity(searchConditionPageVO);
+    public ServiceMultiResult<CommodityTemplate> byDateSearchCommodity(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
+        return service.byDateSearchCommodity(searchConditionPageVO);
     }
 }

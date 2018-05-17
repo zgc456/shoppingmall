@@ -1,6 +1,9 @@
 package com.zhkj.service.imp;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhkj.dto.seek_dto.CommodityDTO;
+import com.zhkj.dto.seek_dto.CommoditytyperelationDTO;
 import com.zhkj.dto.seek_dto.PromotionitemDTO;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.CommodityKey;
@@ -12,6 +15,7 @@ import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.metrics.min.Min;
@@ -58,7 +62,7 @@ public class SearchServiceImp implements ISearchService {
                         CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
                         CommodityTemplate minTemplate=this.getCommodityPrice(template.getId());
                         if (minTemplate!=null){
-                            template.setCommodityprice(minTemplate.getCommodityprice());
+                            template.setCommodityPrice(minTemplate.getCommodityPrice());
                             template.setCommodityNumber(minTemplate.getCommodityNumber());
                             lists.add(template);
                         }
@@ -125,10 +129,10 @@ public class SearchServiceImp implements ISearchService {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
                 CommodityTemplate specificationsrelationTemplate=this.getCommodityPrice(template.getId());
                 if (specificationsrelationTemplate!=null) {
-                    template.setCommodityprice(specificationsrelationTemplate.getCommodityprice());
+                    template.setCommodityPrice(specificationsrelationTemplate.getCommodityPrice());
                     template.setCommodityNumber(specificationsrelationTemplate.getCommodityNumber());
                 }else{
-                    template.setCommodityprice(0.0);
+                    template.setCommodityPrice(0.0);
                     template.setCommodityNumber(0L);
                 }
                 if (template!=null){
@@ -176,21 +180,34 @@ public class SearchServiceImp implements ISearchService {
                         .get();
                 List<CommodityTemplate> lists=new ArrayList<>();
                 for (SearchHit hit : response.getHits()) {
-                    try {
                         CommodityTemplate template=new CommodityTemplate();
+                    try {
                         PromotionitemDTO promotionitemDTO = objectMapper.readValue(hit.getSourceAsString(),PromotionitemDTO.class);
-                        System.out.println(promotionitemDTO.toString());
-
-                        /*
-                        今晚到这里 如果上面代码没有问题就可以查到 促销表数据
-                        接下来该拿商品id查商品的信息了
-                         */
-
+                        template.setId(new Integer(promotionitemDTO.getId()).longValue());
+                        template.setCommodityNumber(promotionitemDTO.getCommodityNumber().longValue());
+                        template.setCommodityPrice(promotionitemDTO.getDiscountPrice().doubleValue());
+                        template.setStartTime(promotionitemDTO.getStartTime());
+                        template.setEndTime(promotionitemDTO.getEndTime());
+                        System.out.println(promotionitemDTO.toString());//这里会输出
+                        SearchResponse response1=transportClient.prepareSearch(CommodityKey.INDEX)
+                                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                                .setTypes(CommodityKey.TYPES_COMMODITY)
+                                .setQuery(QueryBuilders.termQuery(CommodityKey.ID,promotionitemDTO.getCommodityId()))
+                                .get();
+                        for (SearchHit searchHitFields : response1.getHits()) {
+                            CommodityDTO commodityDTO=objectMapper.readValue(searchHitFields.getSourceAsString(),CommodityDTO.class);
+                            template.setCommodityName(commodityDTO.getCommodityName());
+                            template.setCommodityIntroduce(commodityDTO.getCommodityIntroduce());
+                            template.setBigPictureUrl(commodityDTO.getBigPictureUrl());
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    lists.add(template);
                 }
+                serviceMultiResult.setResult(lists);
                 serviceMultiResult.setTotal(response.getHits().totalHits);
+                return serviceMultiResult;
             }
         }
         logger.error("parameter cannot null:"+searchConditionPageVO);
@@ -213,8 +230,8 @@ public class SearchServiceImp implements ISearchService {
         for (SearchHit hit : response.getHits()) {
             try {
                 CommodityTemplate template=objectMapper.readValue(hit.getSourceAsString(),CommodityTemplate.class);
-                Double price=template.getCommodityprice();
-                if (price==min.getValue()){
+                Double price=template.getCommodityPrice();
+                if (price!=null&&price==min.getValue()){
                     return template;
                 }
             } catch (IOException e) {
@@ -247,15 +264,4 @@ public class SearchServiceImp implements ISearchService {
         }
         return list;
     }
-
-//    public static void main(String[] args) {
-//        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date;
-//        try {
-//            date=format.parse("2018-05-14 8:30:00");
-//            System.out.println(date.getTime());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
