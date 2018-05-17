@@ -28,11 +28,13 @@ public class HarvestAddressService implements HarvestAddressService_Api {
     @Override
     public boolean updateHarvestAddress(Harvestaddress_Vo harvesaddress_vo) {
         boolean result = false;
-        if(judgeUserIdAndAddressId(harvesaddress_vo.getHarvestAddress().getUserId(),harvesaddress_vo.getHarvestAddress().getId())){
-            if(judgeUserIdAndDto(harvesaddress_vo.getHarvestAddress().getUserId(),harvesaddress_vo.getHarvestAddress())){
+        if(judgeUserIdAndAddressId(harvesaddress_vo.getUserId(),harvesaddress_vo.getId())){
+//            HarvestaddressEntity harvestaddressEntity=new HarvestaddressEntity();
+//            Conver_Type.convert(harvesaddress_vo,harvestaddressEntity);
+            if(judgeUserIdAndDto(harvesaddress_vo.getUserId(),harvesaddress_vo)){
                 HarvestaddressEntity harvestaddressEntity = new HarvestaddressEntity();
-                harvestaddressEntity =Conver_Type.convert(harvestaddressEntity,harvesaddress_vo.getHarvestAddress());
-                harvestAddressMapper.updateHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId(),harvestaddressEntity);
+                harvestaddressEntity =Conver_Type.convert(harvestaddressEntity,harvesaddress_vo);
+                harvestAddressMapper.updateHarvestAddress(harvesaddress_vo.getUserId(),harvestaddressEntity);
                 result = true;
             }
         }
@@ -42,10 +44,10 @@ public class HarvestAddressService implements HarvestAddressService_Api {
     @Override
     public boolean addHarvestAddress(Harvestaddress_Vo harvesaddress_vo) {
         boolean result = false;
-        if (judgeUserIdAndDto(harvesaddress_vo.getHarvestAddress().getUserId(), harvesaddress_vo.getHarvestAddress())) {
+        if (judgeUserIdAndDto(harvesaddress_vo.getUserId(), harvesaddress_vo)){
             HarvestaddressEntity harvestaddressEntity = new HarvestaddressEntity();
-            harvestaddressEntity = Conver_Type.convert(harvestaddressEntity, harvesaddress_vo.getHarvestAddress());
-            harvestAddressMapper.addHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId(), harvestaddressEntity);
+            harvestaddressEntity = Conver_Type.convert(harvestaddressEntity, harvesaddress_vo);
+            harvestAddressMapper.addHarvestAddress(harvesaddress_vo.getUserId(), harvestaddressEntity);
 
             result = true;
         }
@@ -55,8 +57,8 @@ public class HarvestAddressService implements HarvestAddressService_Api {
     @Override
     public boolean removeHarvestAddress(Harvestaddress_Vo harvesaddress_vo) {
         boolean result = false;
-        if (judgeUserIdAndAddressId(harvesaddress_vo.getHarvestAddress().getUserId(), harvesaddress_vo.getHarvestAddress().getId())) {
-            harvestAddressMapper.removeHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId(), harvesaddress_vo.getHarvestAddress().getId());
+        if (judgeUserIdAndAddressId(harvesaddress_vo.getUserId(), harvesaddress_vo.getId())) {
+            harvestAddressMapper.removeHarvestAddress(harvesaddress_vo.getUserId(), harvesaddress_vo.getId());
             result = true;
         }
         return result;
@@ -65,12 +67,12 @@ public class HarvestAddressService implements HarvestAddressService_Api {
     @Override
     public boolean setDefaultHarvestAddress(Harvestaddress_Vo harvesaddress_vo) {
         boolean result = false;
-        if (judgeUserIdAndAddressId(harvesaddress_vo.getHarvestAddress().getUserId(), harvesaddress_vo.getHarvestAddress().getId())) {
-            if(harvestAddressMapper.selectDefaultHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId()) != null){
-                harvestAddressMapper.updateDefaultHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId());
+        if (judgeUserIdAndAddressId(harvesaddress_vo.getUserId(), harvesaddress_vo.getId())) {
+            if(harvestAddressMapper.selectDefaultHarvestAddress(harvesaddress_vo.getUserId()) != null){
+                harvestAddressMapper.updateDefaultHarvestAddress(harvesaddress_vo.getUserId());
                 result = true;
             }else {
-                harvestAddressMapper.setDefaultHarvestAddress(harvesaddress_vo.getHarvestAddress().getUserId(), harvesaddress_vo.getHarvestAddress().getId());
+                harvestAddressMapper.setDefaultHarvestAddress(harvesaddress_vo.getUserId(), harvesaddress_vo.getId());
                 result = true;
             }
         }
@@ -80,8 +82,8 @@ public class HarvestAddressService implements HarvestAddressService_Api {
     @Override
     public List<HarvestaddressEntity_Dto> gainMyInformation(Harvestaddress_Vo harvesaddress_vo) {
         List<HarvestaddressEntity_Dto> listEntityDto = new ArrayList<>();
-        if(harvesaddress_vo.getHarvestAddress().getUserId() > 0) {
-            List<HarvestaddressEntity> listEntity = harvestAddressMapper.gainMyInformation(harvesaddress_vo.getHarvestAddress().getUserId());
+        if(harvesaddress_vo.getUserId() > 0) {
+            List<HarvestaddressEntity> listEntity = harvestAddressMapper.gainMyInformation(harvesaddress_vo.getUserId());
             listEntityDto = Conver_Type.convertToList(listEntityDto, listEntity, "com.zhkj.dto.order_dto.HarvestaddressEntity_Dto");
         }
         return listEntityDto;
@@ -92,7 +94,7 @@ public class HarvestAddressService implements HarvestAddressService_Api {
      * @param dto 收货地址信息
      * @return 是否异常
      */
-    private boolean judgeUserIdAndDto(Integer userId,HarvestaddressEntity_Dto dto){
+    private boolean judgeUserIdAndDto(Integer userId,Harvestaddress_Vo dto){
         boolean result = false;
         if(dto != null){
             if(userId != null && userId > 0){

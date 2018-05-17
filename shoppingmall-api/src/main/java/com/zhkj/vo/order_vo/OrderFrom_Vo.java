@@ -1,13 +1,10 @@
 package com.zhkj.vo.order_vo;
+import com.zhkj.dto.shoppingcart_dto.ShoppingCartDTO;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public class OrderFrom_Vo {
-    /**
-     *  订单商品集合
-     */
-    private OrderFromShop_Vo[] commodityId;
-
+    private List<ShoppingCartDTO> shoppingcartEntityList;
     /**
      * 所属用户
      */
@@ -21,12 +18,12 @@ public class OrderFrom_Vo {
      */
     private Integer harvestAddressId;
 
-    public OrderFromShop_Vo[] getCommodityId() {
-        return commodityId;
+    public List<ShoppingCartDTO> getShoppingcartEntityList() {
+        return shoppingcartEntityList;
     }
 
-    public void setCommodityId(OrderFromShop_Vo[] commodityId) {
-        this.commodityId = commodityId;
+    public void setShoppingcartEntityList(List<ShoppingCartDTO> shoppingcartEntityList) {
+        this.shoppingcartEntityList = shoppingcartEntityList;
     }
 
     public Integer getUserId() {

@@ -22,6 +22,18 @@ public class PromotionitemDTO {
     private Integer commodityNumber;
     private Integer commodityId;
 
+    @Override
+    public String toString() {
+        return "PromotionitemDTO{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", discountPrice=" + discountPrice +
+                ", commodityNumber=" + commodityNumber +
+                ", commodityId=" + commodityId +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

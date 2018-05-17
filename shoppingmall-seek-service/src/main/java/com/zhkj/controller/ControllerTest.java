@@ -22,10 +22,16 @@ public class ControllerTest {
     ISearchService service;
     @GetMapping("/searchByCondition")
     public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
+        System.out.println(1);
         return service.search(searchConditionPageVO);
+
     }
-    @GetMapping("searchAllCommodity")
+    @GetMapping("/searchAllCommodity")
     public List<ServiceMultiResult<CommodityTemplate>> searchAllCommodity(){
         return service.getAllTypeCommodity();
+    }
+    @GetMapping("/byDateSearchCommodity")
+    public void byDateSearchCommodity(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
+        service.byDateSearchCommodity(searchConditionPageVO);
     }
 }

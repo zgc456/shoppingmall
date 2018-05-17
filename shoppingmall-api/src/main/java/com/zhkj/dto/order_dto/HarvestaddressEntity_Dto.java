@@ -9,6 +9,24 @@ public class HarvestaddressEntity_Dto {
     private Integer harvestIsDefault;
     private Integer typeId;
     private Integer userId;
+    private String userName;
+    private String userPhone;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
 
     public int getId() {
         return id;

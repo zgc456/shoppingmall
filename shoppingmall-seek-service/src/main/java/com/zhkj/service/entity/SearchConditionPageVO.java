@@ -49,25 +49,25 @@ public class SearchConditionPageVO {
     /**
      * 促销开始时间
      */
-    private Date startDate;
+    private String startDate;
     /**
      * 促销结束时间
      */
-    private Date endDate;
+    private String endDate;
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
