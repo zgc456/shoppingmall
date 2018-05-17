@@ -14,6 +14,7 @@
             <result property="shopMinorTypeId" column="shopMinorTypeId"/>
         </association>
         <association property="specificationsrelationEntity" javaType="com.zhkj.entity.SpecificationsrelationEntity">
+            <id property="id" column="id"/>
             <result property="commodityNumber" column="commodityNumber"/>
             <result property="commodityPrice" column="commodityPrice"/>
             <result property="commodityId" column="commodityId"/>

@@ -19,7 +19,7 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List selectAll() {
 //        List<CommodityDTO> list=new ArrayList<>();
-        //return Conver_Type.convertToList(list,commodityMapper.selectAll(),"com.zhkj.dto.commodity_dto.CommodityDTO");
+//        return Conver_Type.convertToList(list,commodityMapper.selectAll(),"com.zhkj.dto.commodity_dto.CommodityDTO");
         return commodityMapper.selectAll();
     }
 
@@ -29,7 +29,7 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public List<CommodityDTO> selectByCommodityId(CommodityVO commodityVO) {
+    public List selectByCommodityId(CommodityVO commodityVO) {
         return commodityMapper.selectByCommodityId(BeanMap.create(commodityVO));
     }
 
