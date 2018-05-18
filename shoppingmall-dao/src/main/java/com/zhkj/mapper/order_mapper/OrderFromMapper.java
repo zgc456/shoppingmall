@@ -9,17 +9,19 @@ import java.util.List;
 
 @Repository
 public interface OrderFromMapper {
+
+    /**
+     * 查看特定用户的订单
+     * @return
+     */
+    List<OrderfromEntity> selectOrderFromBySql(@Param("sqlString") String sqlString);
     /**
      * 添加订单
      * @return
      */
     void saveOrderFrom(@Param("orderFrom") OrderfromEntity orderfromEntity);
 
-    /**
-     * 查看特定用户的订单
-     * @return
-     */
-    List<OrderfromEntity> selectOrderFromByUserId(@Param("userId")Integer userId);
+
 
     /**
      * 修改特定订单

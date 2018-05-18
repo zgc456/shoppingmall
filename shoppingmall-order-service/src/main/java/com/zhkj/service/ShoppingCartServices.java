@@ -26,7 +26,7 @@ public class ShoppingCartServices {
         if(null != orderFrom_dto){
             List<CommodityEntity> commodityEntities = new ArrayList<>();
             List<ShoppingcartEntity> entityList = shoppingCartMapper.selectByUserId(orderFrom_dto.getUserId());
-            //HarvestaddressEntity harvestaddressEntity = harvestAddressMapper.selectByUserAndHarvestAddressId(orderFrom_dto.getUserId(),orderFrom_dto.getHarvestAddressId());
+          //  HarvestaddressEntity harvestaddressEntity = harvestAddressMapper.selectByUserAndHarvestAddressId(orderFrom_dto.getUserId(),orderFrom_dto.getHarvestAddressId());
             entityList.forEach(
                     shoppingCart->{
                         CommodityEntity commodityEntity = orderFromMapper.selectByCommodityId(shoppingCart.getCommodityId());

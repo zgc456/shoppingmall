@@ -8,6 +8,8 @@
         <result property="harvestIsDefault" column="harvestIsDefault" />
         <result property="typeId" column="typeId" />
         <result property="userId" column="userId" />
+        <result property="userName" column="userName" />
+        <result property="userPhone" column="userPhone" />
     </resultMap>
     <select id="gainMyInformation" resultMap="harvestAddressResultMap">
         SELECT * FROM harvestaddress
@@ -15,12 +17,12 @@
     </select>
     <update id="updateHarvestAddress">
         UPDATE harvestaddress
-        SET harvestAddressName = #{harvestaddressEntity.harvestAddressName},typeId = #{harvestaddressEntity.typeId}
-        WHERE userId = #{userId}
+        SET harvestAddressName = #{harvestaddressEntity.harvestAddressName},typeId = #{harvestaddressEntity.typeId},userName=#{harvestaddressEntity.userName},userPhone=#{harvestaddressEntity.userPhone}
+        WHERE userId = #{userId} and id=#{harvestaddressEntity.id}
     </update>
     <insert id="addHarvestAddress">
-        INSERT INTO harvestaddress(harvestAddressName, harvestIsDefault, typeId, userId)
-        VALUES (#{harvestaddressEntity.harvestAddressName},#{harvestaddressEntity.harvestIsDefault},#{harvestaddressEntity.typeId},#{harvestaddressEntity.userId})
+        INSERT INTO harvestaddress(harvestAddressName, harvestIsDefault, typeId, userId,userName,userPhone)
+        VALUES (#{harvestaddressEntity.harvestAddressName},#{harvestaddressEntity.harvestIsDefault},#{harvestaddressEntity.typeId},#{harvestaddressEntity.userId},#{harvestaddressEntity.userName},#{harvestaddressEntity.userPhone})
     </insert>
     <delete id="removeHarvestAddress">
         DELETE FROM harvestaddress

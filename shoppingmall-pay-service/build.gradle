@@ -1,5 +1,6 @@
 
 dependencies {
+    apply plugin: 'war'
     compile project(":shoppingmall-api")
     compile project(":shoppingmall-dao")
     compile project(":shoppingmall-tools")
