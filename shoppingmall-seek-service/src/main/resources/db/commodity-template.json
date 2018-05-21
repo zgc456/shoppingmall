@@ -41,7 +41,7 @@
         }
       }
     },
-    "specificationsrelation": {
+    "specificationsrelation":  {
       "dynamic": false,
       "properties": {
         "id": {

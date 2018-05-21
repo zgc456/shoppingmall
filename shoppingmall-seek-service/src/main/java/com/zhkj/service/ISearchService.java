@@ -10,4 +10,5 @@ public interface ISearchService {
     List<ServiceMultiResult<CommodityTemplate>> getAllTypeCommodity();
     ServiceMultiResult<CommodityTemplate> search(SearchConditionPageVO searchCondition);
     ServiceMultiResult<CommodityTemplate> byDateSearchCommodity(SearchConditionPageVO searchConditionPageVO);
+    ServiceMultiResult<CommodityTemplate> byIdSearchCommodity(Long id);
 }

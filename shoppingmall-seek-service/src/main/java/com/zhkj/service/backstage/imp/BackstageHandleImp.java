@@ -130,18 +130,27 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
     }
     @Override
     public void updateSearch(String index, String type, String id, Object object) {
-        try {
-            byte[] source=objectMapper.writeValueAsBytes(object);
-            UpdateResponse response=client.prepareUpdate(index,type,id)
-                    .setDoc(source,XContentType.JSON)
+        UpdateResponse response=null;
+        if (object instanceof PromotionitemDTO){
+            response=client.prepareUpdate(index,type,id)
+                    .setDoc(analysisObject((PromotionitemDTO)object))
                     .get();
-            if(response.status()== RestStatus.OK){
-                System.out.println("更新成功!");
-            }else{
-                System.out.println("更新失败!");
+        }else {
+            try {
+                byte[] source=objectMapper.writeValueAsBytes(object);
+                response=client.prepareUpdate(index,type,id)
+                        .setDoc(source,XContentType.JSON)
+                        .get();
+            } catch (JsonProcessingException e) {
+                logger.error("object parameter analysis defeated!"+object,e);
             }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        }
+        if(response.status()== RestStatus.OK){
+            System.out.println("更新成功!");
+            logger.debug("更新成功",object);
+        }else{
+            System.out.println("更新失败!");
+            logger.debug("更新成功",object);
         }
     }
 
@@ -149,24 +158,14 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
     public void addSearch(String index, String type, String id, Object object) {
         PromotionitemDTO promotionitemDTO;
         IndexResponse response=null;
-        XContentBuilder builder;
         if (object instanceof PromotionitemDTO){
             promotionitemDTO=(PromotionitemDTO)object;
-            try {
-                builder=jsonBuilder()
-                        .startObject()
-                        .field(CommodityKey.ID,promotionitemDTO.getId())
-                        .field(CommodityKey.END_TIME,promotionitemDTO.getEndTime().getTime())
-                        .field(CommodityKey.START_TIME,promotionitemDTO.getStartTime().getTime())
-                        .field(CommodityKey.DISCOUNT_PRICE,promotionitemDTO.getDiscountPrice())
-                        .field(CommodityKey.COMMODITY_NUMBER,promotionitemDTO.getCommodityNumber())
-                        .field(CommodityKey.COMMODITYID,promotionitemDTO.getCommodityId())
-                        .endObject();
+            if (promotionitemDTO!=null){
                 response=this.client.prepareIndex(index,type,id)
-                        .setSource(builder)
+                        .setSource(analysisObject(promotionitemDTO))
                         .get();
-            } catch (IOException e) {
-                e.printStackTrace();
+            }else {
+                logger.warn("promotionitemDTO is null,Not support null");
             }
         }else {
             try {
@@ -177,11 +176,11 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
                 RestStatus restStatus=response.status();
                 System.out.println(restStatus);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("object parameter analysis defeated!"+object,e);
             }
         }
         System.out.println(response.status());
-
+        logger.debug(response.status().toString());
     }
 
     @Override
@@ -190,5 +189,27 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
                 .get();
         RestStatus restStatus= response.status();
         System.out.println(restStatus);
+    }
+
+    /**
+     * 把促销类型解析成XContentBuilder类型
+     * @param promotionitemDTO
+     * @return
+     */
+    public XContentBuilder analysisObject(PromotionitemDTO promotionitemDTO){
+        try {
+            return jsonBuilder()
+                    .startObject()
+                    .field(CommodityKey.ID,promotionitemDTO.getId())
+                    .field(CommodityKey.END_TIME,promotionitemDTO.getEndTime().getTime())
+                    .field(CommodityKey.START_TIME,promotionitemDTO.getStartTime().getTime())
+                    .field(CommodityKey.DISCOUNT_PRICE,promotionitemDTO.getDiscountPrice())
+                    .field(CommodityKey.COMMODITY_NUMBER,promotionitemDTO.getCommodityNumber())
+                    .field(CommodityKey.COMMODITYID,promotionitemDTO.getCommodityId())
+                    .endObject();
+        } catch (IOException e) {
+            logger.error("解析promotionitemDTO错误"+promotionitemDTO,e);
+            return null;
+        }
     }
 }

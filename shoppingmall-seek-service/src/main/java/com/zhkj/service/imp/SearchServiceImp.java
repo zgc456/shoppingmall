@@ -3,7 +3,6 @@ package com.zhkj.service.imp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.dto.seek_dto.CommodityDTO;
-import com.zhkj.dto.seek_dto.CommoditytyperelationDTO;
 import com.zhkj.dto.seek_dto.PromotionitemDTO;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.entity.CommodityKey;
@@ -13,9 +12,9 @@ import com.zhkj.util.ServiceMultiResult;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.bytes.BytesReference;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.metrics.min.Min;
@@ -28,10 +27,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -211,6 +207,13 @@ public class SearchServiceImp implements ISearchService {
             }
         }
         logger.error("parameter cannot null:"+searchConditionPageVO);
+        return null;
+    }
+
+    @Override
+    public ServiceMultiResult<CommodityTemplate> byIdSearchCommodity(Long id) {
+
+
         return null;
     }
 
