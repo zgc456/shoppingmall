@@ -3,7 +3,7 @@ package com.zhkj.entity;
 public class CommodityintroducepictureEntity {
     private int id;
     private String pictureUrl;
-    private String commodityId;
+    private Integer commodityId;
     private int levels;
 
     public int getId() {
@@ -22,11 +22,11 @@ public class CommodityintroducepictureEntity {
         this.pictureUrl = pictureUrl;
     }
 
-    public String getCommodityId() {
+    public Integer getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(String commodityId) {
+    public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
     }
 
