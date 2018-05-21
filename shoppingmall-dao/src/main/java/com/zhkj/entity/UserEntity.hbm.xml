@@ -5,12 +5,12 @@
 <hibernate-mapping>
 
     <class name="com.zhkj.entity.UserEntity" table="user" schema="shoppingmall">
-        <property name="id" column="id"/>
+        <id name="id" column="id"/>
         <property name="nickName" column="nickName"/>
         <property name="loginName" column="loginName"/>
         <property name="logingPassword" column="logingPassword"/>
         <property name="headPortraitUrl" column="headPortraitUrl"/>
-        <property name="userTypeId" column="userTypeId"/>
+        <property name="userTypeName" column="userTypeName"/>
         <property name="authenticationId" column="authenticationId"/>
     </class>
 </hibernate-mapping>
