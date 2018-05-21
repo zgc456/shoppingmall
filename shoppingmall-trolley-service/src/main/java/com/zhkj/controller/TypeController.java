@@ -2,7 +2,6 @@ package com.zhkj.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.zhkj.dto.type_dto.TypeDTO;
-import com.zhkj.service.TypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
