@@ -1,8 +1,8 @@
 package com.zhkj.entity;
 
-public class TypeEntity {
+public class CommoditySpecificationRelationEntity {
     private int id;
-    private String typeName;
+    private String specificationName;
     private int levels;
     private int parentId;
 
@@ -14,12 +14,12 @@ public class TypeEntity {
         this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getSpecificationName() {
+        return specificationName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
     }
 
     public int getLevels() {
@@ -43,12 +43,13 @@ public class TypeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TypeEntity that = (TypeEntity) o;
+        CommoditySpecificationRelationEntity that = (CommoditySpecificationRelationEntity) o;
 
         if (id != that.id) return false;
         if (levels != that.levels) return false;
         if (parentId != that.parentId) return false;
-        if (typeName != null ? !typeName.equals(that.typeName) : that.typeName != null) return false;
+        if (specificationName != null ? !specificationName.equals(that.specificationName) : that.specificationName != null)
+            return false;
 
         return true;
     }
@@ -56,7 +57,7 @@ public class TypeEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (typeName != null ? typeName.hashCode() : 0);
+        result = 31 * result + (specificationName != null ? specificationName.hashCode() : 0);
         result = 31 * result + levels;
         result = 31 * result + parentId;
         return result;

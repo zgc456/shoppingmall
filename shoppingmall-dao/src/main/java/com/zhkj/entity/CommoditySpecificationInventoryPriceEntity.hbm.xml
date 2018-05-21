@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.CommoditySpecificationInventoryPriceEntity"
+           table="commodity_specification_inventory_price" schema="shoppingmall">
+        <id name="id" column="id"/>
+        <property name="commodityId" column="commodityId"/>
+        <property name="specification1" column="specification1"/>
+        <property name="specification2" column="specification2"/>
+        <property name="specification3" column="specification3"/>
+        <property name="specification4" column="specification4"/>
+        <property name="inventory" column="inventory"/>
+        <property name="price" column="price"/>
+        <property name="picture" column="picture"/>
+    </class>
+</hibernate-mapping>

@@ -1,14 +1,14 @@
 package com.zhkj.entity;
 
 import java.sql.Timestamp;
-import java.util.Objects;
 
 public class CommodityevaluationEntity {
     private int id;
     private Timestamp evaluationTime;
     private String evaluationContent;
-    private Integer evaluationTypeId;
-    private Integer userId;
+    private int evaluationTypeId;
+    private int userId;
+    private int commodityId;
 
     public int getId() {
         return id;
@@ -34,37 +34,57 @@ public class CommodityevaluationEntity {
         this.evaluationContent = evaluationContent;
     }
 
-    public Integer getEvaluationTypeId() {
+    public int getEvaluationTypeId() {
         return evaluationTypeId;
     }
 
-    public void setEvaluationTypeId(Integer evaluationTypeId) {
+    public void setEvaluationTypeId(int evaluationTypeId) {
         this.evaluationTypeId = evaluationTypeId;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CommodityevaluationEntity that = (CommodityevaluationEntity) o;
-        return id == that.id &&
-                Objects.equals(evaluationTime, that.evaluationTime) &&
-                Objects.equals(evaluationContent, that.evaluationContent) &&
-                Objects.equals(evaluationTypeId, that.evaluationTypeId) &&
-                Objects.equals(userId, that.userId);
+
+        if (id != that.id) return false;
+        if (evaluationTypeId != that.evaluationTypeId) return false;
+        if (userId != that.userId) return false;
+        if (commodityId != that.commodityId) return false;
+        if (evaluationTime != null ? !evaluationTime.equals(that.evaluationTime) : that.evaluationTime != null)
+            return false;
+        if (evaluationContent != null ? !evaluationContent.equals(that.evaluationContent) : that.evaluationContent != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, evaluationTime, evaluationContent, evaluationTypeId, userId);
+        int result = id;
+        result = 31 * result + (evaluationTime != null ? evaluationTime.hashCode() : 0);
+        result = 31 * result + (evaluationContent != null ? evaluationContent.hashCode() : 0);
+        result = 31 * result + evaluationTypeId;
+        result = 31 * result + userId;
+        result = 31 * result + commodityId;
+        return result;
     }
 }

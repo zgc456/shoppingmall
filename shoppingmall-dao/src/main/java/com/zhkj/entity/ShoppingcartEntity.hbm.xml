@@ -7,10 +7,9 @@
     <class name="com.zhkj.entity.ShoppingcartEntity" table="shoppingcart" schema="shoppingmall">
         <property name="id" column="id"/>
         <property name="commodityNumber" column="commodityNumber"/>
-        <property name="commodityPrice" column="commodityPrice"/>
         <property name="commodityId" column="commodityId"/>
-        <property name="smallPictureUrl" column="smallPictureUrl"/>
-        <property name="commodityIntroduce" column="commodityIntroduce"/>
+        <property name="commodityName" column="commodityName"/>
+        <property name="commoditySipId" column="commoditySIPId"/>
         <property name="userId" column="userId"/>
     </class>
 </hibernate-mapping>

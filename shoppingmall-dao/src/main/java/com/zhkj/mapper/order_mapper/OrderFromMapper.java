@@ -1,6 +1,5 @@
 package com.zhkj.mapper.order_mapper;
 
-import com.zhkj.entity.CommodityEntity;
 import com.zhkj.entity.OrderfromEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

@@ -4,10 +4,11 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.zhkj.entity.TypeEntity" table="type" schema="shoppingmall">
+    <class name="com.zhkj.entity.CommodityintroducepictureEntity" table="commodityintroducepicture"
+           schema="shoppingmall">
         <id name="id" column="id"/>
-        <property name="typeName" column="typeName"/>
+        <property name="pictureUrl" column="pictureUrl"/>
+        <property name="commodityId" column="commodityId"/>
         <property name="levels" column="levels"/>
-        <property name="parentId" column="parentId"/>
     </class>
 </hibernate-mapping>

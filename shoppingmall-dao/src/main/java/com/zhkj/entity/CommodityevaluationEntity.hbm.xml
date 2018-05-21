@@ -5,10 +5,11 @@
 <hibernate-mapping>
 
     <class name="com.zhkj.entity.CommodityevaluationEntity" table="commodityevaluation" schema="shoppingmall">
-        <property name="id" column="id"/>
+        <id name="id" column="id"/>
         <property name="evaluationTime" column="evaluationTime"/>
         <property name="evaluationContent" column="evaluationContent"/>
         <property name="evaluationTypeId" column="evaluationTypeId"/>
         <property name="userId" column="userId"/>
+        <property name="commodityId" column="commodityId"/>
     </class>
 </hibernate-mapping>

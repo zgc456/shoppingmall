@@ -1,6 +1,5 @@
 package com.zhkj.mapper.order_mapper;
 
-import com.zhkj.entity.ShoppingcartEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
