@@ -15,19 +15,33 @@ public class CommodityKey {
      */
     public static final String TYPES_COMMODITY="commodity";
     public static final String COMMODITY_NAME="commodityName";//商品名称
-    public static final String COMMODITY_INTRODUCE="commodityIntroduce";//商品介绍
-    public static final String COMMODITY_TYPE_RELATION_ID="commodityTypeRelationId";//商品类型
+    public static final String TYPE_NAME="typeName";//商品类型
 
     /**
-     * 商品类型关系types(commoditytyperelation表)
+     * 商品规格详情库存价格表
      */
-    public static final String TYPES_COMMODITYTYPERELATION="commoditytyperelation";
+    public static final String TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE="commodity_specification_inventory_price";
+    public static final String COMMODITY_ID="commodityId";//商品id外键
+    public static final String INVENTORY="inventory";//商品库存
+    public static final String PRICE="price";//商品价格
 
     /**
-     * 折扣types(discount表)
+     * 商品规格关系表
      */
-    public static final String TYPES_DISCOUNT="discount";
-    public static final String DISCOUNT_INTRODUCE="discountIntroduce";//商品折扣介绍
+    public static final String TYPES_COMMODITY_SPECIFICATION_RELATION="commodity_specification_relation";
+    public static final String SPECIFICATION_NAME="specificationName";//商品规格名称
+    public static final String LEVELS="levels";//商品层级
+    public static final String PARENT_ID="parentId";//商品父层级id
+
+    /**
+     * 商品评价表
+     */
+    public static final String TYPES_COMMODITYEVALUATION="commodityevaluation";
+
+    /**
+     * 商品详细 所有图片表
+     */
+    public static final String TYPES_COMMODITYINTRODUCEPICTURE="commodityintroducepicture";
 
     /**
      * 促销types(promotionitem表)
@@ -37,32 +51,15 @@ public class CommodityKey {
     public static final String END_TIME="endTime";//促销结束时间
     public static final String DISCOUNT_PRICE="discountPrice";//促销价钱
     public static final String COMMODITY_NUMBER="commodityNumber";//促销商品数量
-    public static final String COMMODITYID="commodityId";//商品id
-
-
-    /**
-     * 商品规格详细types(specificationsdetailed表)
-     */
-    public static final String TYPES_SPECIFICATIONSDETAILED="specificationsdetailed";
-
-    /**
-     * 商品规格关系types(specificationsrelation表) OR 商品详情
-     */
-    public static final String TYPES_SPECIFICATIONSRELATION="specificationsrelation";
-    public static final String COMMODITY_PRICE="commodityPrice";//商品价格
-    public static final String COMMODITY_ID="commodityId";
-    public static final String TYPEID="typeId";
-    public static final String SPECI_TOPIC_ID="speciTopicId";//商品规格标题
-    public static final String SPECI_DETA_ILFED_ID="speciDetailedId";//商品详细规格介绍
-
-    /**
-     * 商品规格types(specificationstopic表)
-     */
-    public static final String TYPES_SPECIFICATIONSTOPIC="specificationstopic";
 
     /**
      * 商品类型tyeps(type表)
      */
     public static final String TYPES_TYPE="type";
-    public static final String TYPE_NAME="typeName";//商品类型
+
+    /**
+     * 用户表
+     */
+    public static final String TYPES_USER="user";
+
 }

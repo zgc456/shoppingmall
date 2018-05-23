@@ -4,6 +4,7 @@ package com.zhkj.service.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 返回给前台对象
@@ -17,10 +18,10 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
      * 商品名称
      */
     private String commodityName;
-    /**
-     * 商品介绍
-     */
-    private String commodityIntroduce;
+//    /**
+//     * 商品图片介绍
+//     */
+//    private List<String> commodityPictureIntroduces;
     /**
      * 商品图片路径
      */
@@ -28,11 +29,11 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
     /**
      * 商品数量
      */
-    private Long commodityNumber;
+    private Long inventory;
     /**
      * 商品价格
      */
-    private Double commodityPrice;
+    private Double commodityPrice=0.0;
     /**
      * 商品类型名字
      */
@@ -80,14 +81,6 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
         this.commodityName = commodityName;
     }
 
-    public String getCommodityIntroduce() {
-        return commodityIntroduce;
-    }
-
-    public void setCommodityIntroduce(String commodityIntroduce) {
-        this.commodityIntroduce = commodityIntroduce;
-    }
-
     public String getBigPictureUrl() {
         return bigPictureUrl;
     }
@@ -96,15 +89,18 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
         this.bigPictureUrl = bigPictureUrl;
     }
 
-    public Long getCommodityNumber() {
-        return commodityNumber;
+    public Long getInventory() {
+        return inventory;
     }
 
-    public void setCommodityNumber(Long commodityNumber) {
-        this.commodityNumber = commodityNumber;
+    public void setInventory(Long inventory) {
+        this.inventory = inventory;
     }
 
     public Double getCommodityPrice() {
+        if (commodityPrice==null){
+            return 0.0;
+        }
         return commodityPrice;
     }
 
@@ -119,7 +115,6 @@ public class CommodityTemplate implements Comparable<CommodityTemplate> {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
-
     @Override
     public int compareTo(CommodityTemplate o) {
         if (this.commodityPrice>=o.getCommodityPrice()){

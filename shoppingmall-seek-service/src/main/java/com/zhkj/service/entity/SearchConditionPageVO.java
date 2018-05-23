@@ -13,10 +13,6 @@ public class SearchConditionPageVO {
      */
     private String commodityName;
     /**
-     * 商品介绍
-     */
-    private String commodityIntroduce;
-    /**
      * 小于等于价格
      */
     private Double commodityPriceLTE;
@@ -27,7 +23,7 @@ public class SearchConditionPageVO {
     /**
      * 打折介绍
      */
-    private String discountIntroduce;
+    private String discountIntroduce;//展示商城还未做打折的计划
     /**
      * 排序
      */
@@ -35,15 +31,15 @@ public class SearchConditionPageVO {
     /**
      * 根据商品价钱排序
      */
-    private String orderBy = "commodityprice";
+    private String orderBy = "price";
     /**
      * 起始条数
      */
-    private int from=0;
+    private int begin;
     /**
      * 显示条数
      */
-    private int size=0;
+    private int size;
     /**
      * 促销开始时间
      */
@@ -69,12 +65,12 @@ public class SearchConditionPageVO {
         this.endDate = endDate;
     }
 
-    public int getFrom() {
-        return from;
+    public int getBegin() {
+        return begin;
     }
 
-    public void setFrom(int from) {
-        this.from = from;
+    public void setBegin(int begin) {
+        this.begin = begin;
     }
 
     public int getSize() {
@@ -82,7 +78,11 @@ public class SearchConditionPageVO {
     }
 
     public void setSize(int size) {
-        this.size = size;
+        if (size==0||size<0) {
+            this.size = 10;
+        }else{
+            this.size=size;
+        }
     }
 
     public String getCommodityName() {
@@ -91,14 +91,6 @@ public class SearchConditionPageVO {
 
     public void setCommodityName(String commodityName) {
         this.commodityName = commodityName;
-    }
-
-    public String getCommodityIntroduce() {
-        return commodityIntroduce;
-    }
-
-    public void setCommodityIntroduce(String commodityIntroduce) {
-        this.commodityIntroduce = commodityIntroduce;
     }
 
     public Double getCommodityPriceLTE() {
@@ -130,7 +122,12 @@ public class SearchConditionPageVO {
     }
 
     public void setOrderDesc(Integer orderDesc) {
-        this.orderDesc = orderDesc;
+        if (orderDesc<0){
+            this.orderDesc = 0;
+        }else {
+            this.orderDesc = orderDesc;
+        }
+
     }
 
     public String getOrderBy() {
@@ -154,7 +151,6 @@ public class SearchConditionPageVO {
         return "SearchConditionPageVO{" +
                 "id='" + id + '\'' +
                 ", commodityName='" + commodityName + '\'' +
-                ", commodityIntroduce='" + commodityIntroduce + '\'' +
                 ", commodityPriceLTE=" + commodityPriceLTE +
                 ", commodityPriceGTE=" + commodityPriceGTE +
                 ", discountIntroduce='" + discountIntroduce + '\'' +

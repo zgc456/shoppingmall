@@ -22,19 +22,31 @@ public class ControllerTest {
     ISearchService service;
     @GetMapping("/searchByCondition")
     public ServiceMultiResult<CommodityTemplate> searchByCondition(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
-        System.out.println(1);
-        return service.search(searchConditionPageVO);
+        return service.byConditionSearchAllCommodity(searchConditionPageVO);
     }
+
+    /**
+     * 查询所有商品并且归纳好分类
+     * @return
+     */
     @GetMapping("/searchAllCommodity")
     public List<ServiceMultiResult<CommodityTemplate>> searchAllCommodity(){
         return service.getAllTypeCommodity();
     }
+
+    /**
+     * 抢购
+     * @param searchConditionPageVO
+     * @return
+     */
     @GetMapping("/byDateSearchCommodity")
     public ServiceMultiResult<CommodityTemplate> byDateSearchCommodity(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
         return service.byDateSearchCommodity(searchConditionPageVO);
     }
+
     @GetMapping("/test")
     public ServiceMultiResult<CommodityTemplate> test(){
-       return service.byIdSearchCommodity(1L);
+//       return service.byIdSearchCommodity(1L);
+        return null;
     }
 }
