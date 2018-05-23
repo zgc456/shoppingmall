@@ -5,10 +5,9 @@
 <hibernate-mapping>
 
     <class name="com.zhkj.entity.CommodityEntity" table="commodity" schema="shoppingmall">
-        <property name="id" column="id"/>
+        <id name="id" column="id"/>
         <property name="commodityName" column="commodityName"/>
-        <property name="commodityIntroduce" column="commodityIntroduce"/>
         <property name="bigPictureUrl" column="bigPictureUrl"/>
-        <property name="commodityTypeRelationId" column="commodityTypeRelationId"/>
+        <property name="typeName" column="typeName"/>
     </class>
 </hibernate-mapping>

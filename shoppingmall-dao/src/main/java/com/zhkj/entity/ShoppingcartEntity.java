@@ -1,15 +1,11 @@
 package com.zhkj.entity;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 public class ShoppingcartEntity {
     private int id;
     private Integer commodityNumber;
-    private Double commodityPrice;
     private Integer commodityId;
-    private String smallPictureUrl;
-    private String commodityIntroduce;
+    private String commodityName;
+    private Integer commoditySipId;
     private Integer userId;
 
     public int getId() {
@@ -28,14 +24,6 @@ public class ShoppingcartEntity {
         this.commodityNumber = commodityNumber;
     }
 
-    public Double getCommodityPrice() {
-        return commodityPrice;
-    }
-
-    public void setCommodityPrice(Double commodityPrice) {
-        this.commodityPrice = commodityPrice;
-    }
-
     public Integer getCommodityId() {
         return commodityId;
     }
@@ -44,20 +32,20 @@ public class ShoppingcartEntity {
         this.commodityId = commodityId;
     }
 
-    public String getSmallPictureUrl() {
-        return smallPictureUrl;
+    public String getCommodityName() {
+        return commodityName;
     }
 
-    public void setSmallPictureUrl(String smallPictureUrl) {
-        this.smallPictureUrl = smallPictureUrl;
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
     }
 
-    public String getCommodityIntroduce() {
-        return commodityIntroduce;
+    public Integer getCommoditySipId() {
+        return commoditySipId;
     }
 
-    public void setCommodityIntroduce(String commodityIntroduce) {
-        this.commodityIntroduce = commodityIntroduce;
+    public void setCommoditySipId(Integer commoditySipId) {
+        this.commoditySipId = commoditySipId;
     }
 
     public Integer getUserId() {
@@ -78,12 +66,10 @@ public class ShoppingcartEntity {
         if (id != that.id) return false;
         if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
             return false;
-        if (commodityPrice != null ? !commodityPrice.equals(that.commodityPrice) : that.commodityPrice != null)
-            return false;
         if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
-        if (smallPictureUrl != null ? !smallPictureUrl.equals(that.smallPictureUrl) : that.smallPictureUrl != null)
+        if (commodityName != null ? !commodityName.equals(that.commodityName) : that.commodityName != null)
             return false;
-        if (commodityIntroduce != null ? !commodityIntroduce.equals(that.commodityIntroduce) : that.commodityIntroduce != null)
+        if (commoditySipId != null ? !commoditySipId.equals(that.commoditySipId) : that.commoditySipId != null)
             return false;
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
 
@@ -94,10 +80,9 @@ public class ShoppingcartEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
-        result = 31 * result + (commodityPrice != null ? commodityPrice.hashCode() : 0);
         result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
-        result = 31 * result + (smallPictureUrl != null ? smallPictureUrl.hashCode() : 0);
-        result = 31 * result + (commodityIntroduce != null ? commodityIntroduce.hashCode() : 0);
+        result = 31 * result + (commodityName != null ? commodityName.hashCode() : 0);
+        result = 31 * result + (commoditySipId != null ? commoditySipId.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }

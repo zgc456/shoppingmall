@@ -1,15 +1,13 @@
 package com.zhkj.entity;
 
-import java.util.Objects;
-
 public class UserEntity {
     private int id;
     private String nickName;
     private String loginName;
     private String logingPassword;
     private String headPortraitUrl;
-    private Integer userTypeId;
-    private Integer authenticationId;
+    private String userTypeName;
+    private int authenticationId;
 
     public int getId() {
         return id;
@@ -51,19 +49,19 @@ public class UserEntity {
         this.headPortraitUrl = headPortraitUrl;
     }
 
-    public Integer getUserTypeId() {
-        return userTypeId;
+    public String getUserTypeName() {
+        return userTypeName;
     }
 
-    public void setUserTypeId(Integer userTypeId) {
-        this.userTypeId = userTypeId;
+    public void setUserTypeName(String userTypeName) {
+        this.userTypeName = userTypeName;
     }
 
-    public Integer getAuthenticationId() {
+    public int getAuthenticationId() {
         return authenticationId;
     }
 
-    public void setAuthenticationId(Integer authenticationId) {
+    public void setAuthenticationId(int authenticationId) {
         this.authenticationId = authenticationId;
     }
 
@@ -71,19 +69,31 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         UserEntity that = (UserEntity) o;
-        return id == that.id &&
-                Objects.equals(nickName, that.nickName) &&
-                Objects.equals(loginName, that.loginName) &&
-                Objects.equals(logingPassword, that.logingPassword) &&
-                Objects.equals(headPortraitUrl, that.headPortraitUrl) &&
-                Objects.equals(userTypeId, that.userTypeId) &&
-                Objects.equals(authenticationId, that.authenticationId);
+
+        if (id != that.id) return false;
+        if (authenticationId != that.authenticationId) return false;
+        if (nickName != null ? !nickName.equals(that.nickName) : that.nickName != null) return false;
+        if (loginName != null ? !loginName.equals(that.loginName) : that.loginName != null) return false;
+        if (logingPassword != null ? !logingPassword.equals(that.logingPassword) : that.logingPassword != null)
+            return false;
+        if (headPortraitUrl != null ? !headPortraitUrl.equals(that.headPortraitUrl) : that.headPortraitUrl != null)
+            return false;
+        if (userTypeName != null ? !userTypeName.equals(that.userTypeName) : that.userTypeName != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, nickName, loginName, logingPassword, headPortraitUrl, userTypeId, authenticationId);
+        int result = id;
+        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
+        result = 31 * result + (loginName != null ? loginName.hashCode() : 0);
+        result = 31 * result + (logingPassword != null ? logingPassword.hashCode() : 0);
+        result = 31 * result + (headPortraitUrl != null ? headPortraitUrl.hashCode() : 0);
+        result = 31 * result + (userTypeName != null ? userTypeName.hashCode() : 0);
+        result = 31 * result + authenticationId;
+        return result;
     }
 }
