@@ -5,7 +5,7 @@
 <hibernate-mapping>
 
     <class name="com.zhkj.entity.CommoditySpecificationInventoryPriceEntity"
-           table="commodity_specification_inventory_price" schema="shoppingmall">
+           table="commodity_specification_inventory_price" schema="appinfodb">
         <id name="id" column="id"/>
         <property name="commodityId" column="commodityId"/>
         <property name="specification1" column="specification1"/>

@@ -11,5 +11,6 @@
         <property name="commodityName" column="commodityName"/>
         <property name="commoditySipId" column="commoditySIPId"/>
         <property name="userId" column="userId"/>
+        <property name="commodityPrice" column="commodityPrice"/>
     </class>
 </hibernate-mapping>
