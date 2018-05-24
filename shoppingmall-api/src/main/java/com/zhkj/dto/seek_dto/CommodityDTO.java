@@ -1,18 +1,19 @@
 package com.zhkj.dto.seek_dto;
 
+import java.util.Objects;
+
 /**
  * ${user}
  *
  * @Author: Jiankang.Ren
  * @Description:
- * @Date: Created in 14:29 2018/5/11 0011
+ * @Date: Created in 20:52 2018/5/21 0021
  */
 public class CommodityDTO {
     private int id;
     private String commodityName;
-    private String commodityIntroduce;
     private String bigPictureUrl;
-    private Integer commodityTypeRelationId;
+    private String typeName;
 
     public int getId() {
         return id;
@@ -30,14 +31,6 @@ public class CommodityDTO {
         this.commodityName = commodityName;
     }
 
-    public String getCommodityIntroduce() {
-        return commodityIntroduce;
-    }
-
-    public void setCommodityIntroduce(String commodityIntroduce) {
-        this.commodityIntroduce = commodityIntroduce;
-    }
-
     public String getBigPictureUrl() {
         return bigPictureUrl;
     }
@@ -46,11 +39,12 @@ public class CommodityDTO {
         this.bigPictureUrl = bigPictureUrl;
     }
 
-    public Integer getCommodityTypeRelationId() {
-        return commodityTypeRelationId;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setCommodityTypeRelationId(Integer commodityTypeRelationId) {
-        this.commodityTypeRelationId = commodityTypeRelationId;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
+
 }

@@ -1,38 +1,23 @@
 package com.zhkj.dto.seek_dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * ${user}
  *
  * @Author: Jiankang.Ren
  * @Description:
- * @Date: Created in 14:29 2018/5/11 0011
+ * @Date: Created in 20:52 2018/5/21 0021
  */
 public class PromotionitemDTO {
     private int id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
-    private BigDecimal discountPrice;
-    private Integer commodityNumber;
-    private Integer commodityId;
-
-    @Override
-    public String toString() {
-        return "PromotionitemDTO{" +
-                "id=" + id +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", discountPrice=" + discountPrice +
-                ", commodityNumber=" + commodityNumber +
-                ", commodityId=" + commodityId +
-                '}';
-    }
+    private Long startTime;
+    private Long endTime;
+    private Double discountPrice;
+    private int commodityNumber;
+    private int commodityId;
 
     public int getId() {
         return id;
@@ -42,44 +27,62 @@ public class PromotionitemDTO {
         this.id = id;
     }
 
-    public Date getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public Double getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public Integer getCommodityNumber() {
+    public int getCommodityNumber() {
         return commodityNumber;
     }
 
-    public void setCommodityNumber(Integer commodityNumber) {
+    public void setCommodityNumber(int commodityNumber) {
         this.commodityNumber = commodityNumber;
     }
 
-    public Integer getCommodityId() {
+    public int getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(Integer commodityId) {
+    public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PromotionitemDTO that = (PromotionitemDTO) o;
+        return id == that.id &&
+                commodityNumber == that.commodityNumber &&
+                commodityId == that.commodityId &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime) &&
+                Objects.equals(discountPrice, that.discountPrice);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, startTime, endTime, discountPrice, commodityNumber, commodityId);
+    }
 }

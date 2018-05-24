@@ -9,9 +9,9 @@ import java.util.Objects;
  * @Description:
  * @Date: Created in 20:52 2018/5/21 0021
  */
-public class TypeDTO {
+public class CommoditySpecificationRelationDTO {
     private int id;
-    private String typeName;
+    private String specificationName;
     private int levels;
     private int parentId;
 
@@ -23,12 +23,12 @@ public class TypeDTO {
         this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getSpecificationName() {
+        return specificationName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setSpecificationName(String specificationName) {
+        this.specificationName = specificationName;
     }
 
     public int getLevels() {
@@ -51,16 +51,16 @@ public class TypeDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TypeDTO typeDTO = (TypeDTO) o;
-        return id == typeDTO.id &&
-                levels == typeDTO.levels &&
-                parentId == typeDTO.parentId &&
-                Objects.equals(typeName, typeDTO.typeName);
+        CommoditySpecificationRelationDTO that = (CommoditySpecificationRelationDTO) o;
+        return id == that.id &&
+                levels == that.levels &&
+                parentId == that.parentId &&
+                Objects.equals(specificationName, that.specificationName);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, typeName, levels, parentId);
+        return Objects.hash(id, specificationName, levels, parentId);
     }
 }
