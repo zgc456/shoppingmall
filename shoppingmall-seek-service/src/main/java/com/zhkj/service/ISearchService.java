@@ -1,6 +1,6 @@
 package com.zhkj.service;
 
-import com.zhkj.service.entity.CommodityDatailsDTO;
+import com.zhkj.service.entity.CommodityDetailsDTO;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
@@ -33,5 +33,5 @@ public interface ISearchService {
      * @param id
      * @return
      */
-    CommodityDatailsDTO byIdSearchCommodity(Long id);
+    CommodityDetailsDTO byIdSearchCommodity(Long id);
 }

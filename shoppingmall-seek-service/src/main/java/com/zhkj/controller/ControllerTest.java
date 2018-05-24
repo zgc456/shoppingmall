@@ -2,6 +2,7 @@ package com.zhkj.controller;
 
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.backstage.IBackstageHandleSearch;
+import com.zhkj.service.entity.CommodityDetailsDTO;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
@@ -44,9 +45,9 @@ public class ControllerTest {
         return service.byDateSearchCommodity(searchConditionPageVO);
     }
 
-    @GetMapping("/test")
-    public ServiceMultiResult<CommodityTemplate> test(){
-//       return service.byIdSearchCommodity(1L);
-        return null;
+    @GetMapping("/byIdGetCommodityDetails")
+    public CommodityDetailsDTO byIdGetCommodityDetails(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
+        return service.byIdSearchCommodity(Long.parseLong(searchConditionPageVO.getId()));
     }
+
 }

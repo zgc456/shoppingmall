@@ -13,11 +13,13 @@ import java.util.List;
  * @Description: 商品详细展示类提供给前台数据展示
  * @Date: Created in 14:08 2018/5/23 0023
  */
-public class CommodityDatailsDTO {
+public class CommodityDetailsDTO {
     private String id;//商品id
     private String commodityName;//商品名字
-    private List<CommoditySpecificationInventoryPriceDTO> commoditySpecificationInventoryPriceDTOS;//商品所有规格集合
-    private List<CommoditySpecificationRelationDTO> commoditySpecificationRelationDTOS;//商品所有规格的父规格
+    //商品所有规格集合
+    private List<CommoditySpecificationInventoryPriceDTO> commoditySpecificationInventoryPriceDTOS;
+    //商品所有规格的父规格
+    private List<CommoditySpecificationRelationDTO> commoditySpecificationRelationDTOS;
     private List<String> headPictures;//商品头部图片
     private List<String> detailsPictures;//商品详情图片
     private PromotionitemDTO promotionitemDTO;//商品抢购对象

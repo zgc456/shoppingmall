@@ -3,11 +3,12 @@ package com.zhkj.service.imp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhkj.dto.seek_dto.*;
 import com.zhkj.service.ISearchService;
-import com.zhkj.service.entity.CommodityDatailsDTO;
+import com.zhkj.service.entity.CommodityDetailsDTO;
 import com.zhkj.service.entity.CommodityKey;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -265,36 +266,52 @@ public class SearchServiceImp implements ISearchService {
      * @return
      */
     public CommodityDTO byCommodityIdGetCommodity(Long id){
-        List<CommodityDTO> lists=new LinkedList<>();
-        if (id==null||id>=0){
+        List<CommodityDTO> lists= new LinkedList<>();
+        CommodityDTO dto=null;
+        if (id==null||id<=0){
             logger.warn("查询了得到了空值,因为parameter不符合查询规范");
             return null;
         }
-        SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
-                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setTypes(CommodityKey.TYPES_COMMODITY)
-                .setQuery(QueryBuilders.termQuery(CommodityKey.ID,id))
-                .get();
-        if (response.getHits().getTotalHits()>1){
-            logger.warn("elasticsearch commodity type 数据有问题了有多个id相同的商品");
+        GetResponse response=transportClient.prepareGet(CommodityKey.INDEX,CommodityKey.TYPES_COMMODITY,String.valueOf(id)).get();
+        try {
+            dto=objectMapper.readValue(response.getSourceAsString(),CommodityDTO.class);
+        } catch (IOException e) {
+            logger.error(response.getSourceAsString()+"转换成CommodityDTO.class失败",e);
         }
-        response.getHits().forEach(hit -> {
-            try {
-                lists.add(objectMapper.readValue(hit.getSourceAsString(),CommodityDTO.class));
-            } catch (IOException e) {
-                logger.error(hit.getSourceAsString()+"转换成CommodityDTO.class失败",e);
-            }
-        });
-        return lists.get(0);
+        return dto;
     }
 
     @Override
-    public CommodityDatailsDTO byIdSearchCommodity(Long id) {
-        CommodityDatailsDTO commodityDatailsDTO=new CommodityDatailsDTO();
+    public CommodityDetailsDTO byIdSearchCommodity(Long id) {
+        List<String> headPictures=new ArrayList<>();
+        List<String> detailsPicture=new ArrayList<>();
+        CommodityDetailsDTO commodityDetailsDTO=new CommodityDetailsDTO();
         CommodityDTO commodityDTO=byCommodityIdGetCommodity(id);//根据id获取商品信息
-        List<CommodityintroducepictureDTO> commodityintroducepictureDTOS=this.byCommodityIdGetAllPicture(id);//根据id获取商品所有图片
+        if (commodityDTO!=null){
+            logger.warn("parameter error"+id);
+            return null;
+        }
+        //根据id获取商品所有图片
+        List<CommodityintroducepictureDTO> commodityintroducepictureDTOS=this.byCommodityIdGetAllPicture(id);
+        commodityintroducepictureDTOS.forEach(commodityintroducepictureDTO -> {
+            if (commodityintroducepictureDTO.getLevels()==0){
+                headPictures.add(commodityintroducepictureDTO.getPictureUrl());
+            }else {
+                detailsPicture.add(commodityintroducepictureDTO.getPictureUrl());
+            }
+        });
+        //获取商品规格中价格最低的和所有规格加起来的库存量
+        CommoditySpecificationInventoryPriceDTO priceDTO=this.getCommodityPrice(id);
+        //开始给前台对象赋值
+        commodityDetailsDTO.setId(String.valueOf(id));
+        commodityDetailsDTO.setCommodityName(commodityDTO.getCommodityName());//商品名称
+        commodityDetailsDTO.setPrice(priceDTO.getPrice());//价格
+        commodityDetailsDTO.setHeadPictures(headPictures);//商品头部图片
+        commodityDetailsDTO.setDetailsPictures(detailsPicture);//商品详细图片
+        commodityDetailsDTO.setInventory(priceDTO.getInventory());//总库存量
 
-        return null;
+
+        return commodityDetailsDTO;
     }
 
     /**
