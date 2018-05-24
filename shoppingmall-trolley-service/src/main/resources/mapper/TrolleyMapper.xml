@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.shoppingcart_mapper.ShoppingCartMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.ShoppingcartEntity">
+        <id property="id" column="id"/>
+        <result property="commodityNumber" column="commodityNumber"/>
+        <result property="commodityName" column="commodityName"/>
+        <result property="commodityId" column="commodityId"/>
+        <result property="commoditySipId" column="commoditySIPId"/>
+        <result property="userId" column="userId"/>
+        <result property="commodityPrice" column="commodityPrice"/>
+        <association property="commoditySpecificationInventoryPriceEntity" javaType="com.zhkj.entity.CommoditySpecificationInventoryPriceEntity">
+            <id property="id" column="id"/>
+            <result property="commodityId" column="commodityId"/>
+            <result property="specification1" column="specification1"/>
+            <result property="specification2" column="specification2"/>
+            <result property="specification3" column="specification3"/>
+            <result property="specification4" column="specification4"/>
+            <result property="inventory" column="inventory"/>
+            <result property="price" column="price"/>
+            <result property="picture" column="picture"/>
+        </association>
+    </resultMap>
+   <select id="queryShoppingCart" resultMap="resultMap" >
+     SELECT s.commodityNumber,s.commodityName,s.commodityId,s.commoditySIPId,s.commodityPrice,cs.specification1,cs.specification2,cs.specification3,cs.specification4,cs.picture,cs.inventory
+FROM commodity_specification_inventory_price cs,shoppingcart s WHERE cs.id=s.commoditySIPId AND s.userId=#{userId}
+   </select>
+    <select id="queryShoppingCartByUserId" resultMap="resultMap">
+        SELECT * from shoppingcart WHERE userId=#{userId}
+    </select>
+    <insert id="saveShoppingCart" parameterType="map">
+      INSERT INTO shoppingcart (commodityNumber, commodityId, commodityName,commoditySIPId, userId,commodityPrice)  VALUES (#{commodityNumber},#{commodityId},#{commodityName},#{commoditySipId},#{userId},#{commodityPrice})
+    </insert>
+    <delete id="deleteShoppingCart" parameterType="map">
+        DELETE from shoppingcart where id in
+        <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateShoppingCart" parameterType="map">
+        UPDATE shoppingcart SET commodityNumber= #{commodityNumber} WHERE commoditySIPId=#{commoditySipId} AND userId=#{userId}
+    </update>
+</mapper>

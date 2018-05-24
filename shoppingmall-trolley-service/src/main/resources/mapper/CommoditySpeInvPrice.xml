@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhkj.mapper.commoditySpeInvPrice_mapper.CommoditySpeInvPriceMapper">
+    <resultMap id="resultMap" type="com.zhkj.entity.CommoditySpecificationInventoryPriceEntity">
+        <id property="id" column="id"/>
+        <result property="commodityId" column="commodityId"/>
+        <result property="specification1" column="specification1"/>
+        <result property="specification2" column="specification2"/>
+        <result property="specification3" column="specification3"/>
+        <result property="specification4" column="specification4"/>
+        <result property="inventory" column="inventory"/>
+        <result property="price" column="price"/>
+        <result property="picture" column="picture"/>
+    </resultMap>
+    <select id="queryByInvPriceId" resultType="map" resultMap="resultMap">
+        SELECT * from commodity_specification_inventory_price WHERE id=#{id}
+    </select>
+</mapper>
