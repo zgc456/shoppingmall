@@ -1,10 +1,10 @@
 package com.zhkj.vo.order_vo;
-import com.zhkj.dto.shoppingcart_dto.ShoppingCartDTO;
+//import com.zhkj.dto.shoppingcart_dto.ShoppingCartDTO;
 
 import java.util.List;
 
 public class OrderFrom_Vo {
-    private List<ShoppingCartDTO> shoppingcartEntityList;
+//    private List<ShoppingCartDTO> shoppingcartEntityList;
     /**
      * 所属用户
      */
@@ -18,13 +18,13 @@ public class OrderFrom_Vo {
      */
     private Integer harvestAddressId;
 
-    public List<ShoppingCartDTO> getShoppingcartEntityList() {
-        return shoppingcartEntityList;
-    }
-
-    public void setShoppingcartEntityList(List<ShoppingCartDTO> shoppingcartEntityList) {
-        this.shoppingcartEntityList = shoppingcartEntityList;
-    }
+//    public List<ShoppingCartDTO> getShoppingcartEntityList() {
+//        return shoppingcartEntityList;
+//    }
+//
+//    public void setShoppingcartEntityList(List<ShoppingCartDTO> shoppingcartEntityList) {
+//        this.shoppingcartEntityList = shoppingcartEntityList;
+//    }
 
     public Integer getUserId() {
         return userId;

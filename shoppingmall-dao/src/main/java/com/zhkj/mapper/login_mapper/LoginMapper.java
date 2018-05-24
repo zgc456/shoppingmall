@@ -1,5 +1,6 @@
 package com.zhkj.mapper.login_mapper;
 
+import com.zhkj.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

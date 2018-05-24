@@ -111,3 +111,4 @@ gradle-app.setting
 /logs/
 /shoppingmall-activity-service/build/
 /shoppingmall-api/build/
+/shoppingmall-activity-service/out/

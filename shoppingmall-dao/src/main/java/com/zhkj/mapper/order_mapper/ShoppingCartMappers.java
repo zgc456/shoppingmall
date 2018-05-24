@@ -12,5 +12,5 @@ public interface ShoppingCartMappers {
      * @param userId 用户id
      * @return 购物车信息
      */
-    List<ShoppingcartEntity> selectByUserId(@Param("userId") Integer userId);
+   // List<ShoppingcartEntity> selectByUserId(@Param("userId") Integer userId);
 }

@@ -40,6 +40,6 @@ public interface OrderFromMapper {
      * @param commodityId 商品id
      * @return 商品信息
      */
-    CommodityEntity selectByCommodityId(@Param("commodityId")Integer commodityId);
+   // CommodityEntity selectByCommodityId(@Param("commodityId")Integer commodityId);
 
 }
