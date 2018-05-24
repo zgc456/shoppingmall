@@ -287,7 +287,7 @@ public class SearchServiceImp implements ISearchService {
         List<String> detailsPicture=new ArrayList<>();
         CommodityDetailsDTO commodityDetailsDTO=new CommodityDetailsDTO();
         CommodityDTO commodityDTO=byCommodityIdGetCommodity(id);//根据id获取商品信息
-        if (commodityDTO!=null){
+        if (commodityDTO==null){
             logger.warn("parameter error"+id);
             return null;
         }
