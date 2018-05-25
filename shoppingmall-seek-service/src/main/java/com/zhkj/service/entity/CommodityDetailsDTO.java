@@ -1,10 +1,10 @@
 package com.zhkj.service.entity;
 
-import com.zhkj.dto.seek_dto.CommoditySpecificationInventoryPriceDTO;
-import com.zhkj.dto.seek_dto.CommoditySpecificationRelationDTO;
 import com.zhkj.dto.seek_dto.PromotionitemDTO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ${user}
@@ -16,10 +16,8 @@ import java.util.List;
 public class CommodityDetailsDTO {
     private String id;//商品id
     private String commodityName;//商品名字
-    //商品所有规格集合
-    private List<CommoditySpecificationInventoryPriceDTO> commoditySpecificationInventoryPriceDTOS;
-    //商品所有规格的父规格
-    private List<CommoditySpecificationRelationDTO> commoditySpecificationRelationDTOS;
+    //商品规格和规格详细
+    private Map<String,Set<String>> commoditySpecificationParcular;
     private List<String> headPictures;//商品头部图片
     private List<String> detailsPictures;//商品详情图片
     private PromotionitemDTO promotionitemDTO;//商品抢购对象
@@ -42,20 +40,12 @@ public class CommodityDetailsDTO {
         this.commodityName = commodityName;
     }
 
-    public List<CommoditySpecificationInventoryPriceDTO> getCommoditySpecificationInventoryPriceDTOS() {
-        return commoditySpecificationInventoryPriceDTOS;
+    public Map<String, Set<String>> getCommoditySpecificationParcular() {
+        return commoditySpecificationParcular;
     }
 
-    public void setCommoditySpecificationInventoryPriceDTOS(List<CommoditySpecificationInventoryPriceDTO> commoditySpecificationInventoryPriceDTOS) {
-        this.commoditySpecificationInventoryPriceDTOS = commoditySpecificationInventoryPriceDTOS;
-    }
-
-    public List<CommoditySpecificationRelationDTO> getCommoditySpecificationRelationDTOS() {
-        return commoditySpecificationRelationDTOS;
-    }
-
-    public void setCommoditySpecificationRelationDTOS(List<CommoditySpecificationRelationDTO> commoditySpecificationRelationDTOS) {
-        this.commoditySpecificationRelationDTOS = commoditySpecificationRelationDTOS;
+    public void setCommoditySpecificationParcular(Map<String, Set<String>> commoditySpecificationParcular) {
+        this.commoditySpecificationParcular = commoditySpecificationParcular;
     }
 
     public List<String> getHeadPictures() {

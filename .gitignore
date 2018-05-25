@@ -111,4 +111,8 @@ gradle-app.setting
 /logs/
 /shoppingmall-activity-service/build/
 /shoppingmall-api/build/
+<<<<<<< Updated upstream
 /shoppingmall-activity-service/out/
+=======
+/shoppingmall-seek-service/out/
+>>>>>>> Stashed changes

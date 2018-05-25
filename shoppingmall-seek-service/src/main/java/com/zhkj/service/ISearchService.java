@@ -1,5 +1,7 @@
 package com.zhkj.service;
 
+import com.zhkj.dto.seek_dto.CommoditySpecificationInventoryPriceDTO;
+import com.zhkj.dto.seek_dto.CommodityevaluationDTO;
 import com.zhkj.service.entity.CommodityDetailsDTO;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
@@ -34,4 +36,18 @@ public interface ISearchService {
      * @return
      */
     CommodityDetailsDTO byIdSearchCommodity(Long id);
+
+    /**
+     * 根据商品规格获得商品规格详细信息
+     * @param commoditySpecificationInventoryPriceDTO 返回商品详细信息
+     * @return
+     */
+    CommoditySpecificationInventoryPriceDTO byConditionGetCommoditySpecification(CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO);
+
+    /**
+     * 根据id获取商品评论
+     * @param id
+     * @return
+     */
+    List<CommodityevaluationDTO> byIdGetAllCommodityevaluation(String id);
 }

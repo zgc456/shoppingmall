@@ -1,5 +1,7 @@
 package com.zhkj.controller;
 
+import com.zhkj.dto.seek_dto.CommoditySpecificationInventoryPriceDTO;
+import com.zhkj.dto.seek_dto.CommodityevaluationDTO;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.backstage.IBackstageHandleSearch;
 import com.zhkj.service.entity.CommodityDetailsDTO;
@@ -49,5 +51,16 @@ public class ControllerTest {
     public CommodityDetailsDTO byIdGetCommodityDetails(@ModelAttribute SearchConditionPageVO searchConditionPageVO){
         return service.byIdSearchCommodity(Long.parseLong(searchConditionPageVO.getId()));
     }
-
+    @GetMapping("/getCommoditySpecification")
+    public CommoditySpecificationInventoryPriceDTO getCommoditySpecification(@ModelAttribute CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO){
+        if (commoditySpecificationInventoryPriceDTO!=null){
+            return null;
+        }else{
+            return null;
+        }
+    }
+    @GetMapping("/getCommodityevaluation")
+    public List<CommodityevaluationDTO> getCommodityevaluation(@ModelAttribute String id){
+        return service.byIdGetAllCommodityevaluation(id);
+    }
 }

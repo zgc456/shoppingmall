@@ -42,23 +42,23 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
             logger.error("Cannot parse json for"+content,e);
         }
     }
-    @KafkaListener(topics =IndexMessageVO.TOPIC_COMMODITYTYPERELATION)
+    @KafkaListener(topics =IndexMessageVO.TOPIC_COMMODITY_SPECIFICATION_INVENTORY_PRICE)
     public void kafkaCommoditytyperelation(String content){
-//        try {
-//            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
-//            executeElastiSearch(message,IndexMessageVO.TOPIC_COMMODITYTYPERELATION,objectMapper.readValue(message.getObjects(),CommoditytyperelationDTO.class));
-//        } catch (IOException e) {
-//            logger.error("Cannot parse json for"+content,e);
-//        }
+        try {
+            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
+            executeElastiSearch(message,IndexMessageVO.TOPIC_COMMODITY_SPECIFICATION_INVENTORY_PRICE,objectMapper.readValue(message.getObjects(),CommoditySpecificationInventoryPriceDTO.class));
+        } catch (IOException e) {
+            logger.error("Cannot parse json for"+content,e);
+        }
     }
-    @KafkaListener(topics =IndexMessageVO.TOPIC_DISCOUNT)
+    @KafkaListener(topics =IndexMessageVO.TOPIC_COMMODITY_SPECIFICATION_RELATION)
     public void kafkaDiscount(String content){
-//        try {
-//            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
-//            executeElastiSearch(message,IndexMessageVO.TOPIC_DISCOUNT,objectMapper.readValue(message.getObjects(),DiscountDTO.class));
-//        } catch (IOException e) {
-//            logger.error("Cannot parse json for"+content,e);
-//        }
+        try {
+            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
+            executeElastiSearch(message,IndexMessageVO.TOPIC_COMMODITY_SPECIFICATION_RELATION,objectMapper.readValue(message.getObjects(),CommoditySpecificationRelationDTO.class));
+        } catch (IOException e) {
+            logger.error("Cannot parse json for"+content,e);
+        }
     }
     @KafkaListener(topics =IndexMessageVO.TOPIC_PROMOTIONITEM)
     public void kafkaPromotionitem(String content){
@@ -69,32 +69,32 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
             logger.error("Cannot parse json for"+content,e);
         }
     }
-    @KafkaListener(topics =IndexMessageVO.TOPIC_SPECIFICATIONSDETAILED)
+    @KafkaListener(topics =IndexMessageVO.TOPIC_COMMODITYEVALUATION)
     public void kafkaSpecificationsdetailed(String content){
-//        try {
-//            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
-//            executeElastiSearch(message,IndexMessageVO.TOPIC_SPECIFICATIONSDETAILED,objectMapper.readValue(message.getObjects(),SpecificationsdetailedDTO.class));
-//        } catch (IOException e) {
-//            logger.error("Cannot parse json for"+content,e);
-//        }
+        try {
+            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
+            executeElastiSearch(message,IndexMessageVO.TOPIC_COMMODITYEVALUATION,objectMapper.readValue(message.getObjects(),CommodityevaluationDTO.class));
+        } catch (IOException e) {
+            logger.error("Cannot parse json for"+content,e);
+        }
     }
-    @KafkaListener(topics = IndexMessageVO.TOPIC_SPECIFICATIONSRELATION)
+    @KafkaListener(topics = IndexMessageVO.TOPIC_COMMODITYINTRODUCEPICTURE)
     public void kafkaSpecificationsrelation(String content){
-//        try {
-//            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
-//            executeElastiSearch(message,IndexMessageVO.TOPIC_SPECIFICATIONSRELATION,objectMapper.readValue(message.getObjects(),SpecificationsrelationDTO.class));
-//        } catch (IOException e) {
-//            logger.error("Cannot parse json for"+content,e);
-//        }
+        try {
+            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
+            executeElastiSearch(message,IndexMessageVO.TOPIC_COMMODITYINTRODUCEPICTURE,objectMapper.readValue(message.getObjects(),CommodityintroducepictureDTO.class));
+        } catch (IOException e) {
+            logger.error("Cannot parse json for"+content,e);
+        }
     }
-    @KafkaListener(topics =IndexMessageVO.TOPIC_SPECIFICATIONSTOPIC)
+    @KafkaListener(topics =IndexMessageVO.TOPIC_USER)
     public void kafkaSpecificationstopic(String content){
-//        try {
-//            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
-//            executeElastiSearch(message,IndexMessageVO.TOPIC_SPECIFICATIONSTOPIC,objectMapper.readValue(message.getObjects(),SpecificationstopicDTO.class));
-//        } catch (IOException e) {
-//            logger.error("Cannot parse json for"+content,e);
-//        }
+        try {
+            IndexMessageVO message=objectMapper.readValue(content,IndexMessageVO.class);
+            executeElastiSearch(message,IndexMessageVO.TOPIC_USER,objectMapper.readValue(message.getObjects(),UserDTO.class));
+        } catch (IOException e) {
+            logger.error("Cannot parse json for"+content,e);
+        }
     }
     @KafkaListener(topics = IndexMessageVO.TOPIC_TYPE)
     public void kafkaType(String content){
@@ -201,11 +201,11 @@ public class BackstageHandleImp implements IBackstageHandleSearch {
             return jsonBuilder()
                     .startObject()
                     .field(CommodityKey.ID,promotionitemDTO.getId())
-//                    .field(CommodityKey.END_TIME,promotionitemDTO.getEndTime().getTime())
-//                    .field(CommodityKey.START_TIME,promotionitemDTO.getStartTime().getTime())
+                    .field(CommodityKey.END_TIME,promotionitemDTO.getEndTime())
+                    .field(CommodityKey.START_TIME,promotionitemDTO.getStartTime())
                     .field(CommodityKey.DISCOUNT_PRICE,promotionitemDTO.getDiscountPrice())
                     .field(CommodityKey.COMMODITY_NUMBER,promotionitemDTO.getCommodityNumber())
-//                    .field(CommodityKey.COMMODITYID,promotionitemDTO.getCommodityId())
+                    .field(CommodityKey.COMMODITY_ID,promotionitemDTO.getCommodityId())
                     .endObject();
         } catch (IOException e) {
             logger.error("解析promotionitemDTO错误"+promotionitemDTO,e);

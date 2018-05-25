@@ -22,7 +22,10 @@ public class CommodityKey {
      */
     public static final String TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE="commodity_specification_inventory_price";
     public static final String COMMODITY_ID="commodityId";//商品id外键
-    public static final String INVENTORY="inventory";//商品库存
+    public static final String SPECIFICATION1="specification1";//商品规格1
+    public static final String SPECIFICATION2="specification2";//商品规格2
+    public static final String SPECIFICATION3="specification3";//商品规格3
+    public static final String SPECIFICATION4="specification4";//商品规格4
     public static final String PRICE="price";//商品价格
 
     /**

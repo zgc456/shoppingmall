@@ -26,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -34,6 +33,7 @@ import java.util.*;
 
 @Service
 public class SearchServiceImp implements ISearchService {
+
     private static final Logger logger=LoggerFactory.getLogger(SearchServiceImp.class);
     @Autowired
     private TransportClient transportClient;
@@ -71,9 +71,6 @@ public class SearchServiceImp implements ISearchService {
             return null;
         }
     }
-    public List<CommodityDTO> byConditonSearchCommodityAll(){
-        return null;
-    }
 
     /**
      * 根据商品类型返回这个类型的所有商品
@@ -102,21 +99,6 @@ public class SearchServiceImp implements ISearchService {
                 }
             }
             numbers.forEach(integer -> lists.remove(integer));
-//            lists.forEach(commodityDTO -> {
-//                if (commodityDTO != null && typeDTO.getTypeName().equals(commodityDTO.getTypeName())) {
-//                    CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO = getCommodityPrice(new Long(commodityDTO.getId()));
-//                    CommodityTemplate commodityTemplate = new CommodityTemplate();
-//                    commodityTemplate.setId(new Long(commodityDTO.getId()));
-//                    commodityTemplate.setBigPictureUrl(commodityDTO.getBigPictureUrl());
-//                    commodityTemplate.setCommodityName(commodityDTO.getCommodityName());
-//                    if (commoditySpecificationInventoryPriceDTO!=null){
-//                        commodityTemplate.setCommodityPrice(commoditySpecificationInventoryPriceDTO.getPrice());//商品最低价钱
-//                        commodityTemplate.setInventory(new Long(commoditySpecificationInventoryPriceDTO.getInventory()));//库存
-//                    }
-//                    commodityDTOList.add(commodityTemplate);
-//                    lists.remove(commodityDTO);
-//                }
-//            });
             serviceMultiResult.setResult(commodityDTOList);
             serviceMultiResult.setTotal(new Long(serviceMultiResult.getResult().size()));
         }else {
@@ -180,6 +162,7 @@ public class SearchServiceImp implements ISearchService {
     }
 
     /**
+     * 查commodity_specification_inventory_price
      * 查询商品详情(价格,数量,规格,小图片)
      * @param CommodityId 商品id 可为空,为空不查询这一项
      * @param priceLTE 商品最低价 可为空,为空不查询这一项
@@ -283,12 +266,14 @@ public class SearchServiceImp implements ISearchService {
 
     @Override
     public CommodityDetailsDTO byIdSearchCommodity(Long id) {
-        List<String> headPictures=new ArrayList<>();
-        List<String> detailsPicture=new ArrayList<>();
+        List<String> headPictures=new ArrayList<>();//商品头部展示图片
+        List<String> detailsPicture=new ArrayList<>();//商品详细图片
+        Map<String,Set<String>> map=new HashMap<>();//商品规格规格内容
         CommodityDetailsDTO commodityDetailsDTO=new CommodityDetailsDTO();
-        CommodityDTO commodityDTO=byCommodityIdGetCommodity(id);//根据id获取商品信息
+        //根据id获取商品信息,查询有没有商品
+        CommodityDTO commodityDTO=byCommodityIdGetCommodity(id);
         if (commodityDTO==null){
-            logger.warn("parameter error"+id);
+            logger.warn("parameter error\t"+id);
             return null;
         }
         //根据id获取商品所有图片
@@ -302,6 +287,44 @@ public class SearchServiceImp implements ISearchService {
         });
         //获取商品规格中价格最低的和所有规格加起来的库存量
         CommoditySpecificationInventoryPriceDTO priceDTO=this.getCommodityPrice(id);
+        //获取本id 所有规格的商品 包括价格、库存、商品小图片
+        List<CommoditySpecificationInventoryPriceDTO> commoditySpecificationInventoryPriceDTOList=byIdGetAllSpecificationCommodity(String.valueOf(id));
+        //循环所有商品规格
+        Set<String> set1=new HashSet<>();
+        Set<String> set2=new HashSet<>();
+        Set<String> set3=new HashSet<>();
+        Set<String> set4=new HashSet<>();
+        commoditySpecificationInventoryPriceDTOList.forEach(dto->{
+            if (dto.getSpecification1()!=null&&!dto.getSpecification1().isEmpty()){
+                set1.add(dto.getSpecification1());
+                if (dto.getSpecification2()!=null&&!dto.getSpecification2().isEmpty()){
+                    set2.add(dto.getSpecification2());
+                    if (dto.getSpecification3()!=null&&!dto.getSpecification3().isEmpty()){
+                        set3.add(dto.getSpecification3());
+                        if (dto.getSpecification4()!=null&&!dto.getSpecification4().isEmpty()){
+                            set4.add(dto.getSpecification4());
+                        }
+                    }
+                }
+            }
+        });
+        //拿出第一个商品
+        CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO= commoditySpecificationInventoryPriceDTOList.get(0);
+        //商品所有规格
+        List<CommoditySpecificationRelationDTO> commoditySpecificationRelationDTOList=new LinkedList<>();
+        if (commoditySpecificationInventoryPriceDTO.getSpecification1()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification1().isEmpty()){
+            //给商品规格标题赋值
+            map.put(getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification1()).getSpecificationName(),set1);
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification2()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification2().isEmpty()){
+            map.put(getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification2()).getSpecificationName(),set2);
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification3()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification3().isEmpty()){
+            map.put(getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification3()).getSpecificationName(),set3);
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification4()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification4().isEmpty()){
+            map.put(getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification4()).getSpecificationName(),set4);
+        }
         //开始给前台对象赋值
         commodityDetailsDTO.setId(String.valueOf(id));
         commodityDetailsDTO.setCommodityName(commodityDTO.getCommodityName());//商品名称
@@ -309,12 +332,128 @@ public class SearchServiceImp implements ISearchService {
         commodityDetailsDTO.setHeadPictures(headPictures);//商品头部图片
         commodityDetailsDTO.setDetailsPictures(detailsPicture);//商品详细图片
         commodityDetailsDTO.setInventory(priceDTO.getInventory());//总库存量
-
-
+        commodityDetailsDTO.setCommoditySpecificationParcular(map);//商品规格
         return commodityDetailsDTO;
     }
 
+    @Override
+    public CommoditySpecificationInventoryPriceDTO byConditionGetCommoditySpecification(CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO) {
+        BoolQueryBuilder boolQueryBuilder=QueryBuilders.boolQuery();
+        if (commoditySpecificationInventoryPriceDTO.getId()<=0){
+            logger.warn("parameter id must gt 0");
+            return null;
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification1()!=null){
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION1,commoditySpecificationInventoryPriceDTO.getSpecification1()));
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification2()!=null){
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION2,commoditySpecificationInventoryPriceDTO.getSpecification2()));
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification3()!=null){
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION3,commoditySpecificationInventoryPriceDTO.getSpecification3()));
+        }
+        if (commoditySpecificationInventoryPriceDTO.getSpecification4()!=null){
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION4,commoditySpecificationInventoryPriceDTO.getSpecification4()));
+        }
+        SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                .setTypes(CommodityKey.TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE)
+                .setQuery(boolQueryBuilder)
+                .get();
+        List<CommoditySpecificationInventoryPriceDTO> list=new LinkedList<>();
+        response.getHits().forEach(hit -> {
+            try {
+                list.add(objectMapper.readValue(hit.getSourceAsString(),CommoditySpecificationInventoryPriceDTO.class));
+            } catch (IOException e) {
+                logger.warn(hit.getSourceAsString()+"类型转换有问题",e);
+            }
+        });
+        return list.get(0)!=null ? list.get(0):null;
+    }
+
+    @Override
+    public List<CommodityevaluationDTO> byIdGetAllCommodityevaluation(String id) {
+        if (id!=null){
+            List<CommodityevaluationDTO> list=new LinkedList<>();
+            SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                    .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                    .setTypes(CommodityKey.TYPES_COMMODITYEVALUATION)
+                    .setQuery(QueryBuilders.termQuery(CommodityKey.COMMODITY_ID,id))
+                    .get();
+            response.getHits().forEach(hit -> {
+                try {
+                    list.add(objectMapper.readValue(hit.getSourceAsString(),CommodityevaluationDTO.class));
+                } catch (IOException e) {
+                    logger.warn(hit.getSourceAsString()+"转换类型失败",e);
+                }
+            });
+            return list;
+        }
+        logger.warn("parameter cannot be null");
+        return null;
+    }
+
     /**
+     * 获取商品规格的父规格
+     * @param commoditySpecification 根据二级规格获取一级规格
+     * @return 返回二级规格的父规格
+     */
+    public CommoditySpecificationRelationDTO getCommoditySpecificationRelatoin(String commoditySpecification){
+        if (commoditySpecification == null){
+            logger.warn("parameter is null \t" +commoditySpecification);
+        }
+        int [] number=new int[1];
+        SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                .setTypes(CommodityKey.TYPES_COMMODITY_SPECIFICATION_RELATION)
+                .setQuery(QueryBuilders.termQuery(CommodityKey.SPECIFICATION_NAME,commoditySpecification))
+                .get();
+        response.getHits().forEach(hit -> {
+            try {
+                number[0]= objectMapper.readValue(hit.getSourceAsString(),CommoditySpecificationRelationDTO.class).getParentId();
+            } catch (IOException e) {
+                logger.error(hit.getSourceAsString()+"转换CommoditySpecificationRelationDTO.class错误",e);
+            }
+        });
+        GetResponse response1=transportClient.prepareGet(CommodityKey.INDEX,CommodityKey.TYPES_COMMODITY_SPECIFICATION_RELATION,String.valueOf(number[0])).get();
+        try {
+            return objectMapper.readValue(response1.getSourceAsString(),CommoditySpecificationRelationDTO.class);
+        } catch (IOException e) {
+            logger.error(response1.getSourceAsString()+"转换CommoditySpecificationRelationDTO.class错误",e);
+            return null;
+        }
+    }
+    /**
+     * 查询commodity_specification_inventory_price
+     * 根据商品id获取商品所有规格的商品
+     * @param commodityId
+     * @return
+     */
+    public List<CommoditySpecificationInventoryPriceDTO> byIdGetAllSpecificationCommodity(String commodityId){
+        if (commodityId == null){
+            logger.warn("parameter is null \t" +commodityId);
+        }
+        SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
+                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                .setTypes(CommodityKey.TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE)
+                .setQuery(QueryBuilders.termQuery(CommodityKey.COMMODITY_ID,commodityId))
+                .get();
+        if(response.getHits().getTotalHits()<=0){
+            logger.warn("没有获得数据\tparameter \t"+commodityId);
+            return null;
+        }
+        List<CommoditySpecificationInventoryPriceDTO> lists=new ArrayList<>();
+        response.getHits().forEach(hit -> {
+            try {
+                lists.add(objectMapper.readValue(hit.getSourceAsString(),CommoditySpecificationInventoryPriceDTO.class));
+            } catch (IOException e) {
+                logger.error(hit.getSourceAsString()+"转换CommoditySpecificationInventoryPriceDTO.class错误",e);
+            }
+        });
+        return lists;
+    }
+    /**
+     * 查询commodity_specification_inventory_price
      * 根据商品id获取商品所有商品规格
      * @param id
      * @return

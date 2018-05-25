@@ -11,14 +11,16 @@ public class IndexMessageVO {
     public static final String SAVE="save";
     public static final String DEL="del";
     public static final String UPDATE="update";
+
     public static final String TOPIC_COMMODITY="commodity";
-    public static final String TOPIC_COMMODITYTYPERELATION="commoditytyperelation";
-    public static final String TOPIC_DISCOUNT="discount";
+    public static final String TOPIC_COMMODITY_SPECIFICATION_INVENTORY_PRICE="commodity_specification_inventory_price";
+    public static final String TOPIC_COMMODITY_SPECIFICATION_RELATION="commodity_specification_relation";
+    public static final String TOPIC_COMMODITYEVALUATION="commodityevaluation";
+    public static final String TOPIC_COMMODITYINTRODUCEPICTURE="commodityintroducepicture";
     public static final String TOPIC_PROMOTIONITEM="promotionitem";
-    public static final String TOPIC_SPECIFICATIONSDETAILED="specificationsdetailed";
-    public static final String TOPIC_SPECIFICATIONSRELATION="specificationsrelation";
-    public static final String TOPIC_SPECIFICATIONSTOPIC="specificationstopic";
     public static final String TOPIC_TYPE="type";
+    public static final String TOPIC_USER="user";
+
     /**最多重试次数*/
     public static final int MAX_RETRY=3;
 
