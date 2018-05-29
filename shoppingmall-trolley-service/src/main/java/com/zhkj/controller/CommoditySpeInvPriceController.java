@@ -14,6 +14,12 @@ import java.util.List;
 public class CommoditySpeInvPriceController {
     @Autowired
     private CommoditySpeInvPriceServiceImpl commoditySpeInvPriceService;
+
+    /**
+     * 根据商品库存commoditySipId查询商品
+     * @param id
+     * @return
+     */
     @GetMapping("/queryByInvPriceId")
     public  List<CommoditySpecificationInventoryPriceDTO> queryByInvPriceId(@RequestParam("id") Integer id){
         CommoditySpeInvPriceVO commoditySpeInvPriceVO=new CommoditySpeInvPriceVO();

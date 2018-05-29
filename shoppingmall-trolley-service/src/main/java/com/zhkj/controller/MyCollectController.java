@@ -41,7 +41,6 @@ public class MyCollectController {
         list.add(3);
         list.add(4);
         myCollectVO.setList(list);
-
         int result=mycollectService.deleteCollectById(myCollectVO);
         if(result>0){
             return "删除成功";
