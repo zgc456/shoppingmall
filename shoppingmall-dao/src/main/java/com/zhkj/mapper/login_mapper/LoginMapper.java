@@ -3,7 +3,7 @@ package com.zhkj.mapper.login_mapper;
 import com.zhkj.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by haoyu on 2018/4/2.
@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Repository
 public interface LoginMapper {
-    List<UserEntity>selectLogin(UserEntity userEntity);
+    UserEntity selectLogin(Map<String, Object> map);
 }
