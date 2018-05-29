@@ -4,16 +4,17 @@
 <mapper namespace="com.zhkj.mapper.login_mapper.LoginMapper">
     <resultMap id="resultMap" type="com.zhkj.entity.UserEntity">
         <id property="id" column="id"/>
-        <result property="nickName" column="NickName"/>
-        <result property="loginName" column="LoginName"/>
+        <result property="nickName" column="nickName"/>
+        <result property="loginName" column="loginName"/>
         <result property="headPortraitUrl" column="headPortraitUrl"/>
         <result property="userTypeId" column="userTypeId"/>
-        <result property="loginPassword" column="loginPassword"/>
+        <result property="logingPassword" column="logingPassword"/>
+        <result property="authenticationId" column="authenticationId"/>
     </resultMap>
-    <select id="findByClassesEntity" resultMap="resultMap">
+    <select id="selectLogin" resultMap="resultMap">
         select * from user
         <where>
-            loginName=#{loginName} AND loginPassword=#{loginPassword}
+            loginName=#{loginName} AND logingPassword=#{logingPassword}
         </where>
     </select>
 </mapper>

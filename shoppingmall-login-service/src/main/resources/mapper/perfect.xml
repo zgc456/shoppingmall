@@ -2,21 +2,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhkj.mapper.login_mapper.PerfectInfoMapper">
-    <resultMap id="resultMap" type="com.zhkj.entity.UserEntity">
+    <resultMap id="resultMap" type="com.zhkj.entity.AuthenticationEntity">
         <id property="id" column="id"/>
         <result property="userName" column="userName"/>
         <result property="userAboutAddress" column="userAboutAddress"/>
         <result property="userAddress" column="userAddress"/>
         <result property="userPhoneNumber" column="userPhoneNumber"/>
     </resultMap>
-    <insert id="insertPerfect">
-      INSERT INTO authorization(userName,userAboutAddress,userAddress,userPhoneNumber)
-      value (#{userName},#{userAboutAddress},#{userAddress},#{userPhoneNumber})
-    </insert>
-    <select id="selectPerfect" resultMap="resultMap">
-        select * from authorization
+    <select id="selectAuthen" resultMap="resultMap">
+        select * from authentication
         <where>
             userPhoneNumber=#{userPhoneNumber}
         </where>
     </select>
+    <insert id="perfectInfo">
+      INSERT INTO authentication(userName,userAboutAddress,userAddress,userPhoneNumber)
+      value (#{userName},#{userAboutAddress},#{userAddress},#{userPhoneNumber})
+    </insert>
+    <update id="setUser">
+        update authentication set userName=#{userName}, userAboutAddress=#{userAboutAddress},userAddress=#{userAddress},userPhoneNumber=#{userPhoneNumber}
+        <where>
+            id=#{id}
+        </where>
+    </update>
 </mapper>
