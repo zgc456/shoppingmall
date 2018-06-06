@@ -10,7 +10,7 @@ public class MyCollectVO {
     private String commodityIntroduce;
     private Double commodityPrice;
     private String smallPictureUrl;
-    private List list;
+    private int[] array;
 
     public Integer getUserId() {
         return userId;
@@ -52,11 +52,11 @@ public class MyCollectVO {
         this.smallPictureUrl = smallPictureUrl;
     }
 
-    public List getList() {
-        return list;
+    public int[] getArray() {
+        return array;
     }
 
-    public void setList(List list) {
-        this.list = list;
+    public void setArray(int[] array) {
+        this.array = array;
     }
 }

@@ -9,7 +9,7 @@ public class ShoppingCartVO {
     private Integer commoditySipId;
     private Integer userId;
     private Double  commodityPrice;
-    private List list;
+    private int[] array;
 
     public Integer getCommodityNumber() {
         return commodityNumber;
@@ -59,11 +59,11 @@ public class ShoppingCartVO {
         this.commodityPrice = commodityPrice;
     }
 
-    public List getList() {
-        return list;
+    public int[] getArray() {
+        return array;
     }
 
-    public void setList(List list) {
-        this.list = list;
+    public void setArray(int[] array) {
+        this.array = array;
     }
 }
