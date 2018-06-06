@@ -34,10 +34,16 @@ FROM commodity_specification_inventory_price cs,shoppingcart s WHERE cs.id=s.com
       INSERT INTO shoppingcart (commodityNumber, commodityId, commodityName,commoditySIPId, userId,commodityPrice)  VALUES (#{commodityNumber},#{commodityId},#{commodityName},#{commoditySipId},#{userId},#{commodityPrice})
     </insert>
     <delete id="deleteShoppingCart" parameterType="map">
-        DELETE from shoppingcart where id in
-        <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
-            #{id}
-        </foreach>
+    DELETE from shoppingcart
+    <where>
+        <if test="array.length>0 and array!=null">
+            id in
+            <foreach collection="array" item="id" open="(" close=")" index="index" separator=",">
+                #{id}
+            </foreach>
+        </if>
+        and userId=#{userId}
+    </where>
     </delete>
     <update id="updateShoppingCart" parameterType="map">
         UPDATE shoppingcart SET commodityNumber= #{commodityNumber} WHERE commoditySIPId=#{commoditySipId} AND userId=#{userId}

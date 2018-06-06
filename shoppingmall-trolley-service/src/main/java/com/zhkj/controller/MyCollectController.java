@@ -26,25 +26,39 @@ public class MyCollectController {
         return result;
     }
     @GetMapping("/addMyCollect")
-    public String saveMyCollect(@ModelAttribute MyCollectVO myCollectVO){
-       int result= mycollectService.save(myCollectVO);
-       if(result>0){
-           return "添加成功";
-       }else {
-           return "添加失败";
-       }
+    public void saveMyCollect(@ModelAttribute MyCollectVO myCollectVO) {
+        List<MyCollectDTO> list=mycollectService.queryByUserIdCollectAll(myCollectVO);
+        for (MyCollectDTO my:list) {
+            if(my.getCommodityId()==myCollectVO.getCommodityId()&&my.getUserId()==myCollectVO.getUserId()){
+                queryByUserIdCollectAll(myCollectVO.getUserId());
+                System.out.println("你已收藏了本件商品");
+                return ;
+            }
+        }
+        int result = mycollectService.save(myCollectVO);
+        if (result > 0) {
+            System.out.println("添加成功");
+            queryByUserIdCollectAll(myCollectVO.getUserId());
+            return;
+        } else {
+            System.out.println( "添加失败");
+            queryByUserIdCollectAll(myCollectVO.getUserId());
+            return;
+        }
+
     }
     @GetMapping("/deleteMyCollect")
-    public String deleteCollectById(){
+    public String deleteCollectById(@RequestParam("array") int []array,@RequestParam("userId") Integer userId){
         MyCollectVO myCollectVO=new MyCollectVO();
-        List list=new ArrayList();
-        list.add(3);
-        list.add(4);
-        myCollectVO.setList(list);
+        myCollectVO.setArray(array);
+        myCollectVO.setUserId(userId);
+        System.out.println(array.length);
         int result=mycollectService.deleteCollectById(myCollectVO);
         if(result>0){
+            queryByUserIdCollectAll(myCollectVO.getUserId());
             return "删除成功";
         }else {
+            queryByUserIdCollectAll(myCollectVO.getUserId());
             return "删除失败";
         }
     }

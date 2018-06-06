@@ -6,10 +6,7 @@ import com.zhkj.dto.shoppingcart_dto.ShoppingCartDTO;
 import com.zhkj.service.ShoppingCartServiceImpl;
 import com.zhkj.vo.shoppingCart_vo.ShoppingCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,16 +83,16 @@ public class ShoppingCartController {
 
     }
     @GetMapping("/deleteShoppingCart")
-    public String deleteShoppingCart(){
-        ShoppingCartVO shoppingCartVO=new ShoppingCartVO();
-        List list=new ArrayList();
-        list.add(4);
-        list.add(5);
-        shoppingCartVO.setList(list);
-        int result=shoppingCartService.deleteShoppingCart(shoppingCartVO);
-        if(result>0){
+    public String deleteShoppingCart(@RequestParam("array") int []array, @RequestParam("userId") Integer userId) {
+        ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
+        shoppingCartVO.setArray(array);
+        shoppingCartVO.setUserId(userId);
+        int result = shoppingCartService.deleteShoppingCart(shoppingCartVO);
+        if (result > 0) {
+            queryShoppingCart(shoppingCartVO);
             return "删除成功";
-        }else {
+        } else {
+            queryShoppingCart(shoppingCartVO);
             return "删除失败";
         }
     }

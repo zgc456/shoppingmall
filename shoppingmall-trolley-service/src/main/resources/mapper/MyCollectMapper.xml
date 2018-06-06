@@ -17,10 +17,16 @@
     <insert id="save" parameterType="map">
         INSERT INTO mycollect (userId, commodityId, commodityIntroduce, commodityPrice, smallPictureUrl)  VALUES (#{userId},#{commodityId},#{commodityIntroduce},#{commodityPrice},#{smallPictureUrl})
     </insert>
-    <delete id="deleteCollectById" parameterType="map">
-        DELETE from myCollect where id in
-        <foreach collection="list" item="id" open="(" close=")" index="index" separator=",">
-            #{id}
-        </foreach>
+    <delete id="deleteCollectById" parameterType="map" >
+        DELETE from mycollect
+        <where>
+            <if test="array.length>0 and array!=null">
+                id in
+                <foreach collection="array" item="id" open="(" close=")" index="index" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            and userId=#{userId}
+        </where>
     </delete>
 </mapper>
