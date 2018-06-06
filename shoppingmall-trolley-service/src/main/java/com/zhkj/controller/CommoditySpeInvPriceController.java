@@ -27,4 +27,11 @@ public class CommoditySpeInvPriceController {
         List<CommoditySpecificationInventoryPriceDTO> list=commoditySpeInvPriceService.queryByInvPriceId(commoditySpeInvPriceVO);
         return list;
     }
+    @GetMapping("/getInv")
+    public int getInv(@RequestParam("id") Integer id){
+        CommoditySpeInvPriceVO commoditySpeInvPriceVO=new CommoditySpeInvPriceVO();
+        commoditySpeInvPriceVO.setId(id);
+        List<CommoditySpecificationInventoryPriceDTO> list=commoditySpeInvPriceService.queryByInvPriceId(commoditySpeInvPriceVO);
+        return list.get(0).getInventory();
+    }
 }
