@@ -37,7 +37,7 @@ FROM commodity_specification_inventory_price cs,shoppingcart s WHERE cs.id=s.com
     DELETE from shoppingcart
     <where>
         <if test="array.length>0 and array!=null">
-            id in
+            shopId in
             <foreach collection="array" item="id" open="(" close=")" index="index" separator=",">
                 #{id}
             </foreach>
