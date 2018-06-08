@@ -3,7 +3,7 @@ package com.zhkj.entity;
 import java.math.BigDecimal;
 
 public class ShoppingcartEntity {
-    private int id;
+    private int shopId;
     private Integer commodityNumber;
     private Integer commodityId;
     private String commodityName;
@@ -12,12 +12,12 @@ public class ShoppingcartEntity {
     private Double commodityPrice;
     private CommoditySpecificationInventoryPriceEntity commoditySpecificationInventoryPriceEntity;
 
-    public int getId() {
-        return id;
+    public int getShopId() {
+        return shopId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 
     public Integer getCommodityNumber() {
@@ -83,7 +83,7 @@ public class ShoppingcartEntity {
 
         ShoppingcartEntity that = (ShoppingcartEntity) o;
 
-        if (id != that.id) return false;
+        if (shopId != that.shopId) return false;
         if (commodityNumber != null ? !commodityNumber.equals(that.commodityNumber) : that.commodityNumber != null)
             return false;
         if (commodityId != null ? !commodityId.equals(that.commodityId) : that.commodityId != null) return false;
@@ -100,7 +100,7 @@ public class ShoppingcartEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = shopId;
         result = 31 * result + (commodityNumber != null ? commodityNumber.hashCode() : 0);
         result = 31 * result + (commodityId != null ? commodityId.hashCode() : 0);
         result = 31 * result + (commodityName != null ? commodityName.hashCode() : 0);
