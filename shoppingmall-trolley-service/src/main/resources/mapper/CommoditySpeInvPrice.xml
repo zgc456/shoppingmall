@@ -17,4 +17,9 @@
     <select id="queryByInvPriceId" resultType="map" resultMap="resultMap">
         SELECT * from commodity_specification_inventory_price WHERE id=#{id}
     </select>
+    <update id="updateInvById" parameterType="map">
+        <foreach collection="list" item="item" index="index" open="" separator=";" close="" >
+            UPDATE commodity_specification_inventory_price SET inventory=#{item.inventory} WHERE id=#{item.id}
+        </foreach>
+    </update>
 </mapper>

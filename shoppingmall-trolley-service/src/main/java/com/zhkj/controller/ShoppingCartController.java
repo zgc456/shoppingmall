@@ -29,16 +29,20 @@ public class ShoppingCartController {
      */
     @GetMapping("/queryShoppingCart")
     public String queryShoppingCart(@ModelAttribute ShoppingCartVO shoppingCartVO){
-        List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCart(shoppingCartVO);
-        List<ShoppingCartDTO> lists=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
-        double totalPrice=0; //计算价格
-        for (int i=0;i<lists.size();i++){
-                totalPrice+=lists.get(i).getCommodityPrice()*lists.get(i).getCommodityNumber();
-
+        if(shoppingCartVO.getUserId()==null||shoppingCartVO.getUserId()<=0||shoppingCartVO.getUserId().equals("")){
+            return "该用户不存在";
         }
-        System.out.println(totalPrice);
+        List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCart(shoppingCartVO);
+//        List<ShoppingCartDTO> lists=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
+//        double totalPrice=0; //计算价格
+//        for (int i=0;i<lists.size();i++){
+//                totalPrice+=lists.get(i).getCommodityPrice()*lists.get(i).getCommodityNumber();
+//
+//        }
+//        System.out.println(totalPrice);
         JSONArray jsonArray= (JSONArray) JSONArray.toJSON(list);
-        String result="{\"foods\":"+jsonArray.toString()+",\"totalPrice\":"+totalPrice+"}";
+//        String result="{\"foods\":"+jsonArray.toString()+",\"totalPrice\":"+totalPrice+"}";
+        String result="{\"foods\":"+jsonArray.toString()+"}";
         System.out.println(result);
         return result;
     }
