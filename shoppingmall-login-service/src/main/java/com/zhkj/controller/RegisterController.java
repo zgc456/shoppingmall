@@ -94,7 +94,7 @@ public class RegisterController {
                  int a=registerApi.addUser (user_vo);
                  if (a>0){
                      session.setAttribute ("save_msg","注册成功");
-                     return "注册成功";
+                     return "注册成功 ";
                  }
                }
             }else {

@@ -42,6 +42,7 @@ public class LoginController {
                 JSONArray jsonArray= (JSONArray) JSONArray.toJSON(ls);
                 String result=jsonArray.toString();
                 redisTemplate.opsForValue().set("user_info",result);
+                System.out.println(redisTemplate.opsForValue().get("user_info"));
                 return result;
             } else {
                 session.setAttribute ("login_msg","账号密码错误");
