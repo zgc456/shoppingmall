@@ -5,36 +5,37 @@ import com.zhkj.copy_properties.Conver_Type;
 import com.zhkj.dto.login_dto.UserDTO;
 import com.zhkj.entity.UserEntity;
 import com.zhkj.mapper.login_mapper.LoginMapper;
+import com.zhkj.vo.login_vo.User_vo;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.cglib.beans.BeanMap;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by haoyu on 2018/4/2.
  */
+@Service
 public class LoginImpl implements LoginApi {
     @Autowired
     LoginMapper loginMapper;
+
     /**
      * 用户登陆
-     *1.接收数据判断是否为空
-     *2.若不为空判断验证码是否正确(控制器）
-     *3.若验证码正确则查询数据库（控制器）
-     *4.若存在此用户则存入Session,跳入主页(控制器的操作)
-     *5.若不存在则重新登陆并且记录失败次数存入Session
-     * */
+     * 1.接收数据判断是否为空
+     * 2.若不为空判断验证码是否正确(控制器）
+     * 3.若验证码正确则查询数据库（控制器）
+     * 4.若存在此用户则存入Session,跳入主页(控制器的操作)
+     */
     @Override
-    public List<UserDTO> selectLogin(UserDTO userEntity) {
-        List<UserDTO> ls=new ArrayList<> ();
-        List<UserEntity> list=new ArrayList<> ();
-        UserEntity userEntity1=new com.zhkj.entity.UserEntity ();
-        if(userEntity.getLoginName ()!=null&&userEntity.getLogingPassword ()!=null){
-        list=loginMapper.selectLogin (Conver_Type.convert (userEntity1,userEntity));
-        if(null!=list){
-            ls=Conver_Type.convertToList(ls,list,"com.zhkj.dto.login_dto.UserDTO");
+    public UserDTO selectLogin(User_vo user_vo) {
+        UserEntity userEntity=new UserEntity();
+        UserDTO userDTO = null;
+        if (user_vo.getLoginName() != null && user_vo.getLogingPassword() != null) {
+           userEntity=loginMapper.selectLogin(BeanMap.create(user_vo));
+           if (null!=userEntity){
+              userDTO=new UserDTO();
+              userDTO= Conver_Type.convert(userDTO,userEntity);
+           }
         }
-        }
-        return ls;
+        return userDTO;
     }
 }

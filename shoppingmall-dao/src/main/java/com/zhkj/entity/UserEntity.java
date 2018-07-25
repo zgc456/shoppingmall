@@ -1,19 +1,19 @@
 package com.zhkj.entity;
 
 public class UserEntity {
-    private int id;
+    private Integer id;
     private String nickName;
     private String loginName;
     private String logingPassword;
     private String headPortraitUrl;
     private String userTypeName;
-    private int authenticationId;
+    private Integer authenticationId;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,20 +49,20 @@ public class UserEntity {
         this.headPortraitUrl = headPortraitUrl;
     }
 
+    public Integer getAuthenticationId() {
+        return authenticationId;
+    }
+
+    public void setAuthenticationId(Integer authenticationId) {
+        this.authenticationId = authenticationId;
+    }
+
     public String getUserTypeName() {
         return userTypeName;
     }
 
     public void setUserTypeName(String userTypeName) {
         this.userTypeName = userTypeName;
-    }
-
-    public int getAuthenticationId() {
-        return authenticationId;
-    }
-
-    public void setAuthenticationId(int authenticationId) {
-        this.authenticationId = authenticationId;
     }
 
     @Override

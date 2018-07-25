@@ -1,19 +1,21 @@
 package com.zhkj.dto.login_dto;
 
-public class UserDTO {
-    private int id;
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
+    private Integer id;
     private String nickName;
     private String loginName;
     private String logingPassword;
     private String headPortraitUrl;
-    private Integer userTypeId;
+    private String userTypeName;
     private Integer authenticationId;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,12 +51,12 @@ public class UserDTO {
         this.headPortraitUrl = headPortraitUrl;
     }
 
-    public Integer getUserTypeId() {
-        return userTypeId;
+    public String getUserTypeName() {
+        return userTypeName;
     }
 
-    public void setUserTypeId(Integer userTypeId) {
-        this.userTypeId = userTypeId;
+    public void setUserTypeName(String userTypeName) {
+        this.userTypeName = userTypeName;
     }
 
     public Integer getAuthenticationId() {

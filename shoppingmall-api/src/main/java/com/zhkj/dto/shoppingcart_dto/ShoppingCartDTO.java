@@ -3,7 +3,7 @@ package com.zhkj.dto.shoppingcart_dto;
 import com.zhkj.dto.inventory_dto.CommoditySpecificationInventoryPriceDTO;
 
 public class ShoppingCartDTO {
-    private int id;
+    private int shopId;
     private Integer commodityNumber;
     private Integer commodityId;
     private String commodityName;
@@ -12,12 +12,12 @@ public class ShoppingCartDTO {
     private Double commodityPrice;
     private CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO;
 
-    public int getId() {
-        return id;
+    public int getShopId() {
+        return shopId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 
     public Integer getCommodityNumber() {

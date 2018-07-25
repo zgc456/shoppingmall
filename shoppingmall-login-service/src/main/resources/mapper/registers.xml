@@ -8,18 +8,24 @@
         <result property="loginName" column="LoginName"/>
         <result property="headPortraitUrl" column="headPortraitUrl"/>
         <result property="userTypeId" column="userTypeId"/>
-        <result property="loginPassword" column="loginPassword"/>
+        <result property="logingPassword" column="logingPassword"/>
         <result property="authenticationId" column="authenticationId"/>
     </resultMap>
       <insert id="addUser">
-         INSERT INTO USER(nickName,loginName,headPortraitUrl,userTypeId,loginPassword)VALUE(
-         #{nickName},#{loginName},#{headPortraitUrl},#{userTypeId},#{loginPassword}
+         INSERT INTO USER (nickName,loginName,userTypeName,logingPassword)VALUE(
+         #{nickName},#{loginName},#{userTypeName},#{logingPassword}
          )
       </insert>
     <update id="updateUser">
-    update user set authenticationId=#{authenticationId}
+    update user set authenticationId=#{arg1}
     <where>
-        id=#{id}
+        id=#{arg0}
     </where>
     </update>
+    <select id="selectName" resultMap="resultMap">
+        select * from user
+        <where>
+            loginName=#{arg0}
+        </where>
+    </select>
 </mapper>

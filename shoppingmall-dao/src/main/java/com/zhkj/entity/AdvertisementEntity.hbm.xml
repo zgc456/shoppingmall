@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.zhkj.entity.AdvertisementEntity" table="advertisement" schema="shoppingmall">
+        <id name="id" column="id"/>
+        <property name="title" column="title"/>
+        <property name="pictureUrl" column="pictureUrl"/>
+        <property name="status" column="status"/>
+        <property name="commodityId" column="commodityId"/>
+        <property name="place" column="place"/>
+        <property name="floorId" column="floorId"/>
+        <property name="startTime" column="startTime"/>
+        <property name="endTime" column="endTime"/>
+    </class>
+</hibernate-mapping>

@@ -6,10 +6,7 @@ import com.zhkj.dto.shoppingcart_dto.ShoppingCartDTO;
 import com.zhkj.service.ShoppingCartServiceImpl;
 import com.zhkj.vo.shoppingCart_vo.ShoppingCartVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,30 +21,48 @@ public class ShoppingCartController {
     private ShoppingCartServiceImpl shoppingCartService;
     @Autowired
     private CommoditySpeInvPriceController commoditySpeInvPriceController;
+
+    /**
+     * 根据userid查询该用户购物车信息
+     * @param shoppingCartVO
+     * @return
+     */
     @GetMapping("/queryShoppingCart")
     public String queryShoppingCart(@ModelAttribute ShoppingCartVO shoppingCartVO){
-        List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCart(shoppingCartVO);
-        List<ShoppingCartDTO> lists=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
-        double totalPrice=0;
-        for (int i=0;i<lists.size();i++){
-                totalPrice+=lists.get(i).getCommodityPrice()*lists.get(i).getCommodityNumber();
-
+        if(shoppingCartVO.getUserId()==null||shoppingCartVO.getUserId()<=0||shoppingCartVO.getUserId().equals("")){
+            return "该用户不存在";
         }
-        System.out.println(totalPrice);
+        List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCart(shoppingCartVO);
+//        List<ShoppingCartDTO> lists=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
+//        double totalPrice=0; //计算价格
+//        for (int i=0;i<lists.size();i++){
+//                totalPrice+=lists.get(i).getCommodityPrice()*lists.get(i).getCommodityNumber();
+//
+//        }
+//        System.out.println(totalPrice);
         JSONArray jsonArray= (JSONArray) JSONArray.toJSON(list);
-        String result="{\"foods\":"+jsonArray.toString()+",\"totalPrice\":"+totalPrice+"}";
+//        String result="{\"foods\":"+jsonArray.toString()+",\"totalPrice\":"+totalPrice+"}";
+        String result="{\"foods\":"+jsonArray.toString()+"}";
         System.out.println(result);
         return result;
     }
+
+    /**
+     * 添加购物车
+     * @param shoppingCartVO
+     */
     @GetMapping("/saveShoppingCart")
     public void saveShoppingCart(@ModelAttribute ShoppingCartVO shoppingCartVO){
         List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
         List<CommoditySpecificationInventoryPriceDTO> dtoList=commoditySpeInvPriceController.queryByInvPriceId(shoppingCartVO.getCommoditySipId());
         for (ShoppingCartDTO shop:list) {
+            /**
+             * 判断该用户是否已将该库存商品(commoditySipId)添加入购物车
+             */
             if(shoppingCartVO.getCommoditySipId()==shop.getCommoditySipId()&&shoppingCartVO.getUserId()==shop.getUserId()){
-                shoppingCartVO.setCommodityNumber(shoppingCartVO.getCommodityNumber() + shop.getCommodityNumber());
+                shoppingCartVO.setCommodityNumber(shoppingCartVO.getCommodityNumber() + shop.getCommodityNumber());//更新购物车中的商品数量
                 for (CommoditySpecificationInventoryPriceDTO inventoryPriceDTO : dtoList) {
-                    if(shoppingCartVO.getCommodityNumber()<=inventoryPriceDTO.getInventory()) {
+                    if(shoppingCartVO.getCommodityNumber()<=inventoryPriceDTO.getInventory()) {//判断库存是否充足
                         if (updateShoppingCart(shoppingCartVO) > 0) {
                             queryShoppingCart(shoppingCartVO);
                             return;
@@ -72,16 +87,16 @@ public class ShoppingCartController {
 
     }
     @GetMapping("/deleteShoppingCart")
-    public String deleteShoppingCart(){
-        ShoppingCartVO shoppingCartVO=new ShoppingCartVO();
-        List list=new ArrayList();
-        list.add(4);
-        list.add(5);
-        shoppingCartVO.setList(list);
-        int result=shoppingCartService.deleteShoppingCart(shoppingCartVO);
-        if(result>0){
+    public String deleteShoppingCart(@RequestParam("array") int []array, @RequestParam("userId") Integer userId) {
+        ShoppingCartVO shoppingCartVO = new ShoppingCartVO();
+        shoppingCartVO.setArray(array);
+        shoppingCartVO.setUserId(userId);
+        int result = shoppingCartService.deleteShoppingCart(shoppingCartVO);
+        if (result > 0) {
+            queryShoppingCart(shoppingCartVO);
             return "删除成功";
-        }else {
+        } else {
+            queryShoppingCart(shoppingCartVO);
             return "删除失败";
         }
     }
@@ -98,11 +113,14 @@ public class ShoppingCartController {
         List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());;
         Map<String,Object> map=new HashMap<>();
         for (ShoppingCartDTO shop:list) {
+            /**
+             * 判断该用户是否已将该库存商品(commoditySipId)添加入购物车
+             */
             if(shoppingCartVO.getCommoditySipId()==shop.getCommoditySipId()&&shoppingCartVO.getUserId()==shop.getUserId()){
-                shoppingCartVO.setCommodityNumber(shop.getCommodityNumber()-1);
+                shoppingCartVO.setCommodityNumber(shop.getCommodityNumber()-1);//更新购物车商品数量
                 if(shoppingCartVO.getCommodityNumber()>=1) {
                     if (updateShoppingCart(shoppingCartVO) > 0) {
-                        queryShoppingCart(shoppingCartVO);
+                        queryShoppingCart(shoppingCartVO);//刷新购物车信息
                     }
                 }else {
                     System.out.println("不能再减了");
@@ -119,10 +137,13 @@ public class ShoppingCartController {
         List<ShoppingCartDTO> list=shoppingCartService.queryShoppingCartByUserId(shoppingCartVO.getUserId());
         List<CommoditySpecificationInventoryPriceDTO> dtoList=commoditySpeInvPriceController.queryByInvPriceId(shoppingCartVO.getCommoditySipId());
         for (ShoppingCartDTO shop:list) {
+            /**
+             * 判断该用户是否已将该库存商品(commoditySipId)添加入购物车
+             */
             if(shoppingCartVO.getCommoditySipId()==shop.getCommoditySipId()&&shoppingCartVO.getUserId()==shop.getUserId()) {
-                shoppingCartVO.setCommodityNumber(shop.getCommodityNumber() + 1);
+                shoppingCartVO.setCommodityNumber(shop.getCommodityNumber() + 1);//更新购物车商品信息
                 for (CommoditySpecificationInventoryPriceDTO inventoryPriceDTO:dtoList) {
-                    if(shoppingCartVO.getCommodityNumber()<=inventoryPriceDTO.getInventory()){
+                    if(shoppingCartVO.getCommodityNumber()<=inventoryPriceDTO.getInventory()){//判断商品库存是否充足
                         if (updateShoppingCart(shoppingCartVO) > 0) {
                             queryShoppingCart(shoppingCartVO);
                         }
