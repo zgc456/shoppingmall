@@ -1,8 +1,5 @@
 package com.zhkj.dto.seek_dto;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
 /**
  * ${user}
  *
@@ -12,14 +9,44 @@ import java.util.Objects;
  */
 public class CommoditySpecificationInventoryPriceDTO {
     private int id;
+    //商品id
     private int commodityId;
+    //商品名字
+    private String commodityName;
+    //商品规格1
     private String specification1;
+    //商品规格2
     private String specification2;
+    //商品规格3
     private String specification3;
+    //商品规格4
     private String specification4;
+    //商品库存
     private int inventory;
+    //商品价格
     private Double price;
+    //商品图片
     private String picture;
+    //开始时间
+    private long startTime;
+    //结束时间
+    private long endTime;
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
 
     public int getId() {
         return id;
@@ -93,4 +120,11 @@ public class CommoditySpecificationInventoryPriceDTO {
         this.picture = picture;
     }
 
+    public String getCommodityName() {
+        return commodityName;
+    }
+
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
+    }
 }

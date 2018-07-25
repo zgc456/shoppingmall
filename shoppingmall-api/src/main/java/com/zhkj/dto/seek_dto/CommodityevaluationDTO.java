@@ -15,8 +15,9 @@ public class CommodityevaluationDTO {
     private Timestamp evaluationTime;
     private String evaluationContent;
     private int evaluationTypeId;
-    private int userId;
+    private long userId;
     private int commodityId;
+    private String userName;
 
     public int getId() {
         return id;
@@ -50,12 +51,12 @@ public class CommodityevaluationDTO {
         this.evaluationTypeId = evaluationTypeId;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getCommodityId() {
@@ -64,5 +65,13 @@ public class CommodityevaluationDTO {
 
     public void setCommodityId(int commodityId) {
         this.commodityId = commodityId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }
