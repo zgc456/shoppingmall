@@ -7,6 +7,7 @@ import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ISearchService {
@@ -17,7 +18,7 @@ public interface ISearchService {
     List<ServiceMultiResult<CommodityTemplate>> getAllTypeCommodity();
 
     /**
-     * 查询条件查询商品
+     * 根据条件查询商品
      * @param condition 条件为null就查询所有commodity
      * @return
      */
@@ -36,6 +37,15 @@ public interface ISearchService {
      * @return
      */
     CommodityDetailsDTO byIdSearchCommodity(Long id);
+
+    /**
+     * 抢购商品详情
+     * @param id
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    CommodityDetailsDTO byIdSearchRobCommodity(Long id,String startDate,String endDate);
 
     /**
      * 根据商品规格获得商品规格详细信息

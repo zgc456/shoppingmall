@@ -2,7 +2,6 @@ package com.zhkj;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 搜索业务逻辑模块启动类

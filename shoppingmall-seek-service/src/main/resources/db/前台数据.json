@@ -1,0 +1,48 @@
+{
+  id: '1',
+  commodityName: '布鲁杰克黑啤酒',
+  commoditySpecificationDTO: {
+    id: 0,
+    commodityId: 1,
+    commoditySpecificationTypes: {
+      typeName: '容量',
+      typeDetailed: [
+        {
+          typeSecondName: '500L'
+        },
+        {
+          typeSecondName: '600L'
+        }
+      ]
+    },
+    commoditySpecificationTypes1: {
+      typeName: '颜色',
+      typeDetailed: [
+        {
+          typeSecondName: '黑啤'
+        },
+        {
+          typeSecondName: '红酒'
+        }
+      ]
+    },
+    inventory: 0,
+    price: 0,
+    picture: null
+  },
+  headPictures: [
+    'https://img.alicdn.com/imgextra/i4/725677994/TB2EG1qX7SWBuNjSszdXXbeSpXa_!!725677994.jpg_1152x1920Q50s50.jpg_.webp',
+    'https://img.alicdn.com/imgextra/i4/725677994/TB2yryqXY9YBuNjy0FgXXcxcXXa_!!725677994.jpg_1152x1920Q50s50.jpg_.webp',
+    'https://img.alicdn.com/imgextra/i1/725677994/TB20gukXY1YBuNjSszeXXablFXa_!!725677994.jpg_1152x1920Q50s50.jpg_.webp',
+    'https://img.alicdn.com/imgextra/i3/725677994/TB1TSBaXpooBKNjSZPhXXc2CXXa_!!0-item_pic.jpg_1152x1920Q50s50.jpg_.webp',
+    'https://img.alicdn.com/imgextra/i2/725677994/TB26ryqXY9YBuNjy0FgXXcxcXXa_!!725677994.jpg_1152x1920Q50s50.jpg_.webp'
+  ],
+  detailsPictures: [
+    'https://img.alicdn.com/imgextra/i3/2508879272/TB2EJilXWSWBuNjSsrbXXa0mVXa_!!2508879272-0-scmitem6000.jpg_2200x2200Q90s50.jpg_.webp',
+    'https://img.alicdn.com/imgextra/i2/2508879272/TB2Kv9nXY5YBuNjSspoXXbeNFXa_!!2508879272-0-scmitem6000.jpg_2200x2200Q90s50.jpg_.webp'
+  ],
+  promotionitemDTO: null,
+  inventory: 2374,
+  price: 99,
+  commodityevaluationDTOS: []
+}

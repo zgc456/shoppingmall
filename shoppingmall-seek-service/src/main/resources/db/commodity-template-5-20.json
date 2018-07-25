@@ -32,16 +32,16 @@
           "type":"long"
         },
         "specification1":{
-          "type":"long"
+          "type":"keyword"
         },
         "specification2":{
-          "type":"long"
+          "type":"keyword"
         },
         "specification3":{
-          "type":"long"
+          "type":"keyword"
         },
         "specification4":{
-          "type":"long"
+          "type":"keyword"
         },
         "inventory":{
           "type":"long"
@@ -135,6 +135,18 @@
         },
         "commodityId":{
           "type":"long"
+        },
+        "specifications1":{
+          "type":"keyword"
+        },
+        "specifications2":{
+          "type":"keyword"
+        },
+        "specifications3":{
+          "type":"keyword"
+        },
+        "specifications4":{
+          "type":"keyword"
         }
       }
     },

@@ -1,5 +1,6 @@
 package com.zhkj.service.entity;
 
+import com.zhkj.dto.seek_dto.CommodityevaluationDTO;
 import com.zhkj.dto.seek_dto.PromotionitemDTO;
 
 import java.util.List;
@@ -17,13 +18,13 @@ public class CommodityDetailsDTO {
     private String id;//商品id
     private String commodityName;//商品名字
     //商品规格和规格详细
-    private Map<String,Set<String>> commoditySpecificationParcular;
+    private CommoditySpecificationDTO commoditySpecificationDTO;
     private List<String> headPictures;//商品头部图片
     private List<String> detailsPictures;//商品详情图片
     private PromotionitemDTO promotionitemDTO;//商品抢购对象
     private int inventory;//库存
     private Double price;//商品价格
-
+    private List<CommodityevaluationDTO> commodityevaluationDTOS;//商品评价集合
     public String getId() {
         return id;
     }
@@ -40,12 +41,12 @@ public class CommodityDetailsDTO {
         this.commodityName = commodityName;
     }
 
-    public Map<String, Set<String>> getCommoditySpecificationParcular() {
-        return commoditySpecificationParcular;
+    public CommoditySpecificationDTO getCommoditySpecificationDTO() {
+        return commoditySpecificationDTO;
     }
 
-    public void setCommoditySpecificationParcular(Map<String, Set<String>> commoditySpecificationParcular) {
-        this.commoditySpecificationParcular = commoditySpecificationParcular;
+    public void setCommoditySpecificationDTO(CommoditySpecificationDTO commoditySpecificationDTO) {
+        this.commoditySpecificationDTO = commoditySpecificationDTO;
     }
 
     public List<String> getHeadPictures() {
@@ -86,5 +87,13 @@ public class CommodityDetailsDTO {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public List<CommodityevaluationDTO> getCommodityevaluationDTOS() {
+        return commodityevaluationDTOS;
+    }
+
+    public void setCommodityevaluationDTOS(List<CommodityevaluationDTO> commodityevaluationDTOS) {
+        this.commodityevaluationDTOS = commodityevaluationDTOS;
     }
 }
