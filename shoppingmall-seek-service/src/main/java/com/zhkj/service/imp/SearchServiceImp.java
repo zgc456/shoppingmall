@@ -1,9 +1,10 @@
 package com.zhkj.service.imp;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhkj.api.seek_api.IElasticSearchService;
 import com.zhkj.dto.seek_dto.*;
 import com.zhkj.service.ISearchService;
+import com.zhkj.service.backstage.entity.IndexMessageVO;
 import com.zhkj.service.entity.*;
 import com.zhkj.util.ServiceMultiResult;
 import joptsimple.internal.Strings;
@@ -22,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 
 
 @Service
-public class SearchServiceImp implements ISearchService,IElasticSearchService {
+public class SearchServiceImp implements ISearchService {
     private SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//转换时间对象
     private static final Logger logger=LoggerFactory.getLogger(SearchServiceImp.class);
     @Autowired
@@ -159,7 +161,6 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
                 Collections.sort(lists,Collections.reverseOrder());//降序
             }
         }
-//        commodityDetailsDTO
         return serviceMultiResult;
     }
 
@@ -230,8 +231,8 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
                     PromotionitemDTO promotionitemDTO=objectMapper.readValue(hit.getSourceAsString(),PromotionitemDTO.class);
                     template.setInventory(new Long(promotionitemDTO.getCommodityNumber()));//抢购数量
                     template.setCommodityPrice(promotionitemDTO.getDiscountPrice());//抢购价
-                    template.setStartTime(promotionitemDTO.getStartTime());//商品抢购开始时间
-                    template.setEndTime(promotionitemDTO.getEndTime());//商品抢购结束时间
+//                    template.setStartTime(promotionitemDTO.getStartTime());//商品抢购开始时间
+//                    template.setEndTime(promotionitemDTO.getEndTime());//商品抢购结束时间
                     CommodityDTO commodityDTO=this.byCommodityIdGetCommodity(new Long(promotionitemDTO.getCommodityId()));//根据id获取商品
                     modelMapper.map(commodityDTO,template);
                 } catch (IOException e) {
@@ -296,7 +297,7 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
 
         commodityDetailsDTO.setPrice(commoditySpecificationInventoryPriceDTO.getPrice());//价格
 
-        commodityDetailsDTO.setInventory(commoditySpecificationInventoryPriceDTO.getInventory());//总库存量
+        commodityDetailsDTO.setInventory((int) commoditySpecificationInventoryPriceDTO.getInventory());//总库存量
 
         //根据商品ID获取商品所有规格，包括价格、库存、商品小图片
         this.byIdGetAllSpecificationCommodity(String.valueOf(id),commodityDetailsDTO,CommodityKey.TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE,null,null);
@@ -324,7 +325,7 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
 
         commodityDetailsDTO.setPrice(commoditySpecificationInventoryPriceDTO.getPrice());//价格
 
-        commodityDetailsDTO.setInventory(commoditySpecificationInventoryPriceDTO.getInventory());//总库存量
+        commodityDetailsDTO.setInventory((int) commoditySpecificationInventoryPriceDTO.getInventory());//总库存量
         long start= 0;
         long end=0;
         try {
@@ -400,22 +401,60 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
     }
 
     @Override
-    public CommoditySpecificationInventoryPriceDTO byCommoditySpecificationInventoryPrice(long id, boolean isRob) throws IOException {
+    public CommodityOrderInfo byCommoditySpecificationInventoryPrice(long id, boolean isRob) throws IOException {
         String type=CommodityKey.TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE;
         if (isRob){
             type=CommodityKey.TYPES_PROMOTIONITEM;
         }
         GetResponse response=transportClient.prepareGet(CommodityKey.INDEX,type,String.valueOf(id)).get();
-        CommoditySpecificationInventoryPriceDTO csip=objectMapper.readValue(response.getSourceAsString(),CommoditySpecificationInventoryPriceDTO.class);
-        if(csip.getId()<=0){
+        CommodityOrderInfo csdtp=objectMapper.readValue(response.getSourceAsString(),CommodityOrderInfo.class);
+        if(csdtp.getId()<=0){
             logger.warn("parameter error "+id);
             return null;
         }
+        if (isRob) {
+            BoolQueryBuilder boolQueryBuilder = boolQuery();
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.COMMODITY_ID, csdtp.getCommodityId()));
+            boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION1, csdtp.getSpecification1()));
+            if (!Strings.isNullOrEmpty(csdtp.getSpecification2())) {
+                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION1, csdtp.getSpecification2()));
+            }
+            if (!Strings.isNullOrEmpty(csdtp.getSpecification3())) {
+                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION1, csdtp.getSpecification3()));
+            }
+            if (!Strings.isNullOrEmpty(csdtp.getSpecification4())) {
+                boolQueryBuilder.filter(QueryBuilders.termQuery(CommodityKey.SPECIFICATION1, csdtp.getSpecification4()));
+            }
+            SearchResponse searchResponse = transportClient.prepareSearch(CommodityKey.INDEX)
+                    .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+                    .setTypes(CommodityKey.TYPES_COMMODITY_SPECIFICATION_INVENTORY_PRICE)
+                    .setQuery(boolQueryBuilder)
+                    .get();
+            searchResponse.getHits().forEach(hit -> {
+                try {
+                    CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO = objectMapper.readValue(hit.getSourceAsString(), CommoditySpecificationInventoryPriceDTO.class);
+                    csdtp.setPicture(commoditySpecificationInventoryPriceDTO.getPicture());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
         CommodityDTO commodityDTO=this.byCommodityIdGetCommodity(id);
-        csip.setCommodityName(commodityDTO.getCommodityName());
-        return csip;
+        csdtp.setCommodityName(commodityDTO.getCommodityName());
+        return csdtp;
     }
+//    @Autowired
+//    private KafkaTemplate kafkaTemplate;
+//    @Override
+//    public void sendKafkaData() {
+//        kafkaTemplate.send("commodity","{\"id\":\"1\",\"objects\":\"{\\\"bigPictureUrl\\\":\\\"图片\\\",\\\"commodityName\\\":\\\"布鲁杰克黑啤酒\\\",\\\"id\\\":1,\\\"typeName\\\":\\\"哈哈\\\"}\",\"operation\":\"update\",\"retry\":1}");
+//    }
 
+    public static void main(String[] args) {
+        CommodityDTO commodityDTO=new CommodityDTO(1,"布鲁杰克黑啤酒","图片","哈哈");
+        IndexMessageVO indexMessageVO=new IndexMessageVO("update",1,"{\"bigPictureUrl\":\"图片\",\"commodityName\":\"布鲁杰克黑啤酒\",\"id\":1,\"typeName\":\"哈哈\"}","1");
+        System.out.println(JSON.toJSONString(indexMessageVO));
+    }
     /**
      * 获取商品规格的父规格
      * @param commoditySpecification 根据二级规格获取一级规格
@@ -453,7 +492,7 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
      * @param commodityId
      * @return
      */
-    private List<CommoditySpecificationInventoryPriceDTO> byIdGetAllSpecificationCommodity(String commodityId,CommodityDetailsDTO commodityDetailsDTO,String esType,Long start,Long end){
+    private void byIdGetAllSpecificationCommodity(String commodityId,CommodityDetailsDTO commodityDetailsDTO,String esType,Long start,Long end){
         if (commodityId == null){
             logger.warn("parameter is null \t" +commodityId);
         }
@@ -468,16 +507,15 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
         SearchResponse response=transportClient.prepareSearch(CommodityKey.INDEX)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setTypes(esType)//这里需要动态type
-                .setQuery(QueryBuilders.termQuery(CommodityKey.COMMODITY_ID,commodityId))
+                .setQuery(boolQueryBuilder)
                 .get();
         if(response.getHits().getTotalHits()<=0){
             logger.warn("没有获得数据\tparameter \t"+commodityId);
-            return null;
         }
-        List<CommoditySpecificationInventoryPriceDTO> lists=new ArrayList<>();
+        List<CommoditySpecificationDTO> lists=new ArrayList<>();
         response.getHits().forEach(hit -> {
             try {
-                lists.add(objectMapper.readValue(hit.getSourceAsString(),CommoditySpecificationInventoryPriceDTO.class));
+                lists.add(objectMapper.readValue(hit.getSourceAsString(),CommoditySpecificationDTO.class));
             } catch (IOException e) {
                 logger.error(hit.getSourceAsString()+"转换CommoditySpecificationInventoryPriceDTO.class错误",e);
             }
@@ -504,43 +542,39 @@ public class SearchServiceImp implements ISearchService,IElasticSearchService {
             }
         });
         //拿出当前id的第一个对象
-        CommoditySpecificationInventoryPriceDTO commoditySpecificationInventoryPriceDTO= lists.get(0);
+        CommoditySpecificationDTO commoditySpecificationDTO= lists.get(0);
 
         //商品规格集合对象
         CommoditySpecificationTypeDTO commoditySpecificationTypeDTO1=new CommoditySpecificationTypeDTO();
         CommoditySpecificationTypeDTO commoditySpecificationTypeDTO2=new CommoditySpecificationTypeDTO();
         CommoditySpecificationTypeDTO commoditySpecificationTypeDTO3=new CommoditySpecificationTypeDTO();
         CommoditySpecificationTypeDTO commoditySpecificationTypeDTO4=new CommoditySpecificationTypeDTO();
-        if (commoditySpecificationInventoryPriceDTO.getSpecification1()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification1().isEmpty()){
+        if (commoditySpecificationDTO.getSpecification1()!=null&&!commoditySpecificationDTO.getSpecification1().isEmpty()){
             commoditySpecificationTypeDTO1.setTypeDetailed(set1);
-            commoditySpecificationTypeDTO1.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification1()).getSpecificationName());
+            commoditySpecificationTypeDTO1.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationDTO.getSpecification1()).getSpecificationName());
         }
-        if (commoditySpecificationInventoryPriceDTO.getSpecification2()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification2().isEmpty()){
+        if (commoditySpecificationDTO.getSpecification2()!=null&&!commoditySpecificationDTO.getSpecification2().isEmpty()){
             commoditySpecificationTypeDTO2.setTypeDetailed(set2);
-            commoditySpecificationTypeDTO2.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification2()).getSpecificationName());
+            commoditySpecificationTypeDTO2.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationDTO.getSpecification2()).getSpecificationName());
         }
-        if (commoditySpecificationInventoryPriceDTO.getSpecification3()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification3().isEmpty()){
+        if (commoditySpecificationDTO.getSpecification3()!=null&&!commoditySpecificationDTO.getSpecification3().isEmpty()){
             commoditySpecificationTypeDTO3.setTypeDetailed(set3);
-            commoditySpecificationTypeDTO3.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification3()).getSpecificationName());
+            commoditySpecificationTypeDTO3.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationDTO.getSpecification3()).getSpecificationName());
         }
-        if (commoditySpecificationInventoryPriceDTO.getSpecification4()!=null&&!commoditySpecificationInventoryPriceDTO.getSpecification4().isEmpty()){
+        if (commoditySpecificationDTO.getSpecification4()!=null&&!commoditySpecificationDTO.getSpecification4().isEmpty()){
             commoditySpecificationTypeDTO4.setTypeDetailed(set4);
-            commoditySpecificationTypeDTO4.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationInventoryPriceDTO.getSpecification4()).getSpecificationName());
+            commoditySpecificationTypeDTO4.setTypeName(this.getCommoditySpecificationRelatoin(commoditySpecificationDTO.getSpecification4()).getSpecificationName());
         }
-        CommoditySpecificationDTO commoditySpecificationDTO=new CommoditySpecificationDTO();
         commoditySpecificationDTO.setCommodityId(Long.parseLong(commodityId));
         commoditySpecificationDTO.setCommoditySpecificationType1(commoditySpecificationTypeDTO1);
         commoditySpecificationDTO.setCommoditySpecificationType2(commoditySpecificationTypeDTO2);
         commoditySpecificationDTO.setCommoditySpecificationType3(commoditySpecificationTypeDTO3);
         commoditySpecificationDTO.setCommoditySpecificationType4(commoditySpecificationTypeDTO4);
+        if (commoditySpecificationDTO.getStartTime()>0&&commoditySpecificationDTO.getEndTime()>0){
+            commoditySpecificationDTO.setStartDate(new Date(commoditySpecificationDTO.getStartTime()));
+            commoditySpecificationDTO.setEndDate(new Date(commoditySpecificationDTO.getEndTime()));
+        }
         commodityDetailsDTO.setCommoditySpecificationDTO(commoditySpecificationDTO);
-        PromotionitemDTO promotionitemDTO=new PromotionitemDTO();
-        Long startDate=commoditySpecificationInventoryPriceDTO.getStartTime();
-        Long endDate=commoditySpecificationInventoryPriceDTO.getEndTime();
-        promotionitemDTO.setStartTime(new Date(startDate));
-        promotionitemDTO.setEndTime(new Date(endDate));
-        commodityDetailsDTO.setPromotionitemDTO(promotionitemDTO);
-        return lists;
     }
     /**
      * 查询commodity_specification_inventory_price

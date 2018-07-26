@@ -13,10 +13,10 @@ public class IndexMessageVO {
     public static final String UPDATE="update";
 
     public static final String TOPIC_COMMODITY="commodity";
-    public static final String TOPIC_COMMODITY_SPECIFICATION_INVENTORY_PRICE="commodity_specification_inventory_price";
-    public static final String TOPIC_COMMODITY_SPECIFICATION_RELATION="commodity_specification_relation";
-    public static final String TOPIC_COMMODITYEVALUATION="commodityevaluation";
-    public static final String TOPIC_COMMODITYINTRODUCEPICTURE="commodityintroducepicture";
+    public static final String TOPIC_COMMODITY_SPECIFICATION_INVENTORY_PRICE="commodity_specification_inventory_price";//修改没有调通
+    public static final String TOPIC_COMMODITY_SPECIFICATION_RELATION="commodity_specification_relation";//修改没有调通
+    public static final String TOPIC_COMMODITYEVALUATION="commodityevaluation";//商品评论吕蒙不负责
+    public static final String TOPIC_COMMODITYINTRODUCEPICTURE="commodityintroducepicture";//商品图片表
     public static final String TOPIC_PROMOTIONITEM="promotionitem";
     public static final String TOPIC_TYPE="type";
     public static final String TOPIC_USER="user";
@@ -41,6 +41,13 @@ public class IndexMessageVO {
 
     public void setId(String table) {
         this.id = table;
+    }
+
+    public IndexMessageVO(String operation, int retry, String object, String id) {
+        this.operation = operation;
+        this.retry = retry;
+        this.object = object;
+        this.id = id;
     }
 
     public IndexMessageVO(){}
@@ -68,4 +75,5 @@ public class IndexMessageVO {
     public void setObjects(String objects) {
         this.object = objects;
     }
+
 }

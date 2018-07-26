@@ -8,11 +8,9 @@ package com.zhkj.dto.seek_dto;
  * @Date: Created in 20:52 2018/5/21 0021
  */
 public class CommoditySpecificationInventoryPriceDTO {
-    private int id;
+    private long id;
     //商品id
-    private int commodityId;
-    //商品名字
-    private String commodityName;
+    private long commodityId;
     //商品规格1
     private String specification1;
     //商品规格2
@@ -22,45 +20,25 @@ public class CommoditySpecificationInventoryPriceDTO {
     //商品规格4
     private String specification4;
     //商品库存
-    private int inventory;
+    private long inventory;
     //商品价格
-    private Double price;
+    private double price;
     //商品图片
     private String picture;
-    //开始时间
-    private long startTime;
-    //结束时间
-    private long endTime;
 
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
-
-    public long getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getCommodityId() {
+    public long getCommodityId() {
         return commodityId;
     }
 
-    public void setCommodityId(int commodityId) {
+    public void setCommodityId(long commodityId) {
         this.commodityId = commodityId;
     }
 
@@ -96,19 +74,19 @@ public class CommoditySpecificationInventoryPriceDTO {
         this.specification4 = specification4;
     }
 
-    public int getInventory() {
+    public long getInventory() {
         return inventory;
     }
 
-    public void setInventory(int inventory) {
+    public void setInventory(long inventory) {
         this.inventory = inventory;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -118,13 +96,5 @@ public class CommoditySpecificationInventoryPriceDTO {
 
     public void setPicture(String picture) {
         this.picture = picture;
-    }
-
-    public String getCommodityName() {
-        return commodityName;
-    }
-
-    public void setCommodityName(String commodityName) {
-        this.commodityName = commodityName;
     }
 }

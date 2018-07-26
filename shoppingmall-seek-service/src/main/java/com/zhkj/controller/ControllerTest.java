@@ -5,6 +5,7 @@ import com.zhkj.dto.seek_dto.CommodityevaluationDTO;
 import com.zhkj.service.ISearchService;
 import com.zhkj.service.backstage.IBackstageHandleSearch;
 import com.zhkj.service.entity.CommodityDetailsDTO;
+import com.zhkj.service.entity.CommodityOrderInfo;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
@@ -12,11 +13,9 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -102,7 +101,24 @@ public class ControllerTest {
         return service.byIdGetAllCommodityevaluation(id);
     }
 
-//    public boolean deleteCommodity(){
-//        service
+    /**
+     *
+     * @param id
+     * @param isRob
+     * @return
+     */
+    @GetMapping("/getCommoditySpecificationInventoryPrice")
+    @ResponseBody
+    public CommodityOrderInfo getCommoditySpecificationInventoryPrice(long id, boolean isRob){
+        try {
+            return service.byCommoditySpecificationInventoryPrice(id,isRob);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+//    @GetMapping("/kafka")
+//    public void sendKafkadateData(){
+//        service.sendKafkaData();
 //    }
 }

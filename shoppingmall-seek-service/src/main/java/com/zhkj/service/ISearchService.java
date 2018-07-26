@@ -3,6 +3,7 @@ package com.zhkj.service;
 import com.zhkj.dto.seek_dto.CommoditySpecificationInventoryPriceDTO;
 import com.zhkj.dto.seek_dto.CommodityevaluationDTO;
 import com.zhkj.service.entity.CommodityDetailsDTO;
+import com.zhkj.service.entity.CommodityOrderInfo;
 import com.zhkj.service.entity.CommodityTemplate;
 import com.zhkj.service.entity.SearchConditionPageVO;
 import com.zhkj.util.ServiceMultiResult;
@@ -25,7 +26,7 @@ public interface ISearchService {
     ServiceMultiResult<CommodityTemplate> byConditionSearchAllCommodity(SearchConditionPageVO condition);
 
     /**
-     * 抢购查询
+     * 抢购商品列表查询
      * @param searchConditionPageVO
      * @return
      */
@@ -60,4 +61,17 @@ public interface ISearchService {
      * @return
      */
     List<CommodityevaluationDTO> byIdGetAllCommodityevaluation(String id);
+    /**
+     * 根据商品规格id获取购买商品规格
+     * @param id
+     * @param isRob
+     * @return
+     * @throws IOException
+     */
+    CommodityOrderInfo byCommoditySpecificationInventoryPrice(long id, boolean isRob) throws IOException;
+
+    /**
+     * 发送kafka数据
+     */
+//    void sendKafkaData();
 }

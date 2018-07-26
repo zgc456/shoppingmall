@@ -13,28 +13,18 @@ import java.util.Objects;
  * @Date: Created in 20:52 2018/5/21 0021
  */
 public class PromotionitemDTO {
-    private int id;
-    private String commodityName;
+    private int id;//抢购规格id
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
+    private Date startTime;//开始时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
-    private Double discountPrice;
-    private int commodityNumber;
-    private int commodityId;
+    private Date endTime;//结束时间
+    private Double discountPrice;//商品价格
+    private int commodityNumber;//促销数量
+    private int commodityId;//商品id
     private String specification1;
     private String specification2;
     private String specification3;
     private String specification4;
-
-    public String getCommodityName() {
-        return commodityName;
-    }
-
-    public void setCommodityName(String commodityName) {
-        this.commodityName = commodityName;
-    }
-
     public int getId() {
         return id;
     }

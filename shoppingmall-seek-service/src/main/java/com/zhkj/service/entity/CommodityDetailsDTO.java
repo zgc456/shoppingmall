@@ -21,7 +21,7 @@ public class CommodityDetailsDTO {
     private CommoditySpecificationDTO commoditySpecificationDTO;
     private List<String> headPictures;//商品头部图片
     private List<String> detailsPictures;//商品详情图片
-    private PromotionitemDTO promotionitemDTO;//商品抢购对象
+//    private PromotionitemDTO promotionitemDTO;//商品抢购对象
     private int inventory;//库存
     private Double price;//商品价格
     private List<CommodityevaluationDTO> commodityevaluationDTOS;//商品评价集合
@@ -63,14 +63,6 @@ public class CommodityDetailsDTO {
 
     public void setDetailsPictures(List<String> detailsPictures) {
         this.detailsPictures = detailsPictures;
-    }
-
-    public PromotionitemDTO getPromotionitemDTO() {
-        return promotionitemDTO;
-    }
-
-    public void setPromotionitemDTO(PromotionitemDTO promotionitemDTO) {
-        this.promotionitemDTO = promotionitemDTO;
     }
 
     public int getInventory() {

@@ -1,7 +1,5 @@
 package com.zhkj.dto.seek_dto;
 
-import java.util.Objects;
-
 /**
  * ${user}
  *
@@ -47,4 +45,13 @@ public class CommodityDTO {
         this.typeName = typeName;
     }
 
+    public CommodityDTO(int id, String commodityName, String bigPictureUrl, String typeName) {
+        this.id = id;
+        this.commodityName = commodityName;
+        this.bigPictureUrl = bigPictureUrl;
+        this.typeName = typeName;
+    }
+
+    public CommodityDTO() {
+    }
 }

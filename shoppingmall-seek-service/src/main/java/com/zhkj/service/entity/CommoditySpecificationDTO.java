@@ -1,5 +1,9 @@
 package com.zhkj.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * ${user}
  *
@@ -15,10 +19,23 @@ public class CommoditySpecificationDTO {
     private CommoditySpecificationTypeDTO commoditySpecificationType2;
     private CommoditySpecificationTypeDTO commoditySpecificationType3;
     private CommoditySpecificationTypeDTO commoditySpecificationType4;
+    //商品规格1
+    private String specification1;
+    //商品规格2
+    private String specification2;
+    //商品规格3
+    private String specification3;
+    //商品规格4
+    private String specification4;
     private long inventory;//库存
     private double price;//价格
     private String picture;//小图片
-
+    private long startTime;
+    private long endTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endDate;
     public long getId() {
         return id;
     }
@@ -89,5 +106,69 @@ public class CommoditySpecificationDTO {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getSpecification1() {
+        return specification1;
+    }
+
+    public void setSpecification1(String specification1) {
+        this.specification1 = specification1;
+    }
+
+    public String getSpecification2() {
+        return specification2;
+    }
+
+    public void setSpecification2(String specification2) {
+        this.specification2 = specification2;
+    }
+
+    public String getSpecification3() {
+        return specification3;
+    }
+
+    public void setSpecification3(String specification3) {
+        this.specification3 = specification3;
+    }
+
+    public String getSpecification4() {
+        return specification4;
+    }
+
+    public void setSpecification4(String specification4) {
+        this.specification4 = specification4;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }
