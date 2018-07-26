@@ -15,7 +15,8 @@ public class CancelController {
     StringRedisTemplate redisTemplate;
     @RequestMapping("/cancel")
     public String cancel(HttpSession session){
-       redisTemplate.opsForValue().set("user_info",null);
+//       redisTemplate.opsForValue().set("user_info",null);
+       redisTemplate.delete("user_info");
         return "注销成功";
     }
 }

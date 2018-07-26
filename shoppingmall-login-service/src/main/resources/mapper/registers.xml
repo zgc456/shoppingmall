@@ -11,8 +11,11 @@
         <result property="logingPassword" column="logingPassword"/>
         <result property="authenticationId" column="authenticationId"/>
     </resultMap>
-      <insert id="addUser">
-         INSERT INTO USER (nickName,loginName,userTypeName,logingPassword)VALUE(
+      <insert id="addUser" parameterType="com.zhkj.vo.login_vo.User_vo">
+          <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id" >
+              SELECT LAST_INSERT_ID() AS id
+          </selectKey>
+         INSERT INTO user (nickName,loginName,userTypeName,logingPassword)VALUE(
          #{nickName},#{loginName},#{userTypeName},#{logingPassword}
          )
       </insert>
@@ -27,5 +30,8 @@
         <where>
             loginName=#{arg0}
         </where>
+    </select>
+    <select id="lastId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select id from user  where loginName=#{arg0}
     </select>
 </mapper>

@@ -1,5 +1,8 @@
 package com.zhkj.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.zhkj.api.seek_api.IndexMessageVO;
+import com.zhkj.mapper.login_mapper.RegisterMapper;
 import com.zhkj.register_service.RegisterImpl;
 import com.zhkj.vo.login_vo.User_vo;
 import org.apache.commons.httpclient.HttpClient;
@@ -31,6 +34,8 @@ import java.io.IOException;
 public class RegisterController {
     @Autowired
     RegisterImpl registerApi;
+    @Autowired
+    RegisterMapper registerMapper;
     @Autowired
     StringRedisTemplate redisTemplate;
     @Autowired
@@ -97,7 +102,11 @@ public class RegisterController {
                  int a=registerApi.addUser (user_vo);
                  if (a>0){
                      session.setAttribute ("save_msg","注册成功");
-
+                     int reslt=registerMapper.lastId(user_vo.getLoginName());
+                     user_vo.setId(user_vo.getId());
+                     String object=JSON.toJSONString(user_vo);
+                     IndexMessageVO indexMessageVO=new IndexMessageVO(IndexMessageVO.SAVE,3,object,String.valueOf(reslt));
+                      kafkaTemplate.send("user",JSON.toJSONString(indexMessageVO));
                      return "注册成功 ";
                  }
                }
