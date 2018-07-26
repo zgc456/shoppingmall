@@ -1,6 +1,7 @@
 package com.zhkj.vo.login_vo;
 
 public class User_vo {
+    private Integer id;
     private String nickName;
     private String loginName;
     private String logingPassword;
@@ -54,5 +55,13 @@ public class User_vo {
 
     public void setUserCode(Integer userCode) {
         this.userCode = userCode;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
