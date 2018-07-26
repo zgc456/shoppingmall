@@ -12,6 +12,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,8 @@ public class RegisterController {
     RegisterImpl registerApi;
     @Autowired
     StringRedisTemplate redisTemplate;
+    @Autowired
+  private KafkaTemplate kafkaTemplate;
     @RequestMapping("/s")
     public String cs(){
         redisTemplate.opsForValue().set("info_code","1730");
@@ -94,6 +97,7 @@ public class RegisterController {
                  int a=registerApi.addUser (user_vo);
                  if (a>0){
                      session.setAttribute ("save_msg","注册成功");
+
                      return "注册成功 ";
                  }
                }
