@@ -30,6 +30,8 @@ public class LoginImpl implements LoginApi {
 //todo cuiwenjie业务逻辑
         UserEntity userEntity=new UserEntity();
          UserEntity userEntity1=new UserEntity();
+        UserEntity userEntity3=new UserEntity();
+        UserEntity userEntity4=new UserEntity();
          UserEntity userEntity2=new UserEntity();
         UserDTO userDTO = null;
         if (user_vo.getLoginName() != null && user_vo.getLogingPassword() != null) {
