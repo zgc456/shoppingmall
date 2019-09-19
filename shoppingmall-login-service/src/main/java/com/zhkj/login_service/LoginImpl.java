@@ -27,8 +27,10 @@ public class LoginImpl implements LoginApi {
      */
     @Override
     public UserDTO selectLogin(User_vo user_vo) {
-//todo 公司老哥 业务逻辑
+//todo cuiwenjie业务逻辑
         UserEntity userEntity=new UserEntity();
+         UserEntity userEntity1=new UserEntity();
+         UserEntity userEntity2=new UserEntity();
         UserDTO userDTO = null;
         if (user_vo.getLoginName() != null && user_vo.getLogingPassword() != null) {
            userEntity=loginMapper.selectLogin(BeanMap.create(user_vo));
