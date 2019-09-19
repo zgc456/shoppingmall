@@ -21,6 +21,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableRedisHttpSession //启动httpsession
 public class Shopping_Mall_Login_Service_Application {
     public static void main(String[] args) {
+        System.out.println("123");
         SpringApplication.run(Shopping_Mall_Login_Service_Application.class,args);
     }
 }
