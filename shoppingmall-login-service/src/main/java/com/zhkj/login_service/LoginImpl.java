@@ -29,7 +29,6 @@ public class LoginImpl implements LoginApi {
     public UserDTO selectLogin(User_vo user_vo) {
 //todo cuiwenjie业务逻辑
         UserEntity userEntity=new UserEntity();
-
         UserDTO userDTO = null;
         System.out.println("董婵业务逻辑---------");
         if (user_vo.getLoginName() != null && user_vo.getLogingPassword() != null) {
